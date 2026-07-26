@@ -1,0 +1,17 @@
+{
+  "cliVersion": "5.80.2",
+  "generatorName": "fernapi/fern-python-sdk",
+  "generatorVersion": "5.22.1",
+  "generatorConfig": {
+    "package_name": "darwin_sdk",
+    "client_class_name": "Darwin",
+    "pyproject_python_version": "^3.10",
+    "include_platform_headers": true
+  },
+  "originGitCommit": "63c7ed4166c26604d20a61c32b61377e29c49cd4",
+  "originGitCommitIsDirty": false,
+  "invokedBy": "ci",
+  "requestedVersion": "0.1.0",
+  "ciProvider": "github",
+  "sdkVersion": "0.1.0"
+}
