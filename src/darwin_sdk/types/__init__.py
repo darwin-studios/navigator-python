@@ -9,12 +9,18 @@ if typing.TYPE_CHECKING:
     from .approval import Approval
     from .error import Error
     from .error_message import ErrorMessage
+    from .execute_tool_response import ExecuteToolResponse
     from .goal import Goal
+    from .tool import Tool
+    from .tool_risk import ToolRisk
 _dynamic_imports: typing.Dict[str, str] = {
     "Approval": ".approval",
     "Error": ".error",
     "ErrorMessage": ".error_message",
+    "ExecuteToolResponse": ".execute_tool_response",
     "Goal": ".goal",
+    "Tool": ".tool",
+    "ToolRisk": ".tool_risk",
 }
 
 
@@ -39,4 +45,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["Approval", "Error", "ErrorMessage", "Goal"]
+__all__ = ["Approval", "Error", "ErrorMessage", "ExecuteToolResponse", "Goal", "Tool", "ToolRisk"]

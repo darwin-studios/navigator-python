@@ -95,7 +95,7 @@ class TestDefaultClientsWithoutAiohttp(unittest.TestCase):
 
             with self.assertRaises(RuntimeError) as ctx:
                 darwin_sdk._default_clients.DefaultAioHttpClient()
-            self.assertIn("pip install darwin_sdk[aiohttp]", str(ctx.exception))
+            self.assertIn("pip install darwin-sdk[aiohttp]", str(ctx.exception))
 
         importlib.reload(darwin_sdk._default_clients)
 

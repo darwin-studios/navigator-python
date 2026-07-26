@@ -1,15 +1,15 @@
 [project]
-name = "darwin_sdk"
+name = "darwin-sdk"
 dynamic = ["version"]
 
 [tool.poetry]
-name = "darwin_sdk"
+name = "darwin-sdk"
 version = "0.1.0"
 description = ""
 readme = "README.md"
 authors = []
 keywords = []
-license = "MIT"
+
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
@@ -26,8 +26,7 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: Microsoft :: Windows",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Typing :: Typed",
-    "License :: OSI Approved :: MIT License"
+    "Typing :: Typed"
 ]
 packages = [
     { include = "darwin_sdk", from = "src"}

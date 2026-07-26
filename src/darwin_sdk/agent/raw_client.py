@@ -31,6 +31,8 @@ class RawAgentClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
+        Returns the conversation for the agent currently selected on the developer/MCP channel. Natural-language routing in createMessage updates this selection.
+
         Parameters
         ----------
         limit : typing.Optional[int]
@@ -114,6 +116,8 @@ class RawAgentClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
+        Darwin infers the intended accessible personal or business agent from the message and current conversation. Name an agent naturally when changing context; ambiguous requests return a clarification without running tools.
+
         Parameters
         ----------
         content : str
@@ -207,6 +211,8 @@ class AsyncRawAgentClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
+        Returns the conversation for the agent currently selected on the developer/MCP channel. Natural-language routing in createMessage updates this selection.
+
         Parameters
         ----------
         limit : typing.Optional[int]
@@ -290,6 +296,8 @@ class AsyncRawAgentClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
+        Darwin infers the intended accessible personal or business agent from the message and current conversation. Name an agent naturally when changing context; ambiguous requests return a clarification without running tools.
+
         Parameters
         ----------
         content : str

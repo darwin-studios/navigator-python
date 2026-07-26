@@ -1,7 +1,7 @@
 # Darwin Python Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fdarwin-studios%2Fdarwin-python)
-[![pypi](https://img.shields.io/pypi/v/darwin_sdk)](https://pypi.python.org/pypi/darwin_sdk)
+[![pypi](https://img.shields.io/pypi/v/darwin-sdk)](https://pypi.python.org/pypi/darwin-sdk)
 
 The Darwin Python library provides convenient access to the Darwin APIs from Python.
 
@@ -23,7 +23,7 @@ The Darwin Python library provides convenient access to the Darwin APIs from Pyt
 ## Installation
 
 ```sh
-pip install darwin_sdk
+pip install darwin-sdk
 ```
 
 ## Reference

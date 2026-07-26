@@ -8,7 +8,7 @@
     "pyproject_python_version": "^3.10",
     "include_platform_headers": true
   },
-  "originGitCommit": "111575739c78c741a0d22baee78ca9d18518857a",
+  "originGitCommit": "1c15a7ddcc4725425317d395be0eb241cfa6f561",
   "originGitCommitIsDirty": false,
   "invokedBy": "ci",
   "requestedVersion": "0.1.0",

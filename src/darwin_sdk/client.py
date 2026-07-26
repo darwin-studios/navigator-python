@@ -14,6 +14,7 @@ if typing.TYPE_CHECKING:
     from .approvals.client import ApprovalsClient, AsyncApprovalsClient
     from .goals.client import AsyncGoalsClient, GoalsClient
     from .integrations.client import AsyncIntegrationsClient, IntegrationsClient
+    from .tools.client import AsyncToolsClient, ToolsClient
 
 
 class Darwin:
@@ -101,6 +102,7 @@ class Darwin:
             logging=logging,
         )
         self._agent: typing.Optional[AgentClient] = None
+        self._tools: typing.Optional[ToolsClient] = None
         self._goals: typing.Optional[GoalsClient] = None
         self._approvals: typing.Optional[ApprovalsClient] = None
         self._integrations: typing.Optional[IntegrationsClient] = None
@@ -112,6 +114,14 @@ class Darwin:
 
             self._agent = AgentClient(client_wrapper=self._client_wrapper)
         return self._agent
+
+    @property
+    def tools(self):
+        if self._tools is None:
+            from .tools.client import ToolsClient  # noqa: E402
+
+            self._tools = ToolsClient(client_wrapper=self._client_wrapper)
+        return self._tools
 
     @property
     def goals(self):
@@ -244,6 +254,7 @@ class AsyncDarwin:
             logging=logging,
         )
         self._agent: typing.Optional[AsyncAgentClient] = None
+        self._tools: typing.Optional[AsyncToolsClient] = None
         self._goals: typing.Optional[AsyncGoalsClient] = None
         self._approvals: typing.Optional[AsyncApprovalsClient] = None
         self._integrations: typing.Optional[AsyncIntegrationsClient] = None
@@ -255,6 +266,14 @@ class AsyncDarwin:
 
             self._agent = AsyncAgentClient(client_wrapper=self._client_wrapper)
         return self._agent
+
+    @property
+    def tools(self):
+        if self._tools is None:
+            from .tools.client import AsyncToolsClient  # noqa: E402
+
+            self._tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
+        return self._tools
 
     @property
     def goals(self):

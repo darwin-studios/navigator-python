@@ -6,14 +6,15 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import Approval, Error, ErrorMessage, Goal
+    from .types import Approval, Error, ErrorMessage, ExecuteToolResponse, Goal, Tool, ToolRisk
     from .errors import BadRequestError, ForbiddenError, NotFoundError, UnauthorizedError
-    from . import agent, approvals, goals, integrations
+    from . import agent, approvals, goals, integrations, tools
     from ._default_clients import DefaultAioHttpClient, DefaultAsyncHttpxClient
     from .approvals import ApprovalDecisionRequestDecision, ListApprovalsResponse
     from .client import AsyncDarwin, Darwin
     from .environment import DarwinEnvironment
     from .goals import CreateGoalRequestKind, ListGoalsResponse
+    from .tools import ListToolsResponse
     from .version import __version__
 _dynamic_imports: typing.Dict[str, str] = {
     "Approval": ".types",
@@ -27,17 +28,22 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DefaultAsyncHttpxClient": "._default_clients",
     "Error": ".types",
     "ErrorMessage": ".types",
+    "ExecuteToolResponse": ".types",
     "ForbiddenError": ".errors",
     "Goal": ".types",
     "ListApprovalsResponse": ".approvals",
     "ListGoalsResponse": ".goals",
+    "ListToolsResponse": ".tools",
     "NotFoundError": ".errors",
+    "Tool": ".types",
+    "ToolRisk": ".types",
     "UnauthorizedError": ".errors",
     "__version__": ".version",
     "agent": ".agent",
     "approvals": ".approvals",
     "goals": ".goals",
     "integrations": ".integrations",
+    "tools": ".tools",
 }
 
 
@@ -74,15 +80,20 @@ __all__ = [
     "DefaultAsyncHttpxClient",
     "Error",
     "ErrorMessage",
+    "ExecuteToolResponse",
     "ForbiddenError",
     "Goal",
     "ListApprovalsResponse",
     "ListGoalsResponse",
+    "ListToolsResponse",
     "NotFoundError",
+    "Tool",
+    "ToolRisk",
     "UnauthorizedError",
     "__version__",
     "agent",
     "approvals",
     "goals",
     "integrations",
+    "tools",
 ]
