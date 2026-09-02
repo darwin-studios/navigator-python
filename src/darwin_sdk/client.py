@@ -10,10 +10,32 @@ from .core.logging import LogConfig, Logger
 from .environment import DarwinEnvironment
 
 if typing.TYPE_CHECKING:
-    from .agent.client import AgentClient, AsyncAgentClient
-    from .approvals.client import ApprovalsClient, AsyncApprovalsClient
+    from .account.client import AccountClient, AsyncAccountClient
+    from .ais.client import AisClient, AsyncAisClient
+    from .applications.client import ApplicationsClient, AsyncApplicationsClient
+    from .billing.client import AsyncBillingClient, BillingClient
+    from .connections.client import AsyncConnectionsClient, ConnectionsClient
+    from .conversations.client import AsyncConversationsClient, ConversationsClient
+    from .deals.client import AsyncDealsClient, DealsClient
+    from .deployment.client import AsyncDeploymentClient, DeploymentClient
+    from .enrollment.client import AsyncEnrollmentClient, EnrollmentClient
+    from .ephemeral_goals.client import AsyncEphemeralGoalsClient, EphemeralGoalsClient
     from .goals.client import AsyncGoalsClient, GoalsClient
     from .integrations.client import AsyncIntegrationsClient, IntegrationsClient
+    from .listings.client import AsyncListingsClient, ListingsClient
+    from .network.client import AsyncNetworkClient, NetworkClient
+    from .notifications.client import AsyncNotificationsClient, NotificationsClient
+    from .outcomes.client import AsyncOutcomesClient, OutcomesClient
+    from .permissions.client import AsyncPermissionsClient, PermissionsClient
+    from .reputation.client import AsyncReputationClient, ReputationClient
+    from .requests.client import AsyncRequestsClient, RequestsClient
+    from .skills.client import AsyncSkillsClient, SkillsClient
+    from .tasks.client import AsyncTasksClient, TasksClient
+    from .tools.client import AsyncToolsClient, ToolsClient
+    from .transactions.client import AsyncTransactionsClient, TransactionsClient
+    from .usage.client import AsyncUsageClient, UsageClient
+    from .verification.client import AsyncVerificationClient, VerificationClient
+    from .webhooks.client import AsyncWebhooksClient, WebhooksClient
 
 
 class Darwin:
@@ -100,18 +122,168 @@ class Darwin:
             max_stream_reconnection_attempts=max_stream_reconnection_attempts,
             logging=logging,
         )
-        self._agent: typing.Optional[AgentClient] = None
-        self._goals: typing.Optional[GoalsClient] = None
-        self._approvals: typing.Optional[ApprovalsClient] = None
+        self._account: typing.Optional[AccountClient] = None
+        self._ais: typing.Optional[AisClient] = None
+        self._listings: typing.Optional[ListingsClient] = None
+        self._reputation: typing.Optional[ReputationClient] = None
+        self._permissions: typing.Optional[PermissionsClient] = None
+        self._notifications: typing.Optional[NotificationsClient] = None
+        self._usage: typing.Optional[UsageClient] = None
+        self._verification: typing.Optional[VerificationClient] = None
+        self._deployment: typing.Optional[DeploymentClient] = None
         self._integrations: typing.Optional[IntegrationsClient] = None
+        self._connections: typing.Optional[ConnectionsClient] = None
+        self._skills: typing.Optional[SkillsClient] = None
+        self._billing: typing.Optional[BillingClient] = None
+        self._conversations: typing.Optional[ConversationsClient] = None
+        self._requests: typing.Optional[RequestsClient] = None
+        self._tools: typing.Optional[ToolsClient] = None
+        self._tasks: typing.Optional[TasksClient] = None
+        self._goals: typing.Optional[GoalsClient] = None
+        self._network: typing.Optional[NetworkClient] = None
+        self._deals: typing.Optional[DealsClient] = None
+        self._transactions: typing.Optional[TransactionsClient] = None
+        self._outcomes: typing.Optional[OutcomesClient] = None
+        self._applications: typing.Optional[ApplicationsClient] = None
+        self._enrollment: typing.Optional[EnrollmentClient] = None
+        self._ephemeral_goals: typing.Optional[EphemeralGoalsClient] = None
+        self._webhooks: typing.Optional[WebhooksClient] = None
 
     @property
-    def agent(self):
-        if self._agent is None:
-            from .agent.client import AgentClient  # noqa: E402
+    def account(self):
+        if self._account is None:
+            from .account.client import AccountClient  # noqa: E402
 
-            self._agent = AgentClient(client_wrapper=self._client_wrapper)
-        return self._agent
+            self._account = AccountClient(client_wrapper=self._client_wrapper)
+        return self._account
+
+    @property
+    def ais(self):
+        if self._ais is None:
+            from .ais.client import AisClient  # noqa: E402
+
+            self._ais = AisClient(client_wrapper=self._client_wrapper)
+        return self._ais
+
+    @property
+    def listings(self):
+        if self._listings is None:
+            from .listings.client import ListingsClient  # noqa: E402
+
+            self._listings = ListingsClient(client_wrapper=self._client_wrapper)
+        return self._listings
+
+    @property
+    def reputation(self):
+        if self._reputation is None:
+            from .reputation.client import ReputationClient  # noqa: E402
+
+            self._reputation = ReputationClient(client_wrapper=self._client_wrapper)
+        return self._reputation
+
+    @property
+    def permissions(self):
+        if self._permissions is None:
+            from .permissions.client import PermissionsClient  # noqa: E402
+
+            self._permissions = PermissionsClient(client_wrapper=self._client_wrapper)
+        return self._permissions
+
+    @property
+    def notifications(self):
+        if self._notifications is None:
+            from .notifications.client import NotificationsClient  # noqa: E402
+
+            self._notifications = NotificationsClient(client_wrapper=self._client_wrapper)
+        return self._notifications
+
+    @property
+    def usage(self):
+        if self._usage is None:
+            from .usage.client import UsageClient  # noqa: E402
+
+            self._usage = UsageClient(client_wrapper=self._client_wrapper)
+        return self._usage
+
+    @property
+    def verification(self):
+        if self._verification is None:
+            from .verification.client import VerificationClient  # noqa: E402
+
+            self._verification = VerificationClient(client_wrapper=self._client_wrapper)
+        return self._verification
+
+    @property
+    def deployment(self):
+        if self._deployment is None:
+            from .deployment.client import DeploymentClient  # noqa: E402
+
+            self._deployment = DeploymentClient(client_wrapper=self._client_wrapper)
+        return self._deployment
+
+    @property
+    def integrations(self):
+        if self._integrations is None:
+            from .integrations.client import IntegrationsClient  # noqa: E402
+
+            self._integrations = IntegrationsClient(client_wrapper=self._client_wrapper)
+        return self._integrations
+
+    @property
+    def connections(self):
+        if self._connections is None:
+            from .connections.client import ConnectionsClient  # noqa: E402
+
+            self._connections = ConnectionsClient(client_wrapper=self._client_wrapper)
+        return self._connections
+
+    @property
+    def skills(self):
+        if self._skills is None:
+            from .skills.client import SkillsClient  # noqa: E402
+
+            self._skills = SkillsClient(client_wrapper=self._client_wrapper)
+        return self._skills
+
+    @property
+    def billing(self):
+        if self._billing is None:
+            from .billing.client import BillingClient  # noqa: E402
+
+            self._billing = BillingClient(client_wrapper=self._client_wrapper)
+        return self._billing
+
+    @property
+    def conversations(self):
+        if self._conversations is None:
+            from .conversations.client import ConversationsClient  # noqa: E402
+
+            self._conversations = ConversationsClient(client_wrapper=self._client_wrapper)
+        return self._conversations
+
+    @property
+    def requests(self):
+        if self._requests is None:
+            from .requests.client import RequestsClient  # noqa: E402
+
+            self._requests = RequestsClient(client_wrapper=self._client_wrapper)
+        return self._requests
+
+    @property
+    def tools(self):
+        if self._tools is None:
+            from .tools.client import ToolsClient  # noqa: E402
+
+            self._tools = ToolsClient(client_wrapper=self._client_wrapper)
+        return self._tools
+
+    @property
+    def tasks(self):
+        if self._tasks is None:
+            from .tasks.client import TasksClient  # noqa: E402
+
+            self._tasks = TasksClient(client_wrapper=self._client_wrapper)
+        return self._tasks
 
     @property
     def goals(self):
@@ -122,20 +294,68 @@ class Darwin:
         return self._goals
 
     @property
-    def approvals(self):
-        if self._approvals is None:
-            from .approvals.client import ApprovalsClient  # noqa: E402
+    def network(self):
+        if self._network is None:
+            from .network.client import NetworkClient  # noqa: E402
 
-            self._approvals = ApprovalsClient(client_wrapper=self._client_wrapper)
-        return self._approvals
+            self._network = NetworkClient(client_wrapper=self._client_wrapper)
+        return self._network
 
     @property
-    def integrations(self):
-        if self._integrations is None:
-            from .integrations.client import IntegrationsClient  # noqa: E402
+    def deals(self):
+        if self._deals is None:
+            from .deals.client import DealsClient  # noqa: E402
 
-            self._integrations = IntegrationsClient(client_wrapper=self._client_wrapper)
-        return self._integrations
+            self._deals = DealsClient(client_wrapper=self._client_wrapper)
+        return self._deals
+
+    @property
+    def transactions(self):
+        if self._transactions is None:
+            from .transactions.client import TransactionsClient  # noqa: E402
+
+            self._transactions = TransactionsClient(client_wrapper=self._client_wrapper)
+        return self._transactions
+
+    @property
+    def outcomes(self):
+        if self._outcomes is None:
+            from .outcomes.client import OutcomesClient  # noqa: E402
+
+            self._outcomes = OutcomesClient(client_wrapper=self._client_wrapper)
+        return self._outcomes
+
+    @property
+    def applications(self):
+        if self._applications is None:
+            from .applications.client import ApplicationsClient  # noqa: E402
+
+            self._applications = ApplicationsClient(client_wrapper=self._client_wrapper)
+        return self._applications
+
+    @property
+    def enrollment(self):
+        if self._enrollment is None:
+            from .enrollment.client import EnrollmentClient  # noqa: E402
+
+            self._enrollment = EnrollmentClient(client_wrapper=self._client_wrapper)
+        return self._enrollment
+
+    @property
+    def ephemeral_goals(self):
+        if self._ephemeral_goals is None:
+            from .ephemeral_goals.client import EphemeralGoalsClient  # noqa: E402
+
+            self._ephemeral_goals = EphemeralGoalsClient(client_wrapper=self._client_wrapper)
+        return self._ephemeral_goals
+
+    @property
+    def webhooks(self):
+        if self._webhooks is None:
+            from .webhooks.client import WebhooksClient  # noqa: E402
+
+            self._webhooks = WebhooksClient(client_wrapper=self._client_wrapper)
+        return self._webhooks
 
 
 def _make_default_async_client(
@@ -243,18 +463,168 @@ class AsyncDarwin:
             max_stream_reconnection_attempts=max_stream_reconnection_attempts,
             logging=logging,
         )
-        self._agent: typing.Optional[AsyncAgentClient] = None
-        self._goals: typing.Optional[AsyncGoalsClient] = None
-        self._approvals: typing.Optional[AsyncApprovalsClient] = None
+        self._account: typing.Optional[AsyncAccountClient] = None
+        self._ais: typing.Optional[AsyncAisClient] = None
+        self._listings: typing.Optional[AsyncListingsClient] = None
+        self._reputation: typing.Optional[AsyncReputationClient] = None
+        self._permissions: typing.Optional[AsyncPermissionsClient] = None
+        self._notifications: typing.Optional[AsyncNotificationsClient] = None
+        self._usage: typing.Optional[AsyncUsageClient] = None
+        self._verification: typing.Optional[AsyncVerificationClient] = None
+        self._deployment: typing.Optional[AsyncDeploymentClient] = None
         self._integrations: typing.Optional[AsyncIntegrationsClient] = None
+        self._connections: typing.Optional[AsyncConnectionsClient] = None
+        self._skills: typing.Optional[AsyncSkillsClient] = None
+        self._billing: typing.Optional[AsyncBillingClient] = None
+        self._conversations: typing.Optional[AsyncConversationsClient] = None
+        self._requests: typing.Optional[AsyncRequestsClient] = None
+        self._tools: typing.Optional[AsyncToolsClient] = None
+        self._tasks: typing.Optional[AsyncTasksClient] = None
+        self._goals: typing.Optional[AsyncGoalsClient] = None
+        self._network: typing.Optional[AsyncNetworkClient] = None
+        self._deals: typing.Optional[AsyncDealsClient] = None
+        self._transactions: typing.Optional[AsyncTransactionsClient] = None
+        self._outcomes: typing.Optional[AsyncOutcomesClient] = None
+        self._applications: typing.Optional[AsyncApplicationsClient] = None
+        self._enrollment: typing.Optional[AsyncEnrollmentClient] = None
+        self._ephemeral_goals: typing.Optional[AsyncEphemeralGoalsClient] = None
+        self._webhooks: typing.Optional[AsyncWebhooksClient] = None
 
     @property
-    def agent(self):
-        if self._agent is None:
-            from .agent.client import AsyncAgentClient  # noqa: E402
+    def account(self):
+        if self._account is None:
+            from .account.client import AsyncAccountClient  # noqa: E402
 
-            self._agent = AsyncAgentClient(client_wrapper=self._client_wrapper)
-        return self._agent
+            self._account = AsyncAccountClient(client_wrapper=self._client_wrapper)
+        return self._account
+
+    @property
+    def ais(self):
+        if self._ais is None:
+            from .ais.client import AsyncAisClient  # noqa: E402
+
+            self._ais = AsyncAisClient(client_wrapper=self._client_wrapper)
+        return self._ais
+
+    @property
+    def listings(self):
+        if self._listings is None:
+            from .listings.client import AsyncListingsClient  # noqa: E402
+
+            self._listings = AsyncListingsClient(client_wrapper=self._client_wrapper)
+        return self._listings
+
+    @property
+    def reputation(self):
+        if self._reputation is None:
+            from .reputation.client import AsyncReputationClient  # noqa: E402
+
+            self._reputation = AsyncReputationClient(client_wrapper=self._client_wrapper)
+        return self._reputation
+
+    @property
+    def permissions(self):
+        if self._permissions is None:
+            from .permissions.client import AsyncPermissionsClient  # noqa: E402
+
+            self._permissions = AsyncPermissionsClient(client_wrapper=self._client_wrapper)
+        return self._permissions
+
+    @property
+    def notifications(self):
+        if self._notifications is None:
+            from .notifications.client import AsyncNotificationsClient  # noqa: E402
+
+            self._notifications = AsyncNotificationsClient(client_wrapper=self._client_wrapper)
+        return self._notifications
+
+    @property
+    def usage(self):
+        if self._usage is None:
+            from .usage.client import AsyncUsageClient  # noqa: E402
+
+            self._usage = AsyncUsageClient(client_wrapper=self._client_wrapper)
+        return self._usage
+
+    @property
+    def verification(self):
+        if self._verification is None:
+            from .verification.client import AsyncVerificationClient  # noqa: E402
+
+            self._verification = AsyncVerificationClient(client_wrapper=self._client_wrapper)
+        return self._verification
+
+    @property
+    def deployment(self):
+        if self._deployment is None:
+            from .deployment.client import AsyncDeploymentClient  # noqa: E402
+
+            self._deployment = AsyncDeploymentClient(client_wrapper=self._client_wrapper)
+        return self._deployment
+
+    @property
+    def integrations(self):
+        if self._integrations is None:
+            from .integrations.client import AsyncIntegrationsClient  # noqa: E402
+
+            self._integrations = AsyncIntegrationsClient(client_wrapper=self._client_wrapper)
+        return self._integrations
+
+    @property
+    def connections(self):
+        if self._connections is None:
+            from .connections.client import AsyncConnectionsClient  # noqa: E402
+
+            self._connections = AsyncConnectionsClient(client_wrapper=self._client_wrapper)
+        return self._connections
+
+    @property
+    def skills(self):
+        if self._skills is None:
+            from .skills.client import AsyncSkillsClient  # noqa: E402
+
+            self._skills = AsyncSkillsClient(client_wrapper=self._client_wrapper)
+        return self._skills
+
+    @property
+    def billing(self):
+        if self._billing is None:
+            from .billing.client import AsyncBillingClient  # noqa: E402
+
+            self._billing = AsyncBillingClient(client_wrapper=self._client_wrapper)
+        return self._billing
+
+    @property
+    def conversations(self):
+        if self._conversations is None:
+            from .conversations.client import AsyncConversationsClient  # noqa: E402
+
+            self._conversations = AsyncConversationsClient(client_wrapper=self._client_wrapper)
+        return self._conversations
+
+    @property
+    def requests(self):
+        if self._requests is None:
+            from .requests.client import AsyncRequestsClient  # noqa: E402
+
+            self._requests = AsyncRequestsClient(client_wrapper=self._client_wrapper)
+        return self._requests
+
+    @property
+    def tools(self):
+        if self._tools is None:
+            from .tools.client import AsyncToolsClient  # noqa: E402
+
+            self._tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
+        return self._tools
+
+    @property
+    def tasks(self):
+        if self._tasks is None:
+            from .tasks.client import AsyncTasksClient  # noqa: E402
+
+            self._tasks = AsyncTasksClient(client_wrapper=self._client_wrapper)
+        return self._tasks
 
     @property
     def goals(self):
@@ -265,20 +635,68 @@ class AsyncDarwin:
         return self._goals
 
     @property
-    def approvals(self):
-        if self._approvals is None:
-            from .approvals.client import AsyncApprovalsClient  # noqa: E402
+    def network(self):
+        if self._network is None:
+            from .network.client import AsyncNetworkClient  # noqa: E402
 
-            self._approvals = AsyncApprovalsClient(client_wrapper=self._client_wrapper)
-        return self._approvals
+            self._network = AsyncNetworkClient(client_wrapper=self._client_wrapper)
+        return self._network
 
     @property
-    def integrations(self):
-        if self._integrations is None:
-            from .integrations.client import AsyncIntegrationsClient  # noqa: E402
+    def deals(self):
+        if self._deals is None:
+            from .deals.client import AsyncDealsClient  # noqa: E402
 
-            self._integrations = AsyncIntegrationsClient(client_wrapper=self._client_wrapper)
-        return self._integrations
+            self._deals = AsyncDealsClient(client_wrapper=self._client_wrapper)
+        return self._deals
+
+    @property
+    def transactions(self):
+        if self._transactions is None:
+            from .transactions.client import AsyncTransactionsClient  # noqa: E402
+
+            self._transactions = AsyncTransactionsClient(client_wrapper=self._client_wrapper)
+        return self._transactions
+
+    @property
+    def outcomes(self):
+        if self._outcomes is None:
+            from .outcomes.client import AsyncOutcomesClient  # noqa: E402
+
+            self._outcomes = AsyncOutcomesClient(client_wrapper=self._client_wrapper)
+        return self._outcomes
+
+    @property
+    def applications(self):
+        if self._applications is None:
+            from .applications.client import AsyncApplicationsClient  # noqa: E402
+
+            self._applications = AsyncApplicationsClient(client_wrapper=self._client_wrapper)
+        return self._applications
+
+    @property
+    def enrollment(self):
+        if self._enrollment is None:
+            from .enrollment.client import AsyncEnrollmentClient  # noqa: E402
+
+            self._enrollment = AsyncEnrollmentClient(client_wrapper=self._client_wrapper)
+        return self._enrollment
+
+    @property
+    def ephemeral_goals(self):
+        if self._ephemeral_goals is None:
+            from .ephemeral_goals.client import AsyncEphemeralGoalsClient  # noqa: E402
+
+            self._ephemeral_goals = AsyncEphemeralGoalsClient(client_wrapper=self._client_wrapper)
+        return self._ephemeral_goals
+
+    @property
+    def webhooks(self):
+        if self._webhooks is None:
+            from .webhooks.client import AsyncWebhooksClient  # noqa: E402
+
+            self._webhooks = AsyncWebhooksClient(client_wrapper=self._client_wrapper)
+        return self._webhooks
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: DarwinEnvironment) -> str:

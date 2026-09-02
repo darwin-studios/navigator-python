@@ -6,11 +6,17 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .create_goal_request_kind import CreateGoalRequestKind
+    from .act_on_goal_response import ActOnGoalResponse
+    from .create_goal_response import CreateGoalResponse
+    from .get_goal_response import GetGoalResponse
     from .list_goals_response import ListGoalsResponse
+    from .update_goal_response import UpdateGoalResponse
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreateGoalRequestKind": ".create_goal_request_kind",
+    "ActOnGoalResponse": ".act_on_goal_response",
+    "CreateGoalResponse": ".create_goal_response",
+    "GetGoalResponse": ".get_goal_response",
     "ListGoalsResponse": ".list_goals_response",
+    "UpdateGoalResponse": ".update_goal_response",
 }
 
 
@@ -35,4 +41,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["CreateGoalRequestKind", "ListGoalsResponse"]
+__all__ = ["ActOnGoalResponse", "CreateGoalResponse", "GetGoalResponse", "ListGoalsResponse", "UpdateGoalResponse"]

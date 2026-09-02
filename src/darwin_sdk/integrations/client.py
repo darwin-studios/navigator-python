@@ -4,6 +4,8 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.integration_catalog import IntegrationCatalog
+from ..types.integrations import Integrations
 from .raw_client import AsyncRawIntegrationsClient, RawIntegrationsClient
 
 
@@ -22,10 +24,40 @@ class IntegrationsClient:
         """
         return self._raw_client
 
-    def get_integrations(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Any]:
+    def get_ai_integrations(
+        self, ai_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> IntegrationCatalog:
         """
+        Parameters
+        ----------
+        ai_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        IntegrationCatalog
+            The supported provider toolkits and honest connection states.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            token="YOUR_TOKEN",
+        )
+        client.integrations.get_ai_integrations(
+            ai_id="aiId",
+        )
+        """
+        _response = self._raw_client.get_ai_integrations(ai_id, request_options=request_options)
+        return _response.data
+
+    def get_integrations(self, *, request_options: typing.Optional[RequestOptions] = None) -> Integrations:
+        """
+        User API keys only.
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -33,8 +65,8 @@ class IntegrationsClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Any]
-            Integration catalog, connected accounts, and personal skills.
+        Integrations
+            Integration catalog, connections, and personal skills.
 
         Examples
         --------
@@ -64,10 +96,48 @@ class AsyncIntegrationsClient:
         """
         return self._raw_client
 
-    async def get_integrations(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Any]:
+    async def get_ai_integrations(
+        self, ai_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> IntegrationCatalog:
         """
+        Parameters
+        ----------
+        ai_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        IntegrationCatalog
+            The supported provider toolkits and honest connection states.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.integrations.get_ai_integrations(
+                ai_id="aiId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_ai_integrations(ai_id, request_options=request_options)
+        return _response.data
+
+    async def get_integrations(self, *, request_options: typing.Optional[RequestOptions] = None) -> Integrations:
+        """
+        User API keys only.
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -75,8 +145,8 @@ class AsyncIntegrationsClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Any]
-            Integration catalog, connected accounts, and personal skills.
+        Integrations
+            Integration catalog, connections, and personal skills.
 
         Examples
         --------

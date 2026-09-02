@@ -1,7 +1,7 @@
 # Darwin Python Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fdarwin-studios%2Fdarwin-python)
-[![pypi](https://img.shields.io/pypi/v/darwin_sdk)](https://pypi.python.org/pypi/darwin_sdk)
+[![pypi](https://img.shields.io/pypi/v/darwin-sdk)](https://pypi.python.org/pypi/darwin-sdk)
 
 The Darwin Python library provides convenient access to the Darwin APIs from Python.
 
@@ -23,7 +23,7 @@ The Darwin Python library provides convenient access to the Darwin APIs from Pyt
 ## Installation
 
 ```sh
-pip install darwin_sdk
+pip install darwin-sdk
 ```
 
 ## Reference
@@ -41,8 +41,8 @@ client = Darwin(
     token="<token>",
 )
 
-client.agent.create_message(
-    content="content",
+client.ais.create_ai(
+    name="name",
 )
 ```
 
@@ -74,8 +74,8 @@ client = AsyncDarwin(
 
 
 async def main() -> None:
-    await client.agent.create_message(
-        content="content",
+    await client.ais.create_ai(
+        name="name",
     )
 
 
@@ -91,7 +91,7 @@ will be thrown.
 from darwin_sdk.core.api_error import ApiError
 
 try:
-    client.agent.create_message(...)
+    client.ais.create_ai(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -108,7 +108,7 @@ The `.with_raw_response` property returns a "raw" client that can be used to acc
 from darwin_sdk import Darwin
 
 client = Darwin(...)
-response = client.agent.with_raw_response.create_message(...)
+response = client.ais.with_raw_response.create_ai(...)
 print(response.headers)  # access the response headers
 print(response.status_code)  # access the response status code
 print(response.data)  # access the underlying object
@@ -139,7 +139,7 @@ Which status codes are retried depends on the `retryStatusCodes` generator confi
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.agent.create_message(..., request_options={
+client.ais.create_ai(..., request_options={
     "max_retries": 1
 })
 ```
@@ -154,7 +154,7 @@ from darwin_sdk import Darwin
 client = Darwin(..., timeout=20.0)
 
 # Override timeout for a specific method
-client.agent.create_message(..., request_options={
+client.ais.create_ai(..., request_options={
     "timeout": 1
 })
 ```

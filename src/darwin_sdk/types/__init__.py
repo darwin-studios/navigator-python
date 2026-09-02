@@ -6,15 +6,385 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .access_policy import AccessPolicy
+    from .access_policy_rule import AccessPolicyRule
+    from .access_policy_rule_geography import AccessPolicyRuleGeography
+    from .access_policy_rule_verified_attributes_value import AccessPolicyRuleVerifiedAttributesValue
+    from .access_policy_status import AccessPolicyStatus
+    from .account import Account
+    from .ai import Ai
+    from .ai_activity import AiActivity
+    from .ai_activity_page import AiActivityPage
+    from .ai_asset import AiAsset
+    from .ai_asset_kind import AiAssetKind
+    from .ai_asset_upload import AiAssetUpload
+    from .ai_asset_upload_upload import AiAssetUploadUpload
+    from .ai_asset_upload_upload_method import AiAssetUploadUploadMethod
+    from .ai_asset_visibility import AiAssetVisibility
+    from .ai_billing_account import AiBillingAccount
+    from .ai_billing_account_payout_schedule import AiBillingAccountPayoutSchedule
+    from .ai_billing_activity_page import AiBillingActivityPage
+    from .ai_billing_activity_page_next_cursor import AiBillingActivityPageNextCursor
+    from .ai_billing_activity_page_wallet_item import AiBillingActivityPageWalletItem
+    from .ai_billing_summary import AiBillingSummary
+    from .ai_billing_summary_actions import AiBillingSummaryActions
+    from .ai_billing_summary_currency import AiBillingSummaryCurrency
+    from .ai_billing_summary_fee_policy import AiBillingSummaryFeePolicy
+    from .ai_deployment import AiDeployment
+    from .ai_deployment_current import AiDeploymentCurrent
+    from .ai_deployment_request import AiDeploymentRequest
+    from .ai_deployment_request_target import AiDeploymentRequestTarget
+    from .ai_invitation import AiInvitation
+    from .ai_invitation_role import AiInvitationRole
+    from .ai_member import AiMember
+    from .ai_member_role import AiMemberRole
+    from .ai_member_user import AiMemberUser
+    from .ai_notifications import AiNotifications
+    from .ai_permissions import AiPermissions
+    from .ai_permissions_visibility import AiPermissionsVisibility
+    from .ai_reputation import AiReputation
+    from .ai_reputation_tier import AiReputationTier
+    from .ai_reputation_verified_reliability import AiReputationVerifiedReliability
+    from .ai_role import AiRole
+    from .ai_skill import AiSkill
+    from .ai_skill_catalog_entry import AiSkillCatalogEntry
+    from .ai_skill_catalog_entry_category import AiSkillCatalogEntryCategory
+    from .ai_skill_catalog_entry_context import AiSkillCatalogEntryContext
+    from .ai_skill_catalog_entry_recommended_for_item import AiSkillCatalogEntryRecommendedForItem
+    from .ai_skill_category import AiSkillCategory
+    from .ai_skill_visibility import AiSkillVisibility
+    from .ai_type import AiType
+    from .ai_usage import AiUsage
+    from .ai_usage_ai_usage import AiUsageAiUsage
+    from .ai_usage_ai_usage_currency import AiUsageAiUsageCurrency
+    from .ai_verification import AiVerification
+    from .ai_wallet_balance import AiWalletBalance
+    from .application import Application
+    from .application_ai_link import ApplicationAiLink
+    from .application_ai_link_ai_identity import ApplicationAiLinkAiIdentity
+    from .application_ai_link_ai_identity_kind import ApplicationAiLinkAiIdentityKind
+    from .application_ai_link_status import ApplicationAiLinkStatus
+    from .application_default_ai_kind import ApplicationDefaultAiKind
+    from .application_mode import ApplicationMode
+    from .application_oauth import ApplicationOauth
+    from .application_status import ApplicationStatus
+    from .application_wallet import ApplicationWallet
     from .approval import Approval
+    from .approval_result import ApprovalResult
+    from .approval_status import ApprovalStatus
+    from .auto_topup_settings import AutoTopupSettings
+    from .connection import Connection
+    from .connection_authorization_completion import ConnectionAuthorizationCompletion
+    from .connection_authorization_session import ConnectionAuthorizationSession
+    from .connection_grant_disable_result import ConnectionGrantDisableResult
+    from .connection_removal_result import ConnectionRemovalResult
+    from .conversation_message import ConversationMessage
+    from .conversation_message_role import ConversationMessageRole
+    from .conversation_page import ConversationPage
+    from .conversation_summary import ConversationSummary
+    from .conversation_summary_mode import ConversationSummaryMode
+    from .conversation_summary_type import ConversationSummaryType
+    from .conversation_turn import ConversationTurn
+    from .create_goal_request import CreateGoalRequest
+    from .create_goal_request_lifecycle_status import CreateGoalRequestLifecycleStatus
+    from .create_goal_request_type import CreateGoalRequestType
+    from .create_listing_request import CreateListingRequest
+    from .create_task_request import CreateTaskRequest
+    from .created_enrollment_link import CreatedEnrollmentLink
+    from .created_service_account import CreatedServiceAccount
+    from .created_webhook import CreatedWebhook
+    from .deal import Deal
+    from .deal_direction import DealDirection
+    from .deal_mode import DealMode
+    from .deal_status import DealStatus
+    from .deleted_resource import DeletedResource
+    from .deleted_resource_status import DeletedResourceStatus
+    from .enrollment_batch import EnrollmentBatch
+    from .enrollment_batch_item import EnrollmentBatchItem
+    from .enrollment_batch_item_status import EnrollmentBatchItemStatus
+    from .enrollment_batch_result import EnrollmentBatchResult
+    from .enrollment_batch_result_page import EnrollmentBatchResultPage
+    from .enrollment_batch_status import EnrollmentBatchStatus
+    from .enrollment_link import EnrollmentLink
+    from .enrollment_link_default_ai_kind import EnrollmentLinkDefaultAiKind
+    from .enrollment_link_mode import EnrollmentLinkMode
+    from .ephemeral_goal import EphemeralGoal
+    from .ephemeral_goal_accountable_principal import EphemeralGoalAccountablePrincipal
+    from .ephemeral_goal_accountable_principal_type import EphemeralGoalAccountablePrincipalType
+    from .ephemeral_goal_status import EphemeralGoalStatus
     from .error import Error
     from .error_message import ErrorMessage
+    from .fee_rate import FeeRate
     from .goal import Goal
+    from .goal_action_request import GoalActionRequest
+    from .goal_action_request_action import GoalActionRequestAction
+    from .goal_lifecycle_status import GoalLifecycleStatus
+    from .goal_publication_status import GoalPublicationStatus
+    from .goal_type import GoalType
+    from .integration_catalog import IntegrationCatalog
+    from .integrations import Integrations
+    from .integrations_catalog import IntegrationsCatalog
+    from .listing import Listing
+    from .listing_import import ListingImport
+    from .listing_import_kind import ListingImportKind
+    from .listing_import_status import ListingImportStatus
+    from .listing_pricing import ListingPricing
+    from .listing_pricing_mode import ListingPricingMode
+    from .listing_selection import ListingSelection
+    from .listing_status import ListingStatus
+    from .listing_type import ListingType
+    from .listing_variant import ListingVariant
+    from .listing_visibility import ListingVisibility
+    from .network_ai_card import NetworkAiCard
+    from .network_ai_card_links_item import NetworkAiCardLinksItem
+    from .network_ai_profile import NetworkAiProfile
+    from .network_ai_profile_status import NetworkAiProfileStatus
+    from .network_ai_profile_visibility import NetworkAiProfileVisibility
+    from .network_ai_result import NetworkAiResult
+    from .network_ai_result_truncated import NetworkAiResultTruncated
+    from .network_browse_result import NetworkBrowseResult
+    from .network_browse_result_network import NetworkBrowseResultNetwork
+    from .network_category import NetworkCategory
+    from .network_listing import NetworkListing
+    from .outcome import Outcome
+    from .outcome_evidence import OutcomeEvidence
+    from .outcome_evidence_digest import OutcomeEvidenceDigest
+    from .outcome_evidence_digest_algorithm import OutcomeEvidenceDigestAlgorithm
+    from .outcome_evidence_dispute_state import OutcomeEvidenceDisputeState
+    from .outcome_evidence_source_principal_type import OutcomeEvidenceSourcePrincipalType
+    from .outcome_evidence_verification_status import OutcomeEvidenceVerificationStatus
+    from .payment import Payment
+    from .payment_intent_client_details import PaymentIntentClientDetails
+    from .payout import Payout
+    from .payout_setup import PayoutSetup
+    from .publication_request import PublicationRequest
+    from .publication_request_result import PublicationRequestResult
+    from .request import Request
+    from .request_intent import RequestIntent
+    from .request_status import RequestStatus
+    from .service_account import ServiceAccount
+    from .service_account_scopes_item import ServiceAccountScopesItem
+    from .service_account_status import ServiceAccountStatus
+    from .task import Task
+    from .task_action_request import TaskActionRequest
+    from .tool import Tool
+    from .tool_category import ToolCategory
+    from .tool_execution import ToolExecution
+    from .tool_risk import ToolRisk
+    from .transaction import Transaction
+    from .transaction_funding_result import TransactionFundingResult
+    from .transaction_funding_result_state import TransactionFundingResultState
+    from .transaction_settlement_mode import TransactionSettlementMode
+    from .update_goal_request import UpdateGoalRequest
+    from .update_goal_request_lifecycle_status import UpdateGoalRequestLifecycleStatus
+    from .update_goal_request_type import UpdateGoalRequestType
+    from .update_task_request import UpdateTaskRequest
+    from .visibility import Visibility
+    from .wallet_topup_intent import WalletTopupIntent
+    from .wallet_topup_intent_currency import WalletTopupIntentCurrency
+    from .wallet_withdrawal import WalletWithdrawal
+    from .wallet_withdrawal_speed import WalletWithdrawalSpeed
+    from .wallet_withdrawal_status import WalletWithdrawalStatus
+    from .webhook import Webhook
+    from .webhook_delivery import WebhookDelivery
+    from .webhook_delivery_status import WebhookDeliveryStatus
+    from .webhook_status import WebhookStatus
+    from .withdrawal_quote import WithdrawalQuote
+    from .withdrawal_quote_currency import WithdrawalQuoteCurrency
+    from .withdrawal_quote_speed import WithdrawalQuoteSpeed
+    from .withdrawal_request import WithdrawalRequest
+    from .withdrawal_request_speed import WithdrawalRequestSpeed
+    from .work_mode import WorkMode
 _dynamic_imports: typing.Dict[str, str] = {
+    "AccessPolicy": ".access_policy",
+    "AccessPolicyRule": ".access_policy_rule",
+    "AccessPolicyRuleGeography": ".access_policy_rule_geography",
+    "AccessPolicyRuleVerifiedAttributesValue": ".access_policy_rule_verified_attributes_value",
+    "AccessPolicyStatus": ".access_policy_status",
+    "Account": ".account",
+    "Ai": ".ai",
+    "AiActivity": ".ai_activity",
+    "AiActivityPage": ".ai_activity_page",
+    "AiAsset": ".ai_asset",
+    "AiAssetKind": ".ai_asset_kind",
+    "AiAssetUpload": ".ai_asset_upload",
+    "AiAssetUploadUpload": ".ai_asset_upload_upload",
+    "AiAssetUploadUploadMethod": ".ai_asset_upload_upload_method",
+    "AiAssetVisibility": ".ai_asset_visibility",
+    "AiBillingAccount": ".ai_billing_account",
+    "AiBillingAccountPayoutSchedule": ".ai_billing_account_payout_schedule",
+    "AiBillingActivityPage": ".ai_billing_activity_page",
+    "AiBillingActivityPageNextCursor": ".ai_billing_activity_page_next_cursor",
+    "AiBillingActivityPageWalletItem": ".ai_billing_activity_page_wallet_item",
+    "AiBillingSummary": ".ai_billing_summary",
+    "AiBillingSummaryActions": ".ai_billing_summary_actions",
+    "AiBillingSummaryCurrency": ".ai_billing_summary_currency",
+    "AiBillingSummaryFeePolicy": ".ai_billing_summary_fee_policy",
+    "AiDeployment": ".ai_deployment",
+    "AiDeploymentCurrent": ".ai_deployment_current",
+    "AiDeploymentRequest": ".ai_deployment_request",
+    "AiDeploymentRequestTarget": ".ai_deployment_request_target",
+    "AiInvitation": ".ai_invitation",
+    "AiInvitationRole": ".ai_invitation_role",
+    "AiMember": ".ai_member",
+    "AiMemberRole": ".ai_member_role",
+    "AiMemberUser": ".ai_member_user",
+    "AiNotifications": ".ai_notifications",
+    "AiPermissions": ".ai_permissions",
+    "AiPermissionsVisibility": ".ai_permissions_visibility",
+    "AiReputation": ".ai_reputation",
+    "AiReputationTier": ".ai_reputation_tier",
+    "AiReputationVerifiedReliability": ".ai_reputation_verified_reliability",
+    "AiRole": ".ai_role",
+    "AiSkill": ".ai_skill",
+    "AiSkillCatalogEntry": ".ai_skill_catalog_entry",
+    "AiSkillCatalogEntryCategory": ".ai_skill_catalog_entry_category",
+    "AiSkillCatalogEntryContext": ".ai_skill_catalog_entry_context",
+    "AiSkillCatalogEntryRecommendedForItem": ".ai_skill_catalog_entry_recommended_for_item",
+    "AiSkillCategory": ".ai_skill_category",
+    "AiSkillVisibility": ".ai_skill_visibility",
+    "AiType": ".ai_type",
+    "AiUsage": ".ai_usage",
+    "AiUsageAiUsage": ".ai_usage_ai_usage",
+    "AiUsageAiUsageCurrency": ".ai_usage_ai_usage_currency",
+    "AiVerification": ".ai_verification",
+    "AiWalletBalance": ".ai_wallet_balance",
+    "Application": ".application",
+    "ApplicationAiLink": ".application_ai_link",
+    "ApplicationAiLinkAiIdentity": ".application_ai_link_ai_identity",
+    "ApplicationAiLinkAiIdentityKind": ".application_ai_link_ai_identity_kind",
+    "ApplicationAiLinkStatus": ".application_ai_link_status",
+    "ApplicationDefaultAiKind": ".application_default_ai_kind",
+    "ApplicationMode": ".application_mode",
+    "ApplicationOauth": ".application_oauth",
+    "ApplicationStatus": ".application_status",
+    "ApplicationWallet": ".application_wallet",
     "Approval": ".approval",
+    "ApprovalResult": ".approval_result",
+    "ApprovalStatus": ".approval_status",
+    "AutoTopupSettings": ".auto_topup_settings",
+    "Connection": ".connection",
+    "ConnectionAuthorizationCompletion": ".connection_authorization_completion",
+    "ConnectionAuthorizationSession": ".connection_authorization_session",
+    "ConnectionGrantDisableResult": ".connection_grant_disable_result",
+    "ConnectionRemovalResult": ".connection_removal_result",
+    "ConversationMessage": ".conversation_message",
+    "ConversationMessageRole": ".conversation_message_role",
+    "ConversationPage": ".conversation_page",
+    "ConversationSummary": ".conversation_summary",
+    "ConversationSummaryMode": ".conversation_summary_mode",
+    "ConversationSummaryType": ".conversation_summary_type",
+    "ConversationTurn": ".conversation_turn",
+    "CreateGoalRequest": ".create_goal_request",
+    "CreateGoalRequestLifecycleStatus": ".create_goal_request_lifecycle_status",
+    "CreateGoalRequestType": ".create_goal_request_type",
+    "CreateListingRequest": ".create_listing_request",
+    "CreateTaskRequest": ".create_task_request",
+    "CreatedEnrollmentLink": ".created_enrollment_link",
+    "CreatedServiceAccount": ".created_service_account",
+    "CreatedWebhook": ".created_webhook",
+    "Deal": ".deal",
+    "DealDirection": ".deal_direction",
+    "DealMode": ".deal_mode",
+    "DealStatus": ".deal_status",
+    "DeletedResource": ".deleted_resource",
+    "DeletedResourceStatus": ".deleted_resource_status",
+    "EnrollmentBatch": ".enrollment_batch",
+    "EnrollmentBatchItem": ".enrollment_batch_item",
+    "EnrollmentBatchItemStatus": ".enrollment_batch_item_status",
+    "EnrollmentBatchResult": ".enrollment_batch_result",
+    "EnrollmentBatchResultPage": ".enrollment_batch_result_page",
+    "EnrollmentBatchStatus": ".enrollment_batch_status",
+    "EnrollmentLink": ".enrollment_link",
+    "EnrollmentLinkDefaultAiKind": ".enrollment_link_default_ai_kind",
+    "EnrollmentLinkMode": ".enrollment_link_mode",
+    "EphemeralGoal": ".ephemeral_goal",
+    "EphemeralGoalAccountablePrincipal": ".ephemeral_goal_accountable_principal",
+    "EphemeralGoalAccountablePrincipalType": ".ephemeral_goal_accountable_principal_type",
+    "EphemeralGoalStatus": ".ephemeral_goal_status",
     "Error": ".error",
     "ErrorMessage": ".error_message",
+    "FeeRate": ".fee_rate",
     "Goal": ".goal",
+    "GoalActionRequest": ".goal_action_request",
+    "GoalActionRequestAction": ".goal_action_request_action",
+    "GoalLifecycleStatus": ".goal_lifecycle_status",
+    "GoalPublicationStatus": ".goal_publication_status",
+    "GoalType": ".goal_type",
+    "IntegrationCatalog": ".integration_catalog",
+    "Integrations": ".integrations",
+    "IntegrationsCatalog": ".integrations_catalog",
+    "Listing": ".listing",
+    "ListingImport": ".listing_import",
+    "ListingImportKind": ".listing_import_kind",
+    "ListingImportStatus": ".listing_import_status",
+    "ListingPricing": ".listing_pricing",
+    "ListingPricingMode": ".listing_pricing_mode",
+    "ListingSelection": ".listing_selection",
+    "ListingStatus": ".listing_status",
+    "ListingType": ".listing_type",
+    "ListingVariant": ".listing_variant",
+    "ListingVisibility": ".listing_visibility",
+    "NetworkAiCard": ".network_ai_card",
+    "NetworkAiCardLinksItem": ".network_ai_card_links_item",
+    "NetworkAiProfile": ".network_ai_profile",
+    "NetworkAiProfileStatus": ".network_ai_profile_status",
+    "NetworkAiProfileVisibility": ".network_ai_profile_visibility",
+    "NetworkAiResult": ".network_ai_result",
+    "NetworkAiResultTruncated": ".network_ai_result_truncated",
+    "NetworkBrowseResult": ".network_browse_result",
+    "NetworkBrowseResultNetwork": ".network_browse_result_network",
+    "NetworkCategory": ".network_category",
+    "NetworkListing": ".network_listing",
+    "Outcome": ".outcome",
+    "OutcomeEvidence": ".outcome_evidence",
+    "OutcomeEvidenceDigest": ".outcome_evidence_digest",
+    "OutcomeEvidenceDigestAlgorithm": ".outcome_evidence_digest_algorithm",
+    "OutcomeEvidenceDisputeState": ".outcome_evidence_dispute_state",
+    "OutcomeEvidenceSourcePrincipalType": ".outcome_evidence_source_principal_type",
+    "OutcomeEvidenceVerificationStatus": ".outcome_evidence_verification_status",
+    "Payment": ".payment",
+    "PaymentIntentClientDetails": ".payment_intent_client_details",
+    "Payout": ".payout",
+    "PayoutSetup": ".payout_setup",
+    "PublicationRequest": ".publication_request",
+    "PublicationRequestResult": ".publication_request_result",
+    "Request": ".request",
+    "RequestIntent": ".request_intent",
+    "RequestStatus": ".request_status",
+    "ServiceAccount": ".service_account",
+    "ServiceAccountScopesItem": ".service_account_scopes_item",
+    "ServiceAccountStatus": ".service_account_status",
+    "Task": ".task",
+    "TaskActionRequest": ".task_action_request",
+    "Tool": ".tool",
+    "ToolCategory": ".tool_category",
+    "ToolExecution": ".tool_execution",
+    "ToolRisk": ".tool_risk",
+    "Transaction": ".transaction",
+    "TransactionFundingResult": ".transaction_funding_result",
+    "TransactionFundingResultState": ".transaction_funding_result_state",
+    "TransactionSettlementMode": ".transaction_settlement_mode",
+    "UpdateGoalRequest": ".update_goal_request",
+    "UpdateGoalRequestLifecycleStatus": ".update_goal_request_lifecycle_status",
+    "UpdateGoalRequestType": ".update_goal_request_type",
+    "UpdateTaskRequest": ".update_task_request",
+    "Visibility": ".visibility",
+    "WalletTopupIntent": ".wallet_topup_intent",
+    "WalletTopupIntentCurrency": ".wallet_topup_intent_currency",
+    "WalletWithdrawal": ".wallet_withdrawal",
+    "WalletWithdrawalSpeed": ".wallet_withdrawal_speed",
+    "WalletWithdrawalStatus": ".wallet_withdrawal_status",
+    "Webhook": ".webhook",
+    "WebhookDelivery": ".webhook_delivery",
+    "WebhookDeliveryStatus": ".webhook_delivery_status",
+    "WebhookStatus": ".webhook_status",
+    "WithdrawalQuote": ".withdrawal_quote",
+    "WithdrawalQuoteCurrency": ".withdrawal_quote_currency",
+    "WithdrawalQuoteSpeed": ".withdrawal_quote_speed",
+    "WithdrawalRequest": ".withdrawal_request",
+    "WithdrawalRequestSpeed": ".withdrawal_request_speed",
+    "WorkMode": ".work_mode",
 }
 
 
@@ -39,4 +409,194 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["Approval", "Error", "ErrorMessage", "Goal"]
+__all__ = [
+    "AccessPolicy",
+    "AccessPolicyRule",
+    "AccessPolicyRuleGeography",
+    "AccessPolicyRuleVerifiedAttributesValue",
+    "AccessPolicyStatus",
+    "Account",
+    "Ai",
+    "AiActivity",
+    "AiActivityPage",
+    "AiAsset",
+    "AiAssetKind",
+    "AiAssetUpload",
+    "AiAssetUploadUpload",
+    "AiAssetUploadUploadMethod",
+    "AiAssetVisibility",
+    "AiBillingAccount",
+    "AiBillingAccountPayoutSchedule",
+    "AiBillingActivityPage",
+    "AiBillingActivityPageNextCursor",
+    "AiBillingActivityPageWalletItem",
+    "AiBillingSummary",
+    "AiBillingSummaryActions",
+    "AiBillingSummaryCurrency",
+    "AiBillingSummaryFeePolicy",
+    "AiDeployment",
+    "AiDeploymentCurrent",
+    "AiDeploymentRequest",
+    "AiDeploymentRequestTarget",
+    "AiInvitation",
+    "AiInvitationRole",
+    "AiMember",
+    "AiMemberRole",
+    "AiMemberUser",
+    "AiNotifications",
+    "AiPermissions",
+    "AiPermissionsVisibility",
+    "AiReputation",
+    "AiReputationTier",
+    "AiReputationVerifiedReliability",
+    "AiRole",
+    "AiSkill",
+    "AiSkillCatalogEntry",
+    "AiSkillCatalogEntryCategory",
+    "AiSkillCatalogEntryContext",
+    "AiSkillCatalogEntryRecommendedForItem",
+    "AiSkillCategory",
+    "AiSkillVisibility",
+    "AiType",
+    "AiUsage",
+    "AiUsageAiUsage",
+    "AiUsageAiUsageCurrency",
+    "AiVerification",
+    "AiWalletBalance",
+    "Application",
+    "ApplicationAiLink",
+    "ApplicationAiLinkAiIdentity",
+    "ApplicationAiLinkAiIdentityKind",
+    "ApplicationAiLinkStatus",
+    "ApplicationDefaultAiKind",
+    "ApplicationMode",
+    "ApplicationOauth",
+    "ApplicationStatus",
+    "ApplicationWallet",
+    "Approval",
+    "ApprovalResult",
+    "ApprovalStatus",
+    "AutoTopupSettings",
+    "Connection",
+    "ConnectionAuthorizationCompletion",
+    "ConnectionAuthorizationSession",
+    "ConnectionGrantDisableResult",
+    "ConnectionRemovalResult",
+    "ConversationMessage",
+    "ConversationMessageRole",
+    "ConversationPage",
+    "ConversationSummary",
+    "ConversationSummaryMode",
+    "ConversationSummaryType",
+    "ConversationTurn",
+    "CreateGoalRequest",
+    "CreateGoalRequestLifecycleStatus",
+    "CreateGoalRequestType",
+    "CreateListingRequest",
+    "CreateTaskRequest",
+    "CreatedEnrollmentLink",
+    "CreatedServiceAccount",
+    "CreatedWebhook",
+    "Deal",
+    "DealDirection",
+    "DealMode",
+    "DealStatus",
+    "DeletedResource",
+    "DeletedResourceStatus",
+    "EnrollmentBatch",
+    "EnrollmentBatchItem",
+    "EnrollmentBatchItemStatus",
+    "EnrollmentBatchResult",
+    "EnrollmentBatchResultPage",
+    "EnrollmentBatchStatus",
+    "EnrollmentLink",
+    "EnrollmentLinkDefaultAiKind",
+    "EnrollmentLinkMode",
+    "EphemeralGoal",
+    "EphemeralGoalAccountablePrincipal",
+    "EphemeralGoalAccountablePrincipalType",
+    "EphemeralGoalStatus",
+    "Error",
+    "ErrorMessage",
+    "FeeRate",
+    "Goal",
+    "GoalActionRequest",
+    "GoalActionRequestAction",
+    "GoalLifecycleStatus",
+    "GoalPublicationStatus",
+    "GoalType",
+    "IntegrationCatalog",
+    "Integrations",
+    "IntegrationsCatalog",
+    "Listing",
+    "ListingImport",
+    "ListingImportKind",
+    "ListingImportStatus",
+    "ListingPricing",
+    "ListingPricingMode",
+    "ListingSelection",
+    "ListingStatus",
+    "ListingType",
+    "ListingVariant",
+    "ListingVisibility",
+    "NetworkAiCard",
+    "NetworkAiCardLinksItem",
+    "NetworkAiProfile",
+    "NetworkAiProfileStatus",
+    "NetworkAiProfileVisibility",
+    "NetworkAiResult",
+    "NetworkAiResultTruncated",
+    "NetworkBrowseResult",
+    "NetworkBrowseResultNetwork",
+    "NetworkCategory",
+    "NetworkListing",
+    "Outcome",
+    "OutcomeEvidence",
+    "OutcomeEvidenceDigest",
+    "OutcomeEvidenceDigestAlgorithm",
+    "OutcomeEvidenceDisputeState",
+    "OutcomeEvidenceSourcePrincipalType",
+    "OutcomeEvidenceVerificationStatus",
+    "Payment",
+    "PaymentIntentClientDetails",
+    "Payout",
+    "PayoutSetup",
+    "PublicationRequest",
+    "PublicationRequestResult",
+    "Request",
+    "RequestIntent",
+    "RequestStatus",
+    "ServiceAccount",
+    "ServiceAccountScopesItem",
+    "ServiceAccountStatus",
+    "Task",
+    "TaskActionRequest",
+    "Tool",
+    "ToolCategory",
+    "ToolExecution",
+    "ToolRisk",
+    "Transaction",
+    "TransactionFundingResult",
+    "TransactionFundingResultState",
+    "TransactionSettlementMode",
+    "UpdateGoalRequest",
+    "UpdateGoalRequestLifecycleStatus",
+    "UpdateGoalRequestType",
+    "UpdateTaskRequest",
+    "Visibility",
+    "WalletTopupIntent",
+    "WalletTopupIntentCurrency",
+    "WalletWithdrawal",
+    "WalletWithdrawalSpeed",
+    "WalletWithdrawalStatus",
+    "Webhook",
+    "WebhookDelivery",
+    "WebhookDeliveryStatus",
+    "WebhookStatus",
+    "WithdrawalQuote",
+    "WithdrawalQuoteCurrency",
+    "WithdrawalQuoteSpeed",
+    "WithdrawalRequest",
+    "WithdrawalRequestSpeed",
+    "WorkMode",
+]

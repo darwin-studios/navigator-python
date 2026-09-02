@@ -6,8 +6,14 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import CreateGoalRequestKind, ListGoalsResponse
-_dynamic_imports: typing.Dict[str, str] = {"CreateGoalRequestKind": ".types", "ListGoalsResponse": ".types"}
+    from .types import ActOnGoalResponse, CreateGoalResponse, GetGoalResponse, ListGoalsResponse, UpdateGoalResponse
+_dynamic_imports: typing.Dict[str, str] = {
+    "ActOnGoalResponse": ".types",
+    "CreateGoalResponse": ".types",
+    "GetGoalResponse": ".types",
+    "ListGoalsResponse": ".types",
+    "UpdateGoalResponse": ".types",
+}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -31,4 +37,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["CreateGoalRequestKind", "ListGoalsResponse"]
+__all__ = ["ActOnGoalResponse", "CreateGoalResponse", "GetGoalResponse", "ListGoalsResponse", "UpdateGoalResponse"]

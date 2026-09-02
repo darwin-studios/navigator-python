@@ -32,7 +32,7 @@ class BaseClientWrapper:
     def get_headers(self) -> typing.Dict[str, str]:
         import platform
 
-        _user_agent = "darwin_sdk/0.1.0"
+        _user_agent = "darwin-sdk/0.1.1"
         _os = platform.system().lower()
         _arch = platform.machine()
         if _arch.lower() in ("x64", "amd64", "x86_64"):
@@ -46,8 +46,8 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "User-Agent": _user_agent,
             "X-Fern-Language": "Python",
-            "X-Fern-SDK-Name": "darwin_sdk",
-            "X-Fern-SDK-Version": "0.1.0",
+            "X-Fern-SDK-Name": "darwin-sdk",
+            "X-Fern-SDK-Version": "0.1.1",
             **(self.get_custom_headers() or {}),
         }
         headers["Authorization"] = f"Bearer {self._get_token()}"
