@@ -11,7 +11,7 @@ class BaseClientWrapper:
     def __init__(
         self,
         *,
-        token: typing.Union[str, typing.Callable[[], str]],
+        api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -20,7 +20,7 @@ class BaseClientWrapper:
         max_stream_reconnection_attempts: typing.Optional[int] = None,
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
-        self._token = token
+        self.api_key = api_key
         self._headers = headers
         self._base_url = base_url
         self._timeout = timeout
@@ -32,7 +32,7 @@ class BaseClientWrapper:
     def get_headers(self) -> typing.Dict[str, str]:
         import platform
 
-        _user_agent = "darwin-sdk/0.1.1"
+        _user_agent = "darwin_sdk/0.4.0"
         _os = platform.system().lower()
         _arch = platform.machine()
         if _arch.lower() in ("x64", "amd64", "x86_64"):
@@ -46,18 +46,10 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "User-Agent": _user_agent,
             "X-Fern-Language": "Python",
-            "X-Fern-SDK-Name": "darwin-sdk",
-            "X-Fern-SDK-Version": "0.1.1",
             **(self.get_custom_headers() or {}),
         }
-        headers["Authorization"] = f"Bearer {self._get_token()}"
+        headers["x-api-key"] = self.api_key
         return headers
-
-    def _get_token(self) -> str:
-        if isinstance(self._token, str):
-            return self._token
-        else:
-            return self._token()
 
     def get_custom_headers(self) -> typing.Optional[typing.Dict[str, str]]:
         return self._headers
@@ -82,7 +74,7 @@ class SyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        token: typing.Union[str, typing.Callable[[], str]],
+        api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -93,7 +85,7 @@ class SyncClientWrapper(BaseClientWrapper):
         httpx_client: httpx.Client,
     ):
         super().__init__(
-            token=token,
+            api_key=api_key,
             headers=headers,
             base_url=base_url,
             timeout=timeout,
@@ -116,7 +108,7 @@ class AsyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        token: typing.Union[str, typing.Callable[[], str]],
+        api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -128,7 +120,7 @@ class AsyncClientWrapper(BaseClientWrapper):
         httpx_client: httpx.AsyncClient,
     ):
         super().__init__(
-            token=token,
+            api_key=api_key,
             headers=headers,
             base_url=base_url,
             timeout=timeout,

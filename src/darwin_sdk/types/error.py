@@ -3,18 +3,13 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
-from .error_message import ErrorMessage
 
 
 class Error(UniversalBaseModel):
-    status_code: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="statusCode"), pydantic.Field(alias="statusCode")
-    ] = None
-    message: typing.Optional[ErrorMessage] = None
     error: typing.Optional[str] = None
+    message: typing.Optional[str] = None
+    fields: typing.Optional[typing.List[typing.Dict[str, typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

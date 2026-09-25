@@ -4,4 +4,4 @@ import enum
 
 
 class DarwinEnvironment(enum.Enum):
-    PRODUCTION = "https://api.darwin.so/api/v1"
+    DEFAULT = "https://api.darwin.so/api/v2"
