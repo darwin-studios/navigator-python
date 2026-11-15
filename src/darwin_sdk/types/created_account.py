@@ -13,7 +13,7 @@ from .created_account_type import CreatedAccountType
 
 class CreatedAccount(UniversalBaseModel):
     id: str
-    type: CreatedAccountType
+    type: typing.Optional[CreatedAccountType] = None
     name: str
     status: CreatedAccountStatus
     created_at: typing_extensions.Annotated[

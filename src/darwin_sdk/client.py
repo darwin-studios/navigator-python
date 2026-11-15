@@ -5,41 +5,150 @@ import os
 import typing
 
 import httpx
-from .core.api_error import ApiError
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .core.logging import LogConfig, Logger
 from .core.request_options import RequestOptions
 from .environment import DarwinEnvironment
 from .raw_client import AsyncRawDarwin, RawDarwin
+from .types.account_identity import AccountIdentity
 from .types.account_summary import AccountSummary
-from .types.act_approve_action_response import ActApproveActionResponse
-from .types.act_approve_request_decision import ActApproveRequestDecision
-from .types.act_end_action_response import ActEndActionResponse
-from .types.act_end_request_intent import ActEndRequestIntent
-from .types.act_get_action_response import ActGetActionResponse
-from .types.act_list_response import ActListResponse
-from .types.act_pay_action_response import ActPayActionResponse
-from .types.act_pay_request_route import ActPayRequestRoute
-from .types.act_pay_request_source import ActPayRequestSource
-from .types.act_start_action_response import ActStartActionResponse
-from .types.act_stop_action_response import ActStopActionResponse
-from .types.act_update_action_response import ActUpdateActionResponse
-from .types.act_update_request import ActUpdateRequest
-from .types.action_attachment import ActionAttachment
+from .types.act_v3get_thread_response import ActV3GetThreadResponse
+from .types.act_v3list_threads_response import ActV3ListThreadsResponse
+from .types.act_v3request import ActV3Request
+from .types.act_v3request_response import ActV3RequestResponse
+from .types.act_v3response import ActV3Response
+from .types.adaptive_search_history_response import AdaptiveSearchHistoryResponse
+from .types.adaptive_search_request_agent_count import AdaptiveSearchRequestAgentCount
+from .types.adaptive_search_request_audience import AdaptiveSearchRequestAudience
+from .types.adaptive_search_request_context_item import AdaptiveSearchRequestContextItem
+from .types.adaptive_search_response import AdaptiveSearchResponse
 from .types.api_key import ApiKey
 from .types.api_key_list import ApiKeyList
 from .types.api_key_usage_response import ApiKeyUsageResponse
 from .types.application_response import ApplicationResponse
-from .types.authenticate_session_request_source import AuthenticateSessionRequestSource
-from .types.authenticate_session_response import AuthenticateSessionResponse
+from .types.archive_thread_response import ArchiveThreadResponse
+from .types.assist_v3request import AssistV3Request
+from .types.assist_v3response import AssistV3Response
+from .types.authenticate_response import AuthenticateResponse
+from .types.challenge_machine_key_request_body import ChallengeMachineKeyRequestBody
+from .types.create_account_agent_request_type import CreateAccountAgentRequestType
 from .types.create_account_request_type import CreateAccountRequestType
+from .types.create_api_key_request_kind import CreateApiKeyRequestKind
 from .types.create_api_key_request_scopes_item import CreateApiKeyRequestScopesItem
+from .types.create_session_request_audience import CreateSessionRequestAudience
+from .types.create_session_request_message import CreateSessionRequestMessage
+from .types.create_thread_request_audience import CreateThreadRequestAudience
+from .types.create_thread_request_message import CreateThreadRequestMessage
 from .types.created_account import CreatedAccount
 from .types.created_api_key import CreatedApiKey
-from .types.list_actions_request_lifecycle import ListActionsRequestLifecycle
-from .types.search_filters import SearchFilters
+from .types.enroll_machine_key_request_public_key import EnrollMachineKeyRequestPublicKey
+from .types.enroll_machine_key_request_recovery_key import EnrollMachineKeyRequestRecoveryKey
+from .types.enroll_machine_key_request_scopes_item import EnrollMachineKeyRequestScopesItem
+from .types.execute_request_audience import ExecuteRequestAudience
+from .types.execute_request_context import ExecuteRequestContext
+from .types.execute_request_mode import ExecuteRequestMode
+from .types.execute_request_target import ExecuteRequestTarget
+from .types.execute_request_type import ExecuteRequestType
+from .types.get_account_auth_credential_setup_response import GetAccountAuthCredentialSetupResponse
+from .types.get_account_memory_response import GetAccountMemoryResponse
+from .types.get_account_payment_method_setup_response import GetAccountPaymentMethodSetupResponse
+from .types.get_account_spend_request_days import GetAccountSpendRequestDays
+from .types.get_account_spend_response import GetAccountSpendResponse
+from .types.get_account_usage_request_days import GetAccountUsageRequestDays
+from .types.get_account_usage_response import GetAccountUsageResponse
+from .types.get_act_request_request_audience import GetActRequestRequestAudience
+from .types.get_act_thread_request_audience import GetActThreadRequestAudience
+from .types.get_active_account_agent_request_channel import GetActiveAccountAgentRequestChannel
+from .types.get_assist_request_audience import GetAssistRequestAudience
+from .types.get_navigate_request_request_audience import GetNavigateRequestRequestAudience
+from .types.get_owner_processing_context_response import GetOwnerProcessingContextResponse
+from .types.get_payment_options_response import GetPaymentOptionsResponse
+from .types.get_payment_status_response import GetPaymentStatusResponse
+from .types.get_result_artifact_download_url_response import GetResultArtifactDownloadUrlResponse
+from .types.get_session_operation_request_audience import GetSessionOperationRequestAudience
+from .types.get_thread_operation_request_audience import GetThreadOperationRequestAudience
+from .types.get_thread_request_audience import GetThreadRequestAudience
+from .types.get_thread_response import GetThreadResponse
+from .types.list_account_auth_credentials_response import ListAccountAuthCredentialsResponse
+from .types.list_account_payment_methods_response import ListAccountPaymentMethodsResponse
+from .types.list_act_threads_request_audience import ListActThreadsRequestAudience
+from .types.list_auth_credentials_response import ListAuthCredentialsResponse
+from .types.list_navigator_threads_request_audience import ListNavigatorThreadsRequestAudience
+from .types.list_payment_methods_response import ListPaymentMethodsResponse
+from .types.list_session_messages_request_audience import ListSessionMessagesRequestAudience
+from .types.list_session_operations_request_audience import ListSessionOperationsRequestAudience
+from .types.list_sessions_request_audience import ListSessionsRequestAudience
+from .types.list_target_accounts_response import ListTargetAccountsResponse
+from .types.list_thread_messages_request_audience import ListThreadMessagesRequestAudience
+from .types.list_thread_operations_request_audience import ListThreadOperationsRequestAudience
+from .types.list_threads_response import ListThreadsResponse
+from .types.live_search_request_audience import LiveSearchRequestAudience
+from .types.live_search_request_context import LiveSearchRequestContext
+from .types.live_search_request_live_search import LiveSearchRequestLiveSearch
+from .types.live_search_request_mode import LiveSearchRequestMode
+from .types.live_search_request_target import LiveSearchRequestTarget
+from .types.live_search_request_type import LiveSearchRequestType
+from .types.navigate_request_audience import NavigateRequestAudience
+from .types.navigate_request_context import NavigateRequestContext
+from .types.navigate_request_live_search import NavigateRequestLiveSearch
+from .types.navigate_request_mode import NavigateRequestMode
+from .types.navigate_request_target import NavigateRequestTarget
+from .types.navigate_request_type import NavigateRequestType
+from .types.navigate_response import NavigateResponse
+from .types.orchestrate_request_audience import OrchestrateRequestAudience
+from .types.orchestrate_request_context import OrchestrateRequestContext
+from .types.orchestrate_request_mode import OrchestrateRequestMode
+from .types.orchestrate_request_target import OrchestrateRequestTarget
+from .types.orchestrate_request_type import OrchestrateRequestType
+from .types.pay_response import PayResponse
+from .types.read_session_request_audience import ReadSessionRequestAudience
+from .types.read_session_response import ReadSessionResponse
+from .types.read_thread_request_audience import ReadThreadRequestAudience
+from .types.read_thread_response import ReadThreadResponse
+from .types.replace_account_memory_response import ReplaceAccountMemoryResponse
+from .types.revoke_account_auth_credential_response import RevokeAccountAuthCredentialResponse
+from .types.revoke_account_payment_method_response import RevokeAccountPaymentMethodResponse
+from .types.revoke_auth_credential_response import RevokeAuthCredentialResponse
+from .types.revoke_payment_method_response import RevokePaymentMethodResponse
+from .types.revoke_target_account_response import RevokeTargetAccountResponse
+from .types.route_request_audience import RouteRequestAudience
+from .types.route_request_context import RouteRequestContext
+from .types.route_request_mode import RouteRequestMode
+from .types.route_request_target import RouteRequestTarget
+from .types.route_request_type import RouteRequestType
 from .types.search_history_page import SearchHistoryPage
 from .types.search_response import SearchResponse
+from .types.select_account_agent_request_channel import SelectAccountAgentRequestChannel
+from .types.send_message_body import SendMessageBody
+from .types.send_message_response import SendMessageResponse
+from .types.session_invitation_role import SessionInvitationRole
+from .types.session_list import SessionList
+from .types.session_member_change_role import SessionMemberChangeRole
+from .types.session_message_request_audience import SessionMessageRequestAudience
+from .types.session_message_request_context import SessionMessageRequestContext
+from .types.session_message_request_live_search import SessionMessageRequestLiveSearch
+from .types.session_message_request_mode import SessionMessageRequestMode
+from .types.session_message_request_target import SessionMessageRequestTarget
+from .types.session_operation_action_message import SessionOperationActionMessage
+from .types.session_operation_start_target import SessionOperationStartTarget
+from .types.set_payment_method_default_response import SetPaymentMethodDefaultResponse
+from .types.set_target_account_default_response import SetTargetAccountDefaultResponse
+from .types.start_account_auth_credential_setup_response import StartAccountAuthCredentialSetupResponse
+from .types.start_account_payment_method_setup_body_consent import StartAccountPaymentMethodSetupBodyConsent
+from .types.start_account_payment_method_setup_body_method import StartAccountPaymentMethodSetupBodyMethod
+from .types.start_account_payment_method_setup_response import StartAccountPaymentMethodSetupResponse
+from .types.start_thread_body import StartThreadBody
+from .types.start_thread_response import StartThreadResponse
+from .types.thread_invitation_role import ThreadInvitationRole
+from .types.thread_list import ThreadList
+from .types.thread_member_change_role import ThreadMemberChangeRole
+from .types.thread_message_request_audience import ThreadMessageRequestAudience
+from .types.thread_message_request_context import ThreadMessageRequestContext
+from .types.thread_message_request_live_search import ThreadMessageRequestLiveSearch
+from .types.thread_message_request_mode import ThreadMessageRequestMode
+from .types.thread_message_request_target import ThreadMessageRequestTarget
+from .types.thread_operation_message_message import ThreadOperationMessageMessage
+from .types.thread_operation_start_target import ThreadOperationStartTarget
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -114,10 +223,6 @@ class Darwin:
     ):
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         _defaulted_max_retries = max_retries if max_retries is not None else 2
-        if api_key is None:
-            raise ApiError(
-                body="The client must be instantiated be either passing in api_key or setting DARWIN_API_KEY"
-            )
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
@@ -146,27 +251,563 @@ class Darwin:
         """
         return self._raw_client
 
+    def list_account_agents(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_account_agents()
+        """
+        _response = self._raw_client.list_account_agents(request_options=request_options)
+        return _response.data
+
+    def create_account_agent(
+        self,
+        *,
+        idempotency_key: str,
+        type: CreateAccountAgentRequestType,
+        name: str,
+        handle: str,
+        application_id: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        idempotency_key : str
+
+        type : CreateAccountAgentRequestType
+
+        name : str
+
+        handle : str
+
+        application_id : typing.Optional[str]
+
+        description : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.create_account_agent(
+            idempotency_key="Idempotency-Key",
+            type="personal",
+            name="name",
+            handle="handle",
+        )
+        """
+        _response = self._raw_client.create_account_agent(
+            idempotency_key=idempotency_key,
+            type=type,
+            name=name,
+            handle=handle,
+            application_id=application_id,
+            description=description,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_active_account_agent(
+        self,
+        *,
+        channel: typing.Optional[GetActiveAccountAgentRequestChannel] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        channel : typing.Optional[GetActiveAccountAgentRequestChannel]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_active_account_agent()
+        """
+        _response = self._raw_client.get_active_account_agent(channel=channel, request_options=request_options)
+        return _response.data
+
+    def get_account_agent(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_account_agent(
+            id="id",
+        )
+        """
+        _response = self._raw_client.get_account_agent(id, request_options=request_options)
+        return _response.data
+
+    def update_account_agent(
+        self,
+        id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        handle: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        name : typing.Optional[str]
+
+        handle : typing.Optional[str]
+
+        description : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.update_account_agent(
+            id="id",
+        )
+        """
+        _response = self._raw_client.update_account_agent(
+            id, name=name, handle=handle, description=description, request_options=request_options
+        )
+        return _response.data
+
+    def select_account_agent(
+        self,
+        id: str,
+        *,
+        channel: typing.Optional[SelectAccountAgentRequestChannel] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        channel : typing.Optional[SelectAccountAgentRequestChannel]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.select_account_agent(
+            id="id",
+        )
+        """
+        _response = self._raw_client.select_account_agent(id, channel=channel, request_options=request_options)
+        return _response.data
+
+    def connect_account_agent(
+        self, id: str, application_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        application_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.connect_account_agent(
+            id="id",
+            application_id="applicationId",
+        )
+        """
+        _response = self._raw_client.connect_account_agent(id, application_id, request_options=request_options)
+        return _response.data
+
+    def start_phone_account(
+        self, *, phone: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        phone : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.start_phone_account(
+            phone="phone",
+        )
+        """
+        _response = self._raw_client.start_phone_account(phone=phone, request_options=request_options)
+        return _response.data
+
+    def verify_phone_account(
+        self, *, challenge_id: str, code: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        challenge_id : str
+
+        code : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.verify_phone_account(
+            challenge_id="challengeId",
+            code="code",
+        )
+        """
+        _response = self._raw_client.verify_phone_account(
+            challenge_id=challenge_id, code=code, request_options=request_options
+        )
+        return _response.data
+
+    def enroll_machine_key(
+        self,
+        *,
+        name: str,
+        public_key: EnrollMachineKeyRequestPublicKey,
+        recovery_key: EnrollMachineKeyRequestRecoveryKey,
+        scopes: typing.Sequence[EnrollMachineKeyRequestScopesItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        name : str
+
+        public_key : EnrollMachineKeyRequestPublicKey
+
+        recovery_key : EnrollMachineKeyRequestRecoveryKey
+
+        scopes : typing.Sequence[EnrollMachineKeyRequestScopesItem]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import (
+            Darwin,
+            EnrollMachineKeyRequestPublicKey,
+            EnrollMachineKeyRequestRecoveryKey,
+        )
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.enroll_machine_key(
+            name="name",
+            public_key=EnrollMachineKeyRequestPublicKey(
+                kty="OKP",
+                crv="Ed25519",
+                x="x",
+            ),
+            recovery_key=EnrollMachineKeyRequestRecoveryKey(
+                kty="OKP",
+                crv="Ed25519",
+                x="x",
+            ),
+            scopes=["account:read"],
+        )
+        """
+        _response = self._raw_client.enroll_machine_key(
+            name=name, public_key=public_key, recovery_key=recovery_key, scopes=scopes, request_options=request_options
+        )
+        return _response.data
+
+    def revoke_machine_key(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.revoke_machine_key(
+            id="id",
+        )
+        """
+        _response = self._raw_client.revoke_machine_key(id, request_options=request_options)
+        return _response.data
+
+    def challenge_machine_key(
+        self,
+        id: str,
+        *,
+        request: ChallengeMachineKeyRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        request : ChallengeMachineKeyRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import ChallengeMachineKeyRequestBodyZero, Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.challenge_machine_key(
+            id="id",
+            request=ChallengeMachineKeyRequestBodyZero(
+                purpose="token",
+            ),
+        )
+        """
+        _response = self._raw_client.challenge_machine_key(id, request=request, request_options=request_options)
+        return _response.data
+
+    def verify_machine_key(
+        self,
+        id: str,
+        *,
+        challenge_id: str,
+        signature: str,
+        recovery_signature: typing.Optional[str] = OMIT,
+        new_signature: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        challenge_id : str
+
+        signature : str
+
+        recovery_signature : typing.Optional[str]
+
+        new_signature : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.verify_machine_key(
+            id="id",
+            challenge_id="challengeId",
+            signature="signature",
+        )
+        """
+        _response = self._raw_client.verify_machine_key(
+            id,
+            challenge_id=challenge_id,
+            signature=signature,
+            recovery_signature=recovery_signature,
+            new_signature=new_signature,
+            request_options=request_options,
+        )
+        return _response.data
+
     def search(
         self,
         *,
         query: str,
-        filters: typing.Optional[SearchFilters] = OMIT,
-        limit: typing.Optional[int] = OMIT,
+        category: typing.Optional[str] = OMIT,
+        objective: typing.Optional[str] = OMIT,
+        num_results: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SearchResponse:
         """
-        Find and rank public capabilities from the active Creora Product v2 index. Search is discovery, not execution authorization. No credential is required at the public anonymous limit. You may supply a Darwin API key or OAuth bearer with directory:read for the higher authenticated limit.
+        Find ranked public agents from a natural-language query. Optional category and objective hints refine ranking. Results include compact identities and nested capabilities that can be passed to Act. Every request requires an API key or scoped OAuth access token.
 
         Parameters
         ----------
         query : str
-            Describe the capability or outcome you need in natural language. Include the task, important constraints, and success criteria that should affect ranking; use the dedicated AI and capability read endpoints for exact lookups.
+            Describe the agent or capability you need in natural language.
 
-        filters : typing.Optional[SearchFilters]
-            Optional structured constraints applied in addition to the natural-language query. Use these fields for hard requirements instead of embedding machine-readable filters in query text.
+        category : typing.Optional[str]
+            Optional open-ended agent or capability category focus for ranking.
 
-        limit : typing.Optional[int]
-            Maximum number of ranked capabilities to return. Defaults to 10 and cannot exceed 50.
+        objective : typing.Optional[str]
+            Optional outcome or success objective that should affect ranking.
+
+        num_results : typing.Optional[int]
+            Maximum number of canonical ranked capabilities to return. Defaults to 10 and cannot exceed 50.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -174,7 +815,7 @@ class Darwin:
         Returns
         -------
         SearchResponse
-            A page of public capabilities in canonical order.
+            Public agents in canonical rank order with nested Act capabilities.
 
         Examples
         --------
@@ -184,10 +825,16 @@ class Darwin:
             api_key="YOUR_API_KEY",
         )
         client.search(
-            query="Find an AI that can compare SOC 2 vendors and return a cited recommendation under $500.",
+            query="Find an agent that can compare SOC 2 vendors.",
         )
         """
-        _response = self._raw_client.search(query=query, filters=filters, limit=limit, request_options=request_options)
+        _response = self._raw_client.search(
+            query=query,
+            category=category,
+            objective=objective,
+            num_results=num_results,
+            request_options=request_options,
+        )
         return _response.data
 
     def create_account(
@@ -195,14 +842,14 @@ class Darwin:
         *,
         email: str,
         password: str,
-        name: str,
-        type: CreateAccountRequestType,
+        name: typing.Optional[str] = OMIT,
+        type: typing.Optional[CreateAccountRequestType] = OMIT,
         organization_name: typing.Optional[str] = OMIT,
         organization_domain: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreatedAccount:
         """
-        Register an unverified Darwin account without creating an AI or API key. Verify the email address through Darwin sign-in, then complete account setup before issuing application credentials. An application key never identifies an end user.
+        Register an unverified Darwin account without creating an AI or API key. Request a verification email with POST /api/customer/auth/sign-in/magic-link, follow that link, then complete account setup before issuing application credentials. An application key never identifies an end user.
 
         Parameters
         ----------
@@ -210,15 +857,15 @@ class Darwin:
 
         password : str
 
-        name : str
+        name : typing.Optional[str]
 
-        type : CreateAccountRequestType
+        type : typing.Optional[CreateAccountRequestType]
 
         organization_name : typing.Optional[str]
-            Required for business and software.
+            Optional legacy account metadata; agent type is chosen when creating an agent.
 
         organization_domain : typing.Optional[str]
-            Required for business and software; not ownership proof.
+            Optional legacy metadata; not ownership proof.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -238,8 +885,6 @@ class Darwin:
         client.create_account(
             email="email",
             password="password",
-            name="name",
-            type="personal",
         )
         """
         _response = self._raw_client.create_account(
@@ -284,6 +929,32 @@ class Darwin:
         _response = self._raw_client.get_account(ai_id=ai_id, request_options=request_options)
         return _response.data
 
+    def get_account_identity(self, *, request_options: typing.Optional[RequestOptions] = None) -> AccountIdentity:
+        """
+        Preview: read only the authenticated owner ID using a user-bound Darwin API key with account:read. OAuth and application keys are not accepted. No query or body inputs are allowed. This does not select or provision an AI, grant execution authority, or load an account profile.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AccountIdentity
+            Only the authenticated account ID. Private and not cacheable.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_account_identity()
+        """
+        _response = self._raw_client.get_account_identity(request_options=request_options)
+        return _response.data
+
     def create_application(
         self,
         *,
@@ -295,7 +966,7 @@ class Darwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ApplicationResponse:
         """
-        Register a developer application for the authenticated account. Requires applications:write on a user-scoped OAuth grant or a legacy user key. This does not grant access to another user.
+        Register a developer application for the authenticated account. A verified signed-in account session is the bootstrap path for the first application; a user-scoped OAuth grant or legacy user key with applications:write also works. This does not grant access to another user.
 
         Parameters
         ----------
@@ -342,7 +1013,7 @@ class Darwin:
         self, application_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ApplicationResponse:
         """
-        Read one application owned by the authenticated account. Requires applications:read on a user-scoped grant or legacy key.
+        Read one application owned by the authenticated account using its signed-in session, a user-scoped OAuth grant, or a legacy key with applications:read.
 
         Parameters
         ----------
@@ -370,496 +1041,9 @@ class Darwin:
         _response = self._raw_client.get_application(application_id, request_options=request_options)
         return _response.data
 
-    def list_actions(
-        self,
-        *,
-        acting_ai_id: typing.Optional[str] = None,
-        target_ai_id: typing.Optional[str] = None,
-        lifecycle: typing.Optional[ListActionsRequestLifecycle] = None,
-        cursor: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActListResponse:
-        """
-        List current or ended human Actions with human:actions, or select an acting AI for an AI-scoped agent:read/goals:read grant.
-
-        Parameters
-        ----------
-        acting_ai_id : typing.Optional[str]
-
-        target_ai_id : typing.Optional[str]
-
-        lifecycle : typing.Optional[ListActionsRequestLifecycle]
-
-        cursor : typing.Optional[str]
-
-        limit : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActListResponse
-            A page of the caller’s current actions.
-
-        Examples
-        --------
-        from darwin_sdk import Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.list_actions()
-        """
-        _response = self._raw_client.list_actions(
-            acting_ai_id=acting_ai_id,
-            target_ai_id=target_ai_id,
-            lifecycle=lifecycle,
-            cursor=cursor,
-            limit=limit,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def start_action(
-        self,
-        *,
-        capability_id: str,
-        capability_revision: int,
-        request_id: str,
-        inputs: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        attachments: typing.Optional[typing.Sequence[ActionAttachment]] = OMIT,
-        intent: typing.Optional[str] = OMIT,
-        acting_ai_id: typing.Optional[str] = OMIT,
-        target_ai_id: typing.Optional[str] = OMIT,
-        search_attribution_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActStartActionResponse:
-        """
-        Start durable work from an exact Search result. A consenting human OAuth user uses human:actions without an AI; an AI-scoped caller uses agent:write or goals:write and selects an authorized acting AI.
-
-        Parameters
-        ----------
-        capability_id : str
-
-        capability_revision : int
-
-        request_id : str
-
-        inputs : typing.Optional[typing.Dict[str, typing.Any]]
-
-        attachments : typing.Optional[typing.Sequence[ActionAttachment]]
-
-        intent : typing.Optional[str]
-
-        acting_ai_id : typing.Optional[str]
-
-        target_ai_id : typing.Optional[str]
-
-        search_attribution_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActStartActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        from darwin_sdk import Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.start_action(
-            capability_id="capabilityId",
-            capability_revision=1,
-            request_id="requestId",
-        )
-        """
-        _response = self._raw_client.start_action(
-            capability_id=capability_id,
-            capability_revision=capability_revision,
-            request_id=request_id,
-            inputs=inputs,
-            attachments=attachments,
-            intent=intent,
-            acting_ai_id=acting_ai_id,
-            target_ai_id=target_ai_id,
-            search_attribution_id=search_attribution_id,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def get_action(
-        self, action_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ActGetActionResponse:
-        """
-        Get the truthful current status and required next step for one action. Requires the matching human:actions grant or an AI-scoped agent:read/goals:read grant.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActGetActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        from darwin_sdk import Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.get_action(
-            action_id="actionId",
-        )
-        """
-        _response = self._raw_client.get_action(action_id, request_options=request_options)
-        return _response.data
-
-    def continue_action(
-        self, action_id: str, *, request: ActUpdateRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> ActUpdateActionResponse:
-        """
-        Give an action more information without implicitly approving anything. Requires the matching human:actions or AI-scoped agent:write/goals:write grant.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        request : ActUpdateRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActUpdateActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        from darwin_sdk import ActUpdateRequestAttachments, Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.continue_action(
-            action_id="actionId",
-            request=ActUpdateRequestAttachments(
-                request_id="requestId",
-            ),
-        )
-        """
-        _response = self._raw_client.continue_action(action_id, request=request, request_options=request_options)
-        return _response.data
-
-    def authenticate_session(
-        self,
-        ai_id: str,
-        *,
-        method_id: str,
-        source: AuthenticateSessionRequestSource,
-        save_to_darwin_vault: bool,
-        request_id: str,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AuthenticateSessionResponse:
-        """
-        Establish or reuse one bounded authentication relationship between the caller and a destination AI. When the destination has no account for the user, the same hosted flow completes required first-time setup before connecting. The relationship can be reused across Actions until it expires or is revoked.
-
-        Parameters
-        ----------
-        ai_id : str
-            The destination AI to authenticate with.
-
-        method_id : str
-
-        source : AuthenticateSessionRequestSource
-
-        save_to_darwin_vault : bool
-            Explicit consent to persist a one-time credential in Darwin Vault after authorization.
-
-        request_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AuthenticateSessionResponse
-            The reusable authentication relationship or a first-party webLink for the required provider step.
-
-        Examples
-        --------
-        from darwin_sdk import AuthenticateSessionRequestSource_OneTime, Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.authenticate_session(
-            ai_id="aiId",
-            method_id="oauth_github",
-            source=AuthenticateSessionRequestSource_OneTime(),
-            save_to_darwin_vault=False,
-            request_id="request_auth_01J9Y8M4Z7B9R6K2X3C5V1N0PQ",
-        )
-        """
-        _response = self._raw_client.authenticate_session(
-            ai_id,
-            method_id=method_id,
-            source=source,
-            save_to_darwin_vault=save_to_darwin_vault,
-            request_id=request_id,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def pay_action(
-        self,
-        action_id: str,
-        *,
-        interaction_id: str,
-        expected_revision: int,
-        route: ActPayRequestRoute,
-        source: ActPayRequestSource,
-        save: bool,
-        request_id: str,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActPayActionResponse:
-        """
-        Choose a bound direct or Darwin Pay route without overriding the reviewed merchant, amount, currency, protocol, or scope.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        interaction_id : str
-
-        expected_revision : int
-
-        route : ActPayRequestRoute
-
-        source : ActPayRequestSource
-
-        save : bool
-            Explicit consent to save a tokenized processor reference after a successful one-time flow.
-
-        request_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActPayActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        from darwin_sdk import ActPayRequestSource_OneTime, Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.pay_action(
-            action_id="actionId",
-            interaction_id="interaction_pay_01J9Y8M4Z7B9R6K2X3C5V1N0PQ",
-            expected_revision=4,
-            route="darwin_pay",
-            source=ActPayRequestSource_OneTime(),
-            save=False,
-            request_id="request_pay_01J9Y8M4Z7B9R6K2X3C5V1N0PQ",
-        )
-        """
-        _response = self._raw_client.pay_action(
-            action_id,
-            interaction_id=interaction_id,
-            expected_revision=expected_revision,
-            route=route,
-            source=source,
-            save=save,
-            request_id=request_id,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def approve_action(
-        self,
-        action_id: str,
-        *,
-        approval_id: str,
-        decision: ActApproveRequestDecision,
-        expected_revision: dt.datetime,
-        reviewed_payload_digest: str,
-        request_id: str,
-        reason: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActApproveActionResponse:
-        """
-        Apply an exact reviewed approval decision with stale-preview protection. Requires the matching human:actions or AI-scoped agent:write/goals:write grant.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        approval_id : str
-
-        decision : ActApproveRequestDecision
-
-        expected_revision : dt.datetime
-
-        reviewed_payload_digest : str
-
-        request_id : str
-
-        reason : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActApproveActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        import datetime
-
-        from darwin_sdk import Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.approve_action(
-            action_id="actionId",
-            approval_id="approvalId",
-            decision="approve",
-            expected_revision=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            reviewed_payload_digest="reviewedPayloadDigest",
-            request_id="requestId",
-        )
-        """
-        _response = self._raw_client.approve_action(
-            action_id,
-            approval_id=approval_id,
-            decision=decision,
-            expected_revision=expected_revision,
-            reviewed_payload_digest=reviewed_payload_digest,
-            request_id=request_id,
-            reason=reason,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def stop_action(
-        self, action_id: str, *, request_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> ActStopActionResponse:
-        """
-        Compatibility operation that interrupts only the current queued or running turn. New integrations should use End action for one clear finish-or-cancel closure flow. Requires the matching human:actions or AI-scoped agent:write/goals:write grant.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        request_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActStopActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        from darwin_sdk import Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.stop_action(
-            action_id="actionId",
-            request_id="requestId",
-        )
-        """
-        _response = self._raw_client.stop_action(action_id, request_id=request_id, request_options=request_options)
-        return _response.data
-
-    def end_action(
-        self,
-        action_id: str,
-        *,
-        expected_revision: int,
-        intent: ActEndRequestIntent,
-        request_id: str,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActEndActionResponse:
-        """
-        Freeze ordinary new work and request durable closure with finish or cancel intent. Darwin derives the final outcome; the caller cannot declare success.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        expected_revision : int
-
-        intent : ActEndRequestIntent
-
-        request_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActEndActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        from darwin_sdk import Darwin
-
-        client = Darwin(
-            api_key="YOUR_API_KEY",
-        )
-        client.end_action(
-            action_id="actionId",
-            expected_revision=7,
-            intent="finish",
-            request_id="request_end_01J9Y8M4Z7B9R6K2X3C5V1N0PQ",
-        )
-        """
-        _response = self._raw_client.end_action(
-            action_id,
-            expected_revision=expected_revision,
-            intent=intent,
-            request_id=request_id,
-            request_options=request_options,
-        )
-        return _response.data
-
     def list_api_keys(self, *, request_options: typing.Optional[RequestOptions] = None) -> ApiKeyList:
         """
-        List application keys and existing legacy user-bound keys for the signed-in account. Plaintext secrets are never included.
+        List application keys and user-bound account keys for the signed-in account. Plaintext secrets are never included.
 
         Parameters
         ----------
@@ -886,25 +1070,29 @@ class Darwin:
     def create_api_key(
         self,
         *,
-        application_id: str,
         name: str,
+        kind: typing.Optional[CreateApiKeyRequestKind] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
         scopes: typing.Optional[typing.Sequence[CreateApiKeyRequestScopesItem]] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreatedApiKey:
         """
-        Create an application-only key for an owned application. It can Search public capabilities but cannot impersonate a user or Act. The plaintext apiKey is returned once. Requires a verified account session.
+        Create an account key with kind=user to Search and Act as yourself, or an application key with applicationId for Search only. Account keys cannot impersonate other users. The plaintext apiKey is returned once. Requires a verified account session.
 
         Parameters
         ----------
-        application_id : str
-            An active application owned by the signed-in account.
-
         name : str
             A recognizable name for the environment or integration that will use this key.
 
+        kind : typing.Optional[CreateApiKeyRequestKind]
+            user creates an account key; application creates a Search-only key for an owned application.
+
+        application_id : typing.Optional[str]
+            Required for application keys. Omit for kind=user.
+
         scopes : typing.Optional[typing.Sequence[CreateApiKeyRequestScopesItem]]
-            Optional. New application keys are limited to directory:read; use OAuth for user-scoped Act.
+            Account keys can use directory:read for Search and agent:read plus agent:write for Act as the owner. Application keys are limited to directory:read. human:actions requires end-user OAuth and cannot be granted to an API key.
 
         expires_at : typing.Optional[dt.datetime]
             Optional future ISO 8601 expiration. Omit or set null for no scheduled expiration.
@@ -925,13 +1113,13 @@ class Darwin:
             api_key="YOUR_API_KEY",
         )
         client.create_api_key(
-            application_id="applicationId",
             name="Production server",
         )
         """
         _response = self._raw_client.create_api_key(
-            application_id=application_id,
             name=name,
+            kind=kind,
+            application_id=application_id,
             scopes=scopes,
             expires_at=expires_at,
             request_options=request_options,
@@ -1031,6 +1219,4467 @@ class Darwin:
         _response = self._raw_client.list_search_history(cursor=cursor, limit=limit, request_options=request_options)
         return _response.data
 
+    def get_account_spend(
+        self,
+        *,
+        ai_id: typing.Optional[str] = None,
+        application_id: typing.Optional[str] = None,
+        days: typing.Optional[GetAccountSpendRequestDays] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetAccountSpendResponse:
+        """
+        Read recorded posted spending and refunds by target AI where a deal is linked, category and currency, plus separately measured credits. Exact decimal strings use major currency units. Reservations and funding are excluded. Coverage is partial; do not treat this as an invoice or infer missing costs are zero. Requires usage:read and current resource ownership. Business reports require owner/admin membership. Application-only keys cannot read these reports. Does not create billing accounts or execute work.
+
+        Parameters
+        ----------
+        ai_id : typing.Optional[str]
+            Personal or business AI you own/administer. Defaults to your personal AI. OAuth grants must explicitly include this AI.
+
+        application_id : typing.Optional[str]
+            Your developer application. Requires an owner user API key. Mutually exclusive with aiId.
+
+        days : typing.Optional[GetAccountSpendRequestDays]
+            UTC calendar days including the current partial day. Reports return an inclusive from and exclusive to timestamp.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountSpendResponse
+            Scoped report with explicit coverage and measurement window.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_account_spend()
+        """
+        _response = self._raw_client.get_account_spend(
+            ai_id=ai_id, application_id=application_id, days=days, request_options=request_options
+        )
+        return _response.data
+
+    def get_account_usage(
+        self,
+        *,
+        ai_id: typing.Optional[str] = None,
+        application_id: typing.Optional[str] = None,
+        days: typing.Optional[GetAccountUsageRequestDays] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetAccountUsageResponse:
+        """
+        Compare observed task outcomes within this AI’s history by target AI and task category, retaining partial/unknown outcomes in the denominator. Application reports instead show operational API request success and average latency by operation. Neither is a verified benchmark score or SLA. Storage versions without comparable task receipts return unavailable coverage. Requires usage:read and current resource ownership. Business reports require owner/admin membership. Application-only keys cannot read these reports. Does not create billing accounts or execute work.
+
+        Parameters
+        ----------
+        ai_id : typing.Optional[str]
+            Personal or business AI you own/administer. Defaults to your personal AI. OAuth grants must explicitly include this AI.
+
+        application_id : typing.Optional[str]
+            Your developer application. Requires an owner user API key. Mutually exclusive with aiId.
+
+        days : typing.Optional[GetAccountUsageRequestDays]
+            UTC calendar days including the current partial day. Reports return an inclusive from and exclusive to timestamp.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountUsageResponse
+            Scoped report with explicit coverage and measurement window.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_account_usage()
+        """
+        _response = self._raw_client.get_account_usage(
+            ai_id=ai_id, application_id=application_id, days=days, request_options=request_options
+        )
+        return _response.data
+
+    def get_account_memory(
+        self,
+        *,
+        user_id: typing.Optional[str] = None,
+        ai_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetAccountMemoryResponse:
+        """
+        Preview: requires the personalization API release and DARWIN_ACCOUNT_MEMORY_ENABLED. Read personal, business-agent, or application-user preferences. Requires memory:read. Omit both selectors for your own personal memory only when the credential is not application-scoped; application-scoped grants require userId. Memory is not execution authority.
+
+        Parameters
+        ----------
+        user_id : typing.Optional[str]
+            Application-scoped user ID. Required with application credentials; never grants access to a Darwin user account.
+
+        ai_id : typing.Optional[str]
+            Account agent memory. Requires active membership; updates require owner/admin. Mutually exclusive with userId.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountMemoryResponse
+            Saved Markdown preferences. An empty value means cleared or not set.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_account_memory()
+        """
+        _response = self._raw_client.get_account_memory(user_id=user_id, ai_id=ai_id, request_options=request_options)
+        return _response.data
+
+    def replace_account_memory(
+        self,
+        *,
+        memory: str,
+        user_id: typing.Optional[str] = OMIT,
+        ai_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReplaceAccountMemoryResponse:
+        """
+        Preview: requires the personalization API release and DARWIN_ACCOUNT_MEMORY_ENABLED. Replace the Markdown preference document; send an empty memory string to clear it. Requires memory:write. Does not delete past thread messages, schedule work or authorize actions. Concurrent updates are last-write-wins. Automatic inference is not enabled by this endpoint.
+
+        Parameters
+        ----------
+        memory : str
+
+        user_id : typing.Optional[str]
+            Application-scoped user ID. Required with application credentials; never grants access to a Darwin user account.
+
+        ai_id : typing.Optional[str]
+            Account agent memory. Requires active membership; updates require owner/admin. Mutually exclusive with userId.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReplaceAccountMemoryResponse
+            Saved Markdown preferences. An empty value means cleared or not set.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.replace_account_memory(
+            memory="memory",
+        )
+        """
+        _response = self._raw_client.replace_account_memory(
+            memory=memory, user_id=user_id, ai_id=ai_id, request_options=request_options
+        )
+        return _response.data
+
+    def list_threads(
+        self,
+        *,
+        agent: typing.Optional[str] = None,
+        target_agent: typing.Optional[str] = None,
+        needs_attention: typing.Optional[bool] = None,
+        archived: typing.Optional[bool] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListThreadsResponse:
+        """
+        List private threads with simple target, attention and archive filters.
+
+        Parameters
+        ----------
+        agent : typing.Optional[str]
+            Optional agent whose threads to list.
+
+        target_agent : typing.Optional[str]
+            Optional filter for conversations with one target agent.
+
+        needs_attention : typing.Optional[bool]
+            When true, include threads with unresolved work or decisions needing attention.
+
+        archived : typing.Optional[bool]
+            Filter by whether this side of the thread is archived.
+
+        cursor : typing.Optional[str]
+            Pagination cursor from the previous response. Omit it for the first page.
+
+        limit : typing.Optional[int]
+            Maximum thread summaries to return in one page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListThreadsResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_threads(
+            needs_attention=True,
+            limit=50,
+        )
+        """
+        _response = self._raw_client.list_threads(
+            agent=agent,
+            target_agent=target_agent,
+            needs_attention=needs_attention,
+            archived=archived,
+            cursor=cursor,
+            limit=limit,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def start_thread(
+        self, *, request: StartThreadBody, request_options: typing.Optional[RequestOptions] = None
+    ) -> StartThreadResponse:
+        """
+        Start a private thread and atomically send its first message. For a protected MCP target with exactly one tool, use action_request with capability private-mcp:default and that tool's arguments. Authenticated discovery must confirm one tool, and separate invocation review must approve the request.
+
+        Parameters
+        ----------
+        request : StartThreadBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StartThreadResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin, StartThreadBody_Message
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.start_thread(
+            request=StartThreadBody_Message(
+                target_agent="venue-agent-id",
+                message_content="Is your outdoor space available?",
+            ),
+        )
+        """
+        _response = self._raw_client.start_thread(request=request, request_options=request_options)
+        return _response.data
+
+    def send_message(
+        self, thread: str, *, request: SendMessageBody, request_options: typing.Optional[RequestOptions] = None
+    ) -> SendMessageResponse:
+        """
+        Append one typed event to an authorized thread. Use message for ordinary text; action_request for one advertised capability; action_confirmation for the exact proposed external effect; approval_confirmation with decision allow or deny for one additional permission; completion_confirmation to accept a result without authorizing a new effect; or cancellation_request to ask the provider to cancel one operation. Exact request and operation IDs must come from get_thread. Plain text never grants authority, a cancellation request is not confirmed cancellation, and durable acceptance is not remote completion.
+
+        Parameters
+        ----------
+        thread : str
+            The thread returned by Start thread.
+
+        request : SendMessageBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SendMessageResponse
+            Durable acceptance only; inspect the thread for delivery and operation results.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin, SendMessageBody_Message
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.send_message(
+            thread="thread-id",
+            request=SendMessageBody_Message(
+                message_content="What dates are available?",
+            ),
+        )
+        """
+        _response = self._raw_client.send_message(thread, request=request, request_options=request_options)
+        return _response.data
+
+    def get_thread(
+        self,
+        thread: str,
+        *,
+        audience: typing.Optional[GetThreadRequestAudience] = None,
+        agent: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        wait: typing.Optional[bool] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetThreadResponse:
+        """
+        Read a thread, optionally waiting for new events.
+
+        Parameters
+        ----------
+        thread : str
+            The thread whose history and current state you want to read.
+
+        audience : typing.Optional[GetThreadRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        agent : typing.Optional[str]
+            Optional agent whose authorized view of this thread you want to read.
+
+        cursor : typing.Optional[str]
+            Return messages after this cursor. Omit it for the first page and use the returned cursor thereafter.
+
+        wait : typing.Optional[bool]
+            When true, wait briefly for new messages after the cursor.
+
+        limit : typing.Optional[int]
+            Maximum events to return in one page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetThreadResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_thread(
+            thread="thread-id",
+            wait=False,
+            limit=50,
+        )
+        """
+        _response = self._raw_client.get_thread(
+            thread,
+            audience=audience,
+            agent=agent,
+            cursor=cursor,
+            wait=wait,
+            limit=limit,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def archive_thread(
+        self,
+        thread: str,
+        *,
+        agent: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ArchiveThreadResponse:
+        """
+        Archive a thread without cancelling its work.
+
+        Parameters
+        ----------
+        thread : str
+            The thread to hide from the active list.
+
+        agent : typing.Optional[str]
+            Optional agent whose side of the thread you want to archive.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ArchiveThreadResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.archive_thread(
+            thread="thread-id",
+        )
+        """
+        _response = self._raw_client.archive_thread(thread, agent=agent, request_options=request_options)
+        return _response.data
+
+    def authenticate(
+        self,
+        *,
+        request: str,
+        idempotency_key: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AuthenticateResponse:
+        """
+        Start hosted authentication for a thread request.
+
+        Parameters
+        ----------
+        request : str
+            The authentication request returned by the thread.
+
+        idempotency_key : typing.Optional[str]
+            A stable key for this connection attempt. Reuse it after a timeout.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AuthenticateResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.authenticate(
+            request="authentication-request-id",
+        )
+        """
+        _response = self._raw_client.authenticate(
+            request=request, idempotency_key=idempotency_key, request_options=request_options
+        )
+        return _response.data
+
+    def pay(
+        self,
+        *,
+        request: str,
+        idempotency_key: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayResponse:
+        """
+        Open hosted selection for an immutable payment request.
+
+        Parameters
+        ----------
+        request : str
+            The immutable payment request returned in the thread.
+
+        idempotency_key : typing.Optional[str]
+            A stable key for this payment request. Reuse it with the same request after a timeout.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.pay(
+            request="payment-request-id",
+        )
+        """
+        _response = self._raw_client.pay(
+            request=request, idempotency_key=idempotency_key, request_options=request_options
+        )
+        return _response.data
+
+    def get_owner_processing_context(
+        self, *, agent: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetOwnerProcessingContextResponse:
+        """
+        Read current owner-local processing availability without creating an identity, thread or job. Requires the existing account human:actions grant or agent:read for the selected owned identity. A ready external provider is not required. Use the returned canonical actingAiId, targetAiId and operationId with ordinary Start thread, then send a normal message. Metadata grants no execution permission. A missing account identity is reported without provisioning it. The owner-context lease bounds new work; accepted job observation and result recovery retain the original custody.
+
+        Parameters
+        ----------
+        agent : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetOwnerProcessingContextResponse
+            Current native owner context, or unavailable without execution authority.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_owner_processing_context()
+        """
+        _response = self._raw_client.get_owner_processing_context(agent=agent, request_options=request_options)
+        return _response.data
+
+    def get_result_artifact_download_url(
+        self,
+        thread: str,
+        ticket: str,
+        *,
+        agent: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetResultArtifactDownloadUrlResponse:
+        """
+        Use the downloadUrlPath returned in a result_artifact message or a captured_file_result artifacts entry. Current credentials and thread ownership are revalidated before a fresh HTTPS URL is issued. The ticket is opaque and is not a bearer grant. Verify downloaded bytes using sizeBytes and sha256. URLs expire after at most five minutes; request a fresh URL when needed.
+
+        Parameters
+        ----------
+        thread : str
+
+        ticket : str
+
+        agent : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetResultArtifactDownloadUrlResponse
+            Fresh authorized download URL and byte verification metadata.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_result_artifact_download_url(
+            thread="thread",
+            ticket="ticket",
+        )
+        """
+        _response = self._raw_client.get_result_artifact_download_url(
+            thread, ticket, agent=agent, request_options=request_options
+        )
+        return _response.data
+
+    def get_payment_options(
+        self, payment_request_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetPaymentOptionsResponse:
+        """
+        Return currently eligible payment rails and saved methods for one immutable payment request. Requires the signed-in person’s OAuth human:actions grant. No payment or provider checkout is started.
+
+        Parameters
+        ----------
+        payment_request_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetPaymentOptionsResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_payment_options(
+            payment_request_id="paymentRequestId",
+        )
+        """
+        _response = self._raw_client.get_payment_options(payment_request_id, request_options=request_options)
+        return _response.data
+
+    def get_payment_status(
+        self, payment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetPaymentStatusResponse:
+        """
+        Read the durable state of a payment already started for this account. No new charge is created. A receipt appears only after verified provider settlement.
+
+        Parameters
+        ----------
+        payment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetPaymentStatusResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_payment_status(
+            payment_id="paymentId",
+        )
+        """
+        _response = self._raw_client.get_payment_status(payment_id, request_options=request_options)
+        return _response.data
+
+    def start_account_auth_credential_setup(
+        self,
+        *,
+        request: str,
+        idempotency_key: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> StartAccountAuthCredentialSetupResponse:
+        """
+        Start hosted credential connection for an immutable authentication request from a thread. The person chooses whether to save the verified credential in the hosted flow. Check GET /v2/account/auth-credential-setups/{setupId} for verified completion. A standalone target-only connection is not available yet. Never send a provider secret here.
+
+        Parameters
+        ----------
+        request : str
+
+        idempotency_key : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StartAccountAuthCredentialSetupResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.start_account_auth_credential_setup(
+            request="request",
+        )
+        """
+        _response = self._raw_client.start_account_auth_credential_setup(
+            request=request, idempotency_key=idempotency_key, request_options=request_options
+        )
+        return _response.data
+
+    def get_account_auth_credential_setup(
+        self, setup_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetAccountAuthCredentialSetupResponse:
+        """
+        Read safe status for one account-owned hosted authentication attempt. Never returns a credential secret.
+
+        Parameters
+        ----------
+        setup_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountAuthCredentialSetupResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_account_auth_credential_setup(
+            setup_id="setupId",
+        )
+        """
+        _response = self._raw_client.get_account_auth_credential_setup(setup_id, request_options=request_options)
+        return _response.data
+
+    def start_account_payment_method_setup(
+        self,
+        *,
+        request: str,
+        method: StartAccountPaymentMethodSetupBodyMethod,
+        consent: StartAccountPaymentMethodSetupBodyConsent,
+        idempotency_key: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> StartAccountPaymentMethodSetupResponse:
+        """
+        Start hosted card or bank enrollment for an immutable payment request from a thread. Check GET /v2/account/payment-method-setups/{setupId} for verified completion before using a saved method. This setup does not charge or settle the request. Standalone enrollment without a request is not available yet.
+
+        Parameters
+        ----------
+        request : str
+            An immutable payment request from an account-owned thread.
+
+        method : StartAccountPaymentMethodSetupBodyMethod
+            Funding method to enroll through the hosted provider.
+
+        consent : StartAccountPaymentMethodSetupBodyConsent
+            Explicit permission to save the verified method.
+
+        idempotency_key : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StartAccountPaymentMethodSetupResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.start_account_payment_method_setup(
+            request="request",
+            method="card",
+            consent="save_payment_method",
+            idempotency_key="idempotencyKey",
+        )
+        """
+        _response = self._raw_client.start_account_payment_method_setup(
+            request=request,
+            method=method,
+            consent=consent,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_account_payment_method_setup(
+        self, setup_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetAccountPaymentMethodSetupResponse:
+        """
+        Read safe enrollment status. Only provider-verified completion identifies a saved method.
+
+        Parameters
+        ----------
+        setup_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountPaymentMethodSetupResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_account_payment_method_setup(
+            setup_id="setupId",
+        )
+        """
+        _response = self._raw_client.get_account_payment_method_setup(setup_id, request_options=request_options)
+        return _response.data
+
+    def list_account_auth_credentials(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListAccountAuthCredentialsResponse:
+        """
+        List safe metadata for the signed-in account. The caller must have a live user-authorized human:actions OAuth grant. The response never contains provider secrets.
+
+        Parameters
+        ----------
+        limit : typing.Optional[int]
+            Maximum saved credentials to return, up to 100.
+
+        after_cursor : typing.Optional[str]
+            Continue after the previous response nextCursor.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListAccountAuthCredentialsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_account_auth_credentials()
+        """
+        _response = self._raw_client.list_account_auth_credentials(
+            limit=limit, after_cursor=after_cursor, request_options=request_options
+        )
+        return _response.data
+
+    def revoke_account_auth_credential(
+        self, credential_id: str, *, if_match: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> RevokeAccountAuthCredentialResponse:
+        """
+        Disconnect the saved credential and all its Darwin grants after comparing If-Match with the revision from the account credential list. Provider-side revocation is queued separately; this does not undo work already dispatched.
+
+        Parameters
+        ----------
+        credential_id : str
+
+        if_match : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokeAccountAuthCredentialResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.revoke_account_auth_credential(
+            credential_id="credentialId",
+            if_match="If-Match",
+        )
+        """
+        _response = self._raw_client.revoke_account_auth_credential(
+            credential_id, if_match=if_match, request_options=request_options
+        )
+        return _response.data
+
+    def list_account_payment_methods(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListAccountPaymentMethodsResponse:
+        """
+        List safe payment-method metadata for the signed-in account. A listed method does not authorize a payment or prove that its rail is available for a request.
+
+        Parameters
+        ----------
+        limit : typing.Optional[int]
+            Maximum saved methods to return, up to 100.
+
+        after_cursor : typing.Optional[str]
+            Continue after the previous response nextCursor.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListAccountPaymentMethodsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_account_payment_methods()
+        """
+        _response = self._raw_client.list_account_payment_methods(
+            limit=limit, after_cursor=after_cursor, request_options=request_options
+        )
+        return _response.data
+
+    def revoke_account_payment_method(
+        self, method_id: str, *, if_match: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> RevokeAccountPaymentMethodResponse:
+        """
+        Revoke a saved method by its Darwin ID with If-Match set to its quoted integer revision. This prevents future selection but does not cancel a payment already dispatched.
+
+        Parameters
+        ----------
+        method_id : str
+
+        if_match : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokeAccountPaymentMethodResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.revoke_account_payment_method(
+            method_id="methodId",
+            if_match="If-Match",
+        )
+        """
+        _response = self._raw_client.revoke_account_payment_method(
+            method_id, if_match=if_match, request_options=request_options
+        )
+        return _response.data
+
+    def list_auth_credentials(
+        self,
+        ai_id: str,
+        *,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListAuthCredentialsResponse:
+        """
+        List a bounded cursor page of saved connection metadata for one of your AIs. Follow nextCursor until null. The response never contains tokens or secrets. Use credentialId to revoke a saved connection and its grants.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        limit : typing.Optional[int]
+            Maximum saved credentials to return, up to 100.
+
+        after_cursor : typing.Optional[str]
+            Continue after the previous response nextCursor.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListAuthCredentialsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_auth_credentials(
+            ai_id="aiId",
+        )
+        """
+        _response = self._raw_client.list_auth_credentials(
+            ai_id, limit=limit, after_cursor=after_cursor, request_options=request_options
+        )
+        return _response.data
+
+    def revoke_auth_credential(
+        self, ai_id: str, credential_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RevokeAuthCredentialResponse:
+        """
+        Disconnect a saved credential from Darwin and revoke all of its grants for this AI. This prevents future use by Darwin; it does not promise provider-side logout or undo work already dispatched.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        credential_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokeAuthCredentialResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.revoke_auth_credential(
+            ai_id="aiId",
+            credential_id="credentialId",
+        )
+        """
+        _response = self._raw_client.revoke_auth_credential(ai_id, credential_id, request_options=request_options)
+        return _response.data
+
+    def set_payment_method_default(
+        self,
+        ai_id: str,
+        method_id: str,
+        *,
+        expected_revision: int,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetPaymentMethodDefaultResponse:
+        """
+        Select an active, unexpired saved method as the default within its provider, merchant and payment-rail context for this acting AI. Requires a current expectedRevision and a user API key with payments:write. Does not charge, switch a payment already pinned to another method, activate a rail, or authorize future spending. Model OAuth and service-account mutations are rejected.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        method_id : str
+
+        expected_revision : int
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetPaymentMethodDefaultResponse
+            Updated safe payment-method metadata only. No payment is initiated.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.set_payment_method_default(
+            ai_id="aiId",
+            method_id="methodId",
+            expected_revision=1,
+        )
+        """
+        _response = self._raw_client.set_payment_method_default(
+            ai_id, method_id, expected_revision=expected_revision, request_options=request_options
+        )
+        return _response.data
+
+    def revoke_payment_method(
+        self,
+        ai_id: str,
+        method_id: str,
+        *,
+        expected_revision: int,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RevokePaymentMethodResponse:
+        """
+        Revoke the saved method for future Darwin selection under this acting AI, using its current expectedRevision. Requires a user API key with payments:write. Keeps safe metadata and audit history; does not claim provider-side deletion, cancel a dispatched payment, void a charge or issue a refund. Model OAuth and service-account mutations are rejected.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        method_id : str
+
+        expected_revision : int
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokePaymentMethodResponse
+            Updated safe payment-method metadata only. No payment is initiated.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.revoke_payment_method(
+            ai_id="aiId",
+            method_id="methodId",
+            expected_revision=1,
+        )
+        """
+        _response = self._raw_client.revoke_payment_method(
+            ai_id, method_id, expected_revision=expected_revision, request_options=request_options
+        )
+        return _response.data
+
+    def list_payment_methods(
+        self,
+        ai_id: str,
+        *,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListPaymentMethodsResponse:
+        """
+        List a bounded cursor page of saved payment method labels and Darwin IDs for the selected acting AI. Follow nextCursor until null. Returns active, expired and revoked records without raw card data, provider instrument references or credentials. A listed method is not permission to spend and may not be accepted by a particular payment request. Creating a saved method remains a separate first-party Darwin account-session flow and is intentionally unavailable through this API, the SDK and MCP. Service accounts cannot use this route.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        limit : typing.Optional[int]
+            Maximum saved methods to return, up to 100.
+
+        after_cursor : typing.Optional[str]
+            Continue after the previous response nextCursor.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListPaymentMethodsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_payment_methods(
+            ai_id="aiId",
+        )
+        """
+        _response = self._raw_client.list_payment_methods(
+            ai_id, limit=limit, after_cursor=after_cursor, request_options=request_options
+        )
+        return _response.data
+
+    def list_target_accounts(
+        self,
+        ai_id: str,
+        target_ai_id: str,
+        *,
+        include_unavailable: typing.Optional[bool] = None,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListTargetAccountsResponse:
+        """
+        List accounts under one acting AI and target AI. Defaults to selectable accounts; includeUnavailable=true includes expired and revoked grants for management. Follow nextCursor even when accounts is empty. Availability permits selection, not execution without current authorization. Service accounts cannot use this route.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        target_ai_id : str
+
+        include_unavailable : typing.Optional[bool]
+
+        limit : typing.Optional[int]
+
+        after_cursor : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListTargetAccountsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_target_accounts(
+            ai_id="aiId",
+            target_ai_id="targetAiId",
+        )
+        """
+        _response = self._raw_client.list_target_accounts(
+            ai_id,
+            target_ai_id,
+            include_unavailable=include_unavailable,
+            limit=limit,
+            after_cursor=after_cursor,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def set_target_account_default(
+        self,
+        ai_id: str,
+        target_ai_id: str,
+        connection_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetTargetAccountDefaultResponse:
+        """
+        Select the default within the same provider/resource and acting-AI/target pair. Does not change accounts already pinned to operations, grant new scopes, reconnect, or authorize effects. Requires a user API key; model OAuth mutations remain unavailable.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        target_ai_id : str
+
+        connection_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetTargetAccountDefaultResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.set_target_account_default(
+            ai_id="aiId",
+            target_ai_id="targetAiId",
+            connection_id="connectionId",
+        )
+        """
+        _response = self._raw_client.set_target_account_default(
+            ai_id, target_ai_id, connection_id, request_options=request_options
+        )
+        return _response.data
+
+    def revoke_target_account(
+        self,
+        ai_id: str,
+        target_ai_id: str,
+        connection_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RevokeTargetAccountResponse:
+        """
+        Revoke this target grant, not other target grants. Darwin authority is committed inactive before volatile cleanup or one reviewed provider-revocation attempt. providerRevocation is confirmed only with a verified provider receipt, unsupported when no exact reviewed revoker exists, and uncertain after any ambiguous dispatch; uncertain requests are never replayed. Does not cancel already dispatched work or delete history. Requires a user API key; model OAuth mutations remain unavailable.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        target_ai_id : str
+
+        connection_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokeTargetAccountResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.revoke_target_account(
+            ai_id="aiId",
+            target_ai_id="targetAiId",
+            connection_id="connectionId",
+        )
+        """
+        _response = self._raw_client.revoke_target_account(
+            ai_id, target_ai_id, connection_id, request_options=request_options
+        )
+        return _response.data
+
+    def create_search(
+        self,
+        *,
+        query: str,
+        audience: typing.Optional[AdaptiveSearchRequestAudience] = OMIT,
+        live_search: typing.Optional[bool] = OMIT,
+        previous_response_id: typing.Optional[str] = OMIT,
+        fork_search_id: typing.Optional[str] = OMIT,
+        agent_count: typing.Optional[AdaptiveSearchRequestAgentCount] = OMIT,
+        max_results: typing.Optional[int] = OMIT,
+        budget_usd: typing.Optional[float] = OMIT,
+        context: typing.Optional[typing.Sequence[AdaptiveSearchRequestContextItem]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AdaptiveSearchResponse:
+        """
+        Returns a concise assessment and at most ten relevant agents, with optional related searches, a clarification question, or a no-match reason. Search does not authorize execution or promise a plan. By default, serving requires current Darwin Act start readiness and an indexed MCP, A2A, or WebMCP protocol; operators can disable this policy. Each match includes nullable execution metadata and typed connection methods. Null provider endpoints are not verified direct connections. Exact identities skip the model relevance gate but not the serving policy. Continue with previousResponseId. Public supply only. Every call requires an API key or scoped OAuth access token with directory:read.
+
+        Parameters
+        ----------
+        query : str
+
+        audience : typing.Optional[AdaptiveSearchRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        live_search : typing.Optional[bool]
+            Preview: request current provider replies. Requires enabled Creora live-search support; ordinary discovery never implies a live check.
+
+        previous_response_id : typing.Optional[str]
+
+        fork_search_id : typing.Optional[str]
+            Copy a public Search conversation into a new owned search before refining it.
+
+        agent_count : typing.Optional[AdaptiveSearchRequestAgentCount]
+
+        max_results : typing.Optional[int]
+
+        budget_usd : typing.Optional[float]
+            Maximum total task budget in US dollars, with at most two decimal places. This guides Search matching; it is not an API usage limit, provider price guarantee, or permission to spend.
+
+        context : typing.Optional[typing.Sequence[AdaptiveSearchRequestContextItem]]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AdaptiveSearchResponse
+            Search response
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.create_search(
+            query="query",
+        )
+        """
+        _response = self._raw_client.create_search(
+            query=query,
+            audience=audience,
+            live_search=live_search,
+            previous_response_id=previous_response_id,
+            fork_search_id=fork_search_id,
+            agent_count=agent_count,
+            max_results=max_results,
+            budget_usd=budget_usd,
+            context=context,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_search(
+        self,
+        search_id: str,
+        *,
+        cursor: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AdaptiveSearchHistoryResponse:
+        """
+        Parameters
+        ----------
+        search_id : str
+
+        cursor : typing.Optional[int]
+
+        limit : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AdaptiveSearchHistoryResponse
+            Ordered, paginated responses in this search
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_search(
+            search_id="searchId",
+        )
+        """
+        _response = self._raw_client.get_search(search_id, cursor=cursor, limit=limit, request_options=request_options)
+        return _response.data
+
+    def create_or_continue_act(
+        self,
+        *,
+        request: ActV3Request,
+        idempotency_key: typing.Optional[str] = None,
+        search_token: typing.Optional[str] = None,
+        act_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Optional context.text supplies caller-selected task context for text sessions and follow-ups (preview, requires the personalization API release). Operation calls use schema-declared arguments instead. Context is retained as message data, never authority; account memory is not automatically forwarded. Account keys and OAuth are supported. Anonymous public Act is enabled separately: the first start may omit credentials and returns X-Act-Token; keep it in private client custody and send it on every read, continuation and retry. It expires after 24 hours. Sign in with the same token to claim the existing session before authentication, payment or private account access. Invalid supplied credentials never fall back to guest access. Exactly one of searchId, targets, or threadId. For a Search handoff, arguments is an object keyed by agentId (not operationId); each value is that agent’s capability arguments. Omit arguments to open a text-only session, not execute a tool. Search handoff requires the same owner credential; an anonymous Search also requires X-Search-Token. Caller identity comes from the credential. A user API key requires agent:write; OAuth requires a live human:actions grant. Authentication and payment messages open hosted consent or selection for a request in that exact session; they do not submit secrets or charge a payment.
+
+        Parameters
+        ----------
+        request : ActV3Request
+
+        idempotency_key : typing.Optional[str]
+
+        search_token : typing.Optional[str]
+
+        act_token : typing.Optional[str]
+            Private guest credential; never place it in messages or URLs.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Typed continuation receipt. This acknowledges the message, not terminal provider completion.
+
+        Examples
+        --------
+        from darwin_sdk import ActV3RequestAgentIds, Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.create_or_continue_act(
+            request=ActV3RequestAgentIds(
+                search_id="searchId",
+                message="message",
+            ),
+        )
+        """
+        _response = self._raw_client.create_or_continue_act(
+            request=request,
+            idempotency_key=idempotency_key,
+            search_token=search_token,
+            act_token=act_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_act_request(
+        self,
+        act_request_id: str,
+        *,
+        include_thread_state: typing.Optional[bool] = None,
+        session_id: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[GetActRequestRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3RequestResponse:
+        """
+        Read an Act request and its authorized session messages, actions and pending requests. Use the actRequestId returned by Act or an Assist child step. Includes current session state by default; continue the selected session through POST /v3/act.
+
+        Parameters
+        ----------
+        act_request_id : str
+
+        include_thread_state : typing.Optional[bool]
+            Include authorized child session messages, actions and pending requests.
+
+        session_id : typing.Optional[str]
+            Read state for this child session only. Must belong to the Act request.
+
+        cursor : typing.Optional[str]
+            Read the next message page for sessionId. Requires includeThreadState=true.
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[GetActRequestRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3RequestResponse
+            Act request receipt and optional live, authorized child session state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_act_request(
+            act_request_id="actRequestId",
+        )
+        """
+        _response = self._raw_client.get_act_request(
+            act_request_id,
+            include_thread_state=include_thread_state,
+            session_id=session_id,
+            cursor=cursor,
+            limit=limit,
+            audience=audience,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def create_or_revise_assist(
+        self,
+        *,
+        request: AssistV3Request,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AssistV3Response:
+        """
+        Plan, execute, and update agent work through one typed request endpoint using an authenticated API key. Create or refine a plan, quote, authorize the exact budget, execute, message a child, refresh, accept a result, stop, or update a settled plan using the same assistId. Planning never starts work or spends. Budget authorization and execution require their own exact typed approvals and Idempotency-Key. Structural updates require a settled terminal run; previous runs remain in history. Claiming an existing guest draft additionally requires its X-Assist-Token.
+
+        Parameters
+        ----------
+        request : AssistV3Request
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AssistV3Response
+            Current Assist conversation, revisions, quote, funding, run and previous runs. Only an explicitly authorized execute request starts work.
+
+        Examples
+        --------
+        from darwin_sdk import (
+            AssistV3Request_Create,
+            AssistV3RequestCreateMessage,
+            Darwin,
+        )
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.create_or_revise_assist(
+            request=AssistV3Request_Create(
+                message=AssistV3RequestCreateMessage(
+                    type="text",
+                    text="text",
+                ),
+            ),
+        )
+        """
+        _response = self._raw_client.create_or_revise_assist(
+            request=request, assist_token=assist_token, idempotency_key=idempotency_key, request_options=request_options
+        )
+        return _response.data
+
+    def get_assist(
+        self,
+        assist_id: str,
+        *,
+        audience: typing.Optional[GetAssistRequestAudience] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AssistV3Response:
+        """
+        Parameters
+        ----------
+        assist_id : str
+
+        audience : typing.Optional[GetAssistRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        assist_token : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AssistV3Response
+            Current plan revisions, quote, funding, run progress, and child-session evidence when available.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_assist(
+            assist_id="assistId",
+        )
+        """
+        _response = self._raw_client.get_assist(
+            assist_id, audience=audience, assist_token=assist_token, request_options=request_options
+        )
+        return _response.data
+
+    def list_act_threads(
+        self,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[ListActThreadsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3ListThreadsResponse:
+        """
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[ListActThreadsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3ListThreadsResponse
+            Paginated durable inbound and outbound sessions
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_act_threads()
+        """
+        _response = self._raw_client.list_act_threads(
+            cursor=cursor, limit=limit, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    def list_context(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_context()
+        """
+        _response = self._raw_client.list_context(request_options=request_options)
+        return _response.data
+
+    def begin_context_upload(
+        self,
+        file_id: str,
+        *,
+        id: str,
+        name: str,
+        type: str,
+        size: int,
+        modified: float,
+        key: str,
+        iv: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        id : str
+
+        name : str
+
+        type : str
+
+        size : int
+
+        modified : float
+
+        key : str
+            Per-file AES-256 key; keep out of logs and analytics.
+
+        iv : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.begin_context_upload(
+            file_id="fileId",
+            id="id",
+            name="name",
+            type="type",
+            size=1,
+            modified=1.1,
+            key="key",
+            iv="iv",
+        )
+        """
+        _response = self._raw_client.begin_context_upload(
+            file_id,
+            id=id,
+            name=name,
+            type=type,
+            size=size,
+            modified=modified,
+            key=key,
+            iv=iv,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def delete_context(
+        self, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.delete_context(
+            file_id="fileId",
+        )
+        """
+        _response = self._raw_client.delete_context(file_id, request_options=request_options)
+        return _response.data
+
+    def update_context_metadata(
+        self,
+        file_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        name : typing.Optional[str]
+
+        tags : typing.Optional[typing.Sequence[str]]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.update_context_metadata(
+            file_id="fileId",
+        )
+        """
+        _response = self._raw_client.update_context_metadata(
+            file_id, name=name, tags=tags, request_options=request_options
+        )
+        return _response.data
+
+    def complete_context_upload(
+        self, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.complete_context_upload(
+            file_id="fileId",
+        )
+        """
+        _response = self._raw_client.complete_context_upload(file_id, request_options=request_options)
+        return _response.data
+
+    def read_context_content(
+        self, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.read_context_content(
+            file_id="fileId",
+        )
+        """
+        _response = self._raw_client.read_context_content(file_id, request_options=request_options)
+        return _response.data
+
+    def list_sessions(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[ListSessionsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SessionList:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        before : typing.Optional[str]
+            nextBefore from the previous page.
+
+        audience : typing.Optional[ListSessionsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SessionList
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_sessions()
+        """
+        _response = self._raw_client.list_sessions(before=before, audience=audience, request_options=request_options)
+        return _response.data
+
+    def create_session(
+        self,
+        *,
+        client_request_id: str,
+        audience: typing.Optional[CreateSessionRequestAudience] = OMIT,
+        title: typing.Optional[str] = OMIT,
+        message: typing.Optional[CreateSessionRequestMessage] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        client_request_id : str
+
+        audience : typing.Optional[CreateSessionRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        title : typing.Optional[str]
+
+        message : typing.Optional[CreateSessionRequestMessage]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.create_session(
+            client_request_id="clientRequestId",
+        )
+        """
+        _response = self._raw_client.create_session(
+            client_request_id=client_request_id,
+            audience=audience,
+            title=title,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def list_session_messages(
+        self,
+        session_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[ListSessionMessagesRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        before : typing.Optional[str]
+
+        audience : typing.Optional[ListSessionMessagesRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_session_messages(
+            session_id="sessionId",
+        )
+        """
+        _response = self._raw_client.list_session_messages(
+            session_id, before=before, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    def post_session_message(
+        self,
+        session_id: str,
+        *,
+        client_message_id: str,
+        message: str,
+        audience: typing.Optional[SessionMessageRequestAudience] = OMIT,
+        target: typing.Optional[SessionMessageRequestTarget] = OMIT,
+        mode: typing.Optional[SessionMessageRequestMode] = OMIT,
+        context: typing.Optional[SessionMessageRequestContext] = OMIT,
+        live_search: typing.Optional[SessionMessageRequestLiveSearch] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        attachment_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Continue an existing Navigator session. Omit target for automatic interpretation in session context, or supply an explicit agent target. Reuse clientMessageId only for an identical retry. Current access, contribution permissions, and execution approvals still apply. A successful response acknowledges the durable turn, not completed provider work. For a specific existing operation instance, use its operation actions endpoint.
+
+        Parameters
+        ----------
+        session_id : str
+
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        audience : typing.Optional[SessionMessageRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[SessionMessageRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        mode : typing.Optional[SessionMessageRequestMode]
+            Omit for Auto. Search returns indexed matches; live_search asks providers for current task fit; execute coordinates work; route opens primed agent threads for direct interaction; chat discusses. Approvals still apply.
+
+        context : typing.Optional[SessionMessageRequestContext]
+
+        live_search : typing.Optional[SessionMessageRequestLiveSearch]
+            Owner-reviewed provider-contact consent or a control for an existing durable session. Omit to review indexed choices without contacting providers.
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        attachment_ids : typing.Optional[typing.Sequence[str]]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.post_session_message(
+            session_id="sessionId",
+            client_message_id="followup-002",
+            message="Focus on papers published this year.",
+        )
+        """
+        _response = self._raw_client.post_session_message(
+            session_id,
+            client_message_id=client_message_id,
+            message=message,
+            audience=audience,
+            target=target,
+            mode=mode,
+            context=context,
+            live_search=live_search,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            attachment_ids=attachment_ids,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_session_events(
+        self,
+        session_id: str,
+        *,
+        last_event_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Iterator[str]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        last_event_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Yields
+        ------
+        typing.Iterator[str]
+            Bounded SSE stream. Reconnect with the last event ID. A GET never starts work.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        response = client.get_session_events(
+            session_id="sessionId",
+        )
+        for chunk in response:
+            yield chunk
+        """
+        with self._raw_client.get_session_events(
+            session_id, last_event_id=last_event_id, request_options=request_options
+        ) as r:
+            yield from r.data
+
+    def list_session_operations(
+        self,
+        session_id: str,
+        *,
+        audience: typing.Optional[ListSessionOperationsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        audience : typing.Optional[ListSessionOperationsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_session_operations(
+            session_id="sessionId",
+        )
+        """
+        _response = self._raw_client.list_session_operations(
+            session_id, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    def start_session_operation(
+        self,
+        session_id: str,
+        *,
+        client_request_id: str,
+        turn_id: str,
+        target: SessionOperationStartTarget,
+        message: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        client_request_id : str
+
+        turn_id : str
+
+        target : SessionOperationStartTarget
+
+        message : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin, SessionOperationStartTarget
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.start_session_operation(
+            session_id="sessionId",
+            client_request_id="clientRequestId",
+            turn_id="turnId",
+            target=SessionOperationStartTarget(
+                agent_id="agentId",
+            ),
+            message="message",
+        )
+        """
+        _response = self._raw_client.start_session_operation(
+            session_id,
+            client_request_id=client_request_id,
+            turn_id=turn_id,
+            target=target,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_session_operation(
+        self,
+        session_id: str,
+        operation_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        audience: typing.Optional[GetSessionOperationRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3GetThreadResponse:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        operation_id : str
+
+        cursor : typing.Optional[str]
+
+        audience : typing.Optional[GetSessionOperationRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3GetThreadResponse
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_session_operation(
+            session_id="sessionId",
+            operation_id="operationId",
+        )
+        """
+        _response = self._raw_client.get_session_operation(
+            session_id, operation_id, cursor=cursor, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    def interact_with_session_operation(
+        self,
+        session_id: str,
+        operation_id: str,
+        *,
+        client_message_id: str,
+        message: SessionOperationActionMessage,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        operation_id : str
+
+        client_message_id : str
+
+        message : SessionOperationActionMessage
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin, SessionOperationActionMessage_Text
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.interact_with_session_operation(
+            session_id="sessionId",
+            operation_id="operationId",
+            client_message_id="clientMessageId",
+            message=SessionOperationActionMessage_Text(
+                text="text",
+            ),
+        )
+        """
+        _response = self._raw_client.interact_with_session_operation(
+            session_id,
+            operation_id,
+            client_message_id=client_message_id,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def list_session_invitations(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_session_invitations()
+        """
+        _response = self._raw_client.list_session_invitations(request_options=request_options)
+        return _response.data
+
+    def list_session_members(
+        self, session_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_session_members(
+            session_id="sessionId",
+        )
+        """
+        _response = self._raw_client.list_session_members(session_id, request_options=request_options)
+        return _response.data
+
+    def remove_session_member(
+        self, session_id: str, member_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        member_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.remove_session_member(
+            session_id="sessionId",
+            member_id="memberId",
+        )
+        """
+        _response = self._raw_client.remove_session_member(session_id, member_id, request_options=request_options)
+        return _response.data
+
+    def change_session_member(
+        self,
+        session_id: str,
+        member_id: str,
+        *,
+        role: SessionMemberChangeRole,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        member_id : str
+
+        role : SessionMemberChangeRole
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.change_session_member(
+            session_id="sessionId",
+            member_id="memberId",
+            role="viewer",
+        )
+        """
+        _response = self._raw_client.change_session_member(
+            session_id, member_id, role=role, request_options=request_options
+        )
+        return _response.data
+
+    def list_session_attachments(
+        self, session_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_session_attachments(
+            session_id="sessionId",
+        )
+        """
+        _response = self._raw_client.list_session_attachments(session_id, request_options=request_options)
+        return _response.data
+
+    def attach_session_context(
+        self, session_id: str, *, file_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.attach_session_context(
+            session_id="sessionId",
+            file_id="fileId",
+        )
+        """
+        _response = self._raw_client.attach_session_context(
+            session_id, file_id=file_id, request_options=request_options
+        )
+        return _response.data
+
+    def detach_session_context(
+        self, session_id: str, attachment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        attachment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.detach_session_context(
+            session_id="sessionId",
+            attachment_id="attachmentId",
+        )
+        """
+        _response = self._raw_client.detach_session_context(session_id, attachment_id, request_options=request_options)
+        return _response.data
+
+    def read_session_context(
+        self, session_id: str, attachment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        attachment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.read_session_context(
+            session_id="sessionId",
+            attachment_id="attachmentId",
+        )
+        """
+        _response = self._raw_client.read_session_context(session_id, attachment_id, request_options=request_options)
+        return _response.data
+
+    def invite_session_member(
+        self,
+        session_id: str,
+        *,
+        email: str,
+        role: SessionInvitationRole,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        email : str
+
+        role : SessionInvitationRole
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.invite_session_member(
+            session_id="sessionId",
+            email="email",
+            role="viewer",
+        )
+        """
+        _response = self._raw_client.invite_session_member(
+            session_id, email=email, role=role, request_options=request_options
+        )
+        return _response.data
+
+    def accept_session_invitation(
+        self, session_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.accept_session_invitation(
+            session_id="sessionId",
+        )
+        """
+        _response = self._raw_client.accept_session_invitation(session_id, request_options=request_options)
+        return _response.data
+
+    def navigate(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[NavigateRequestType] = OMIT,
+        audience: typing.Optional[NavigateRequestAudience] = OMIT,
+        target: typing.Optional[NavigateRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[NavigateRequestMode] = OMIT,
+        context: typing.Optional[NavigateRequestContext] = OMIT,
+        live_search: typing.Optional[NavigateRequestLiveSearch] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Navigate chooses the appropriate action. Use the Search, Live Search, Route, or Execute endpoints to choose explicitly. Answers and clarification stay within the session. Omit sessionId to start; pass it on follow-ups. Read with GET /v3/sessions/{sessionId}. The legacy conversationId alias is still accepted. Optional context holds text and files. Personalize with application-scoped userId or Markdown user_memory. Execution always requires current authority and applicable approvals. Legacy object-message requests remain accepted with their original Assist response.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[NavigateRequestType]
+
+        audience : typing.Optional[NavigateRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[NavigateRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[NavigateRequestMode]
+            Omit for Auto. Search returns indexed matches; live_search asks providers for current task fit; execute coordinates work; route opens primed agent threads for direct interaction; chat discusses. Approvals still apply.
+
+        context : typing.Optional[NavigateRequestContext]
+
+        live_search : typing.Optional[NavigateRequestLiveSearch]
+            Owner-reviewed provider-contact consent or a control for an existing durable session. Omit to review indexed choices without contacting providers.
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.navigate(
+            type="turn",
+            client_message_id="message-001",
+            message="Find agents that can summarize research papers.",
+        )
+        """
+        _response = self._raw_client.navigate(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            live_search=live_search,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_navigate_request(
+        self,
+        conversation_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[GetNavigateRequestRequestAudience] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Read with owner credentials or the matching guest X-Assist-Token. An ID alone grants no access. Reading does not start work. Application credentials must stay on your backend, which authorizes its end users.
+
+        Parameters
+        ----------
+        conversation_id : str
+
+        before : typing.Optional[str]
+            Use conversation.nextBefore to read earlier turns.
+
+        audience : typing.Optional[GetNavigateRequestRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        assist_token : typing.Optional[str]
+            Guest conversationToken returned by Navigate.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_navigate_request(
+            conversation_id="conversationId",
+        )
+        """
+        _response = self._raw_client.get_navigate_request(
+            conversation_id,
+            before=before,
+            audience=audience,
+            assist_token=assist_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def live_search(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[LiveSearchRequestType] = OMIT,
+        audience: typing.Optional[LiveSearchRequestAudience] = OMIT,
+        target: typing.Optional[LiveSearchRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[LiveSearchRequestMode] = OMIT,
+        context: typing.Optional[LiveSearchRequestContext] = OMIT,
+        live_search: typing.Optional[LiveSearchRequestLiveSearch] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[LiveSearchRequestType]
+
+        audience : typing.Optional[LiveSearchRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[LiveSearchRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[LiveSearchRequestMode]
+
+        context : typing.Optional[LiveSearchRequestContext]
+
+        live_search : typing.Optional[LiveSearchRequestLiveSearch]
+            Owner-reviewed provider-contact consent or a control for an existing durable session. Omit to review indexed choices without contacting providers.
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.live_search(
+            type="turn",
+            client_message_id="message-001",
+            message="Find agents that can summarize research papers.",
+        )
+        """
+        _response = self._raw_client.live_search(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            live_search=live_search,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def orchestrate(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[OrchestrateRequestType] = OMIT,
+        audience: typing.Optional[OrchestrateRequestAudience] = OMIT,
+        target: typing.Optional[OrchestrateRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[OrchestrateRequestMode] = OMIT,
+        context: typing.Optional[OrchestrateRequestContext] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[OrchestrateRequestType]
+
+        audience : typing.Optional[OrchestrateRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[OrchestrateRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[OrchestrateRequestMode]
+
+        context : typing.Optional[OrchestrateRequestContext]
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.orchestrate(
+            type="turn",
+            client_message_id="message-001",
+            message="Find agents that can summarize research papers.",
+        )
+        """
+        _response = self._raw_client.orchestrate(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def read_session(
+        self,
+        session_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[ReadSessionRequestAudience] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReadSessionResponse:
+        """
+        Read a Navigate or Act session without starting work. Use owner credentials or the matching guest token. An ID alone grants no access.
+
+        Parameters
+        ----------
+        session_id : str
+
+        before : typing.Optional[str]
+            Navigate turn pagination cursor.
+
+        cursor : typing.Optional[str]
+            Act event pagination cursor.
+
+        limit : typing.Optional[int]
+            Act page size.
+
+        audience : typing.Optional[ReadSessionRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        assist_token : typing.Optional[str]
+            Guest Navigate session token.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReadSessionResponse
+            Current session state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.read_session(
+            session_id="sessionId",
+        )
+        """
+        _response = self._raw_client.read_session(
+            session_id,
+            before=before,
+            cursor=cursor,
+            limit=limit,
+            audience=audience,
+            assist_token=assist_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def update_session(
+        self,
+        session_id: str,
+        *,
+        title: typing.Optional[str] = OMIT,
+        archived: typing.Optional[bool] = OMIT,
+        brief: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        title : typing.Optional[str]
+
+        archived : typing.Optional[bool]
+
+        brief : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.update_session(
+            session_id="sessionId",
+        )
+        """
+        _response = self._raw_client.update_session(
+            session_id, title=title, archived=archived, brief=brief, request_options=request_options
+        )
+        return _response.data
+
+    def route(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[RouteRequestType] = OMIT,
+        audience: typing.Optional[RouteRequestAudience] = OMIT,
+        target: typing.Optional[RouteRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[RouteRequestMode] = OMIT,
+        context: typing.Optional[RouteRequestContext] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[RouteRequestType]
+
+        audience : typing.Optional[RouteRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[RouteRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[RouteRequestMode]
+
+        context : typing.Optional[RouteRequestContext]
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.route(
+            type="turn",
+            client_message_id="message-001",
+            message="Find agents that can summarize research papers.",
+        )
+        """
+        _response = self._raw_client.route(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def execute(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[ExecuteRequestType] = OMIT,
+        audience: typing.Optional[ExecuteRequestAudience] = OMIT,
+        target: typing.Optional[ExecuteRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[ExecuteRequestMode] = OMIT,
+        context: typing.Optional[ExecuteRequestContext] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[ExecuteRequestType]
+
+        audience : typing.Optional[ExecuteRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[ExecuteRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[ExecuteRequestMode]
+
+        context : typing.Optional[ExecuteRequestContext]
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.execute(
+            type="turn",
+            client_message_id="message-001",
+            message="Find agents that can summarize research papers.",
+        )
+        """
+        _response = self._raw_client.execute(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def list_navigator_threads(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[ListNavigatorThreadsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ThreadList:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        before : typing.Optional[str]
+            nextBefore from the previous page.
+
+        audience : typing.Optional[ListNavigatorThreadsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ThreadList
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_navigator_threads()
+        """
+        _response = self._raw_client.list_navigator_threads(
+            before=before, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    def create_thread(
+        self,
+        *,
+        client_request_id: str,
+        audience: typing.Optional[CreateThreadRequestAudience] = OMIT,
+        title: typing.Optional[str] = OMIT,
+        message: typing.Optional[CreateThreadRequestMessage] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        client_request_id : str
+
+        audience : typing.Optional[CreateThreadRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        title : typing.Optional[str]
+
+        message : typing.Optional[CreateThreadRequestMessage]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.create_thread(
+            client_request_id="clientRequestId",
+        )
+        """
+        _response = self._raw_client.create_thread(
+            client_request_id=client_request_id,
+            audience=audience,
+            title=title,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def list_thread_messages(
+        self,
+        thread_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[ListThreadMessagesRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        before : typing.Optional[str]
+
+        audience : typing.Optional[ListThreadMessagesRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_thread_messages(
+            thread_id="threadId",
+        )
+        """
+        _response = self._raw_client.list_thread_messages(
+            thread_id, before=before, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    def post_thread_message(
+        self,
+        thread_id: str,
+        *,
+        client_message_id: str,
+        message: str,
+        audience: typing.Optional[ThreadMessageRequestAudience] = OMIT,
+        target: typing.Optional[ThreadMessageRequestTarget] = OMIT,
+        mode: typing.Optional[ThreadMessageRequestMode] = OMIT,
+        context: typing.Optional[ThreadMessageRequestContext] = OMIT,
+        live_search: typing.Optional[ThreadMessageRequestLiveSearch] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        attachment_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Continue an existing Navigator session. Omit target for automatic interpretation in session context, or supply an explicit agent target. Reuse clientMessageId only for an identical retry. Current access, contribution permissions, and execution approvals still apply. A successful response acknowledges the durable turn, not completed provider work. For a specific existing operation instance, use its operation actions endpoint.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        audience : typing.Optional[ThreadMessageRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[ThreadMessageRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        mode : typing.Optional[ThreadMessageRequestMode]
+            Omit for Auto. Search returns indexed matches; live_search asks providers for current task fit; execute coordinates work; route opens primed agent threads for direct interaction; chat discusses. Approvals still apply.
+
+        context : typing.Optional[ThreadMessageRequestContext]
+
+        live_search : typing.Optional[ThreadMessageRequestLiveSearch]
+            Owner-reviewed provider-contact consent or a control for an existing durable session. Omit to review indexed choices without contacting providers.
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        attachment_ids : typing.Optional[typing.Sequence[str]]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.post_thread_message(
+            thread_id="threadId",
+            client_message_id="followup-002",
+            message="Focus on papers published this year.",
+        )
+        """
+        _response = self._raw_client.post_thread_message(
+            thread_id,
+            client_message_id=client_message_id,
+            message=message,
+            audience=audience,
+            target=target,
+            mode=mode,
+            context=context,
+            live_search=live_search,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            attachment_ids=attachment_ids,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_thread_events(
+        self,
+        thread_id: str,
+        *,
+        last_event_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Iterator[str]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        last_event_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Yields
+        ------
+        typing.Iterator[str]
+            Bounded SSE stream. Reconnect with the last event ID. A GET never starts work.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        response = client.get_thread_events(
+            thread_id="threadId",
+        )
+        for chunk in response:
+            yield chunk
+        """
+        with self._raw_client.get_thread_events(
+            thread_id, last_event_id=last_event_id, request_options=request_options
+        ) as r:
+            yield from r.data
+
+    def list_thread_operations(
+        self,
+        thread_id: str,
+        *,
+        audience: typing.Optional[ListThreadOperationsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        audience : typing.Optional[ListThreadOperationsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_thread_operations(
+            thread_id="threadId",
+        )
+        """
+        _response = self._raw_client.list_thread_operations(
+            thread_id, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    def start_thread_operation(
+        self,
+        thread_id: str,
+        *,
+        client_request_id: str,
+        turn_id: str,
+        target: ThreadOperationStartTarget,
+        message: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        client_request_id : str
+
+        turn_id : str
+
+        target : ThreadOperationStartTarget
+
+        message : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin, ThreadOperationStartTarget
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.start_thread_operation(
+            thread_id="threadId",
+            client_request_id="clientRequestId",
+            turn_id="turnId",
+            target=ThreadOperationStartTarget(
+                agent_id="agentId",
+            ),
+            message="message",
+        )
+        """
+        _response = self._raw_client.start_thread_operation(
+            thread_id,
+            client_request_id=client_request_id,
+            turn_id=turn_id,
+            target=target,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_thread_operation(
+        self,
+        thread_id: str,
+        operation_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        audience: typing.Optional[GetThreadOperationRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3GetThreadResponse:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        operation_id : str
+
+        cursor : typing.Optional[str]
+
+        audience : typing.Optional[GetThreadOperationRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3GetThreadResponse
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_thread_operation(
+            thread_id="threadId",
+            operation_id="operationId",
+        )
+        """
+        _response = self._raw_client.get_thread_operation(
+            thread_id, operation_id, cursor=cursor, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    def interact_with_thread_operation(
+        self,
+        thread_id: str,
+        operation_id: str,
+        *,
+        client_message_id: str,
+        message: ThreadOperationMessageMessage,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        operation_id : str
+
+        client_message_id : str
+
+        message : ThreadOperationMessageMessage
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin, ThreadOperationMessageMessage_Text
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.interact_with_thread_operation(
+            thread_id="threadId",
+            operation_id="operationId",
+            client_message_id="clientMessageId",
+            message=ThreadOperationMessageMessage_Text(
+                text="text",
+            ),
+        )
+        """
+        _response = self._raw_client.interact_with_thread_operation(
+            thread_id,
+            operation_id,
+            client_message_id=client_message_id,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def list_thread_invitations(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_thread_invitations()
+        """
+        _response = self._raw_client.list_thread_invitations(request_options=request_options)
+        return _response.data
+
+    def list_thread_members(
+        self, thread_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_thread_members(
+            thread_id="threadId",
+        )
+        """
+        _response = self._raw_client.list_thread_members(thread_id, request_options=request_options)
+        return _response.data
+
+    def remove_thread_member(
+        self, thread_id: str, member_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        member_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.remove_thread_member(
+            thread_id="threadId",
+            member_id="memberId",
+        )
+        """
+        _response = self._raw_client.remove_thread_member(thread_id, member_id, request_options=request_options)
+        return _response.data
+
+    def change_thread_member(
+        self,
+        thread_id: str,
+        member_id: str,
+        *,
+        role: ThreadMemberChangeRole,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        member_id : str
+
+        role : ThreadMemberChangeRole
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.change_thread_member(
+            thread_id="threadId",
+            member_id="memberId",
+            role="viewer",
+        )
+        """
+        _response = self._raw_client.change_thread_member(
+            thread_id, member_id, role=role, request_options=request_options
+        )
+        return _response.data
+
+    def list_thread_attachments(
+        self, thread_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.list_thread_attachments(
+            thread_id="threadId",
+        )
+        """
+        _response = self._raw_client.list_thread_attachments(thread_id, request_options=request_options)
+        return _response.data
+
+    def attach_thread_context(
+        self, thread_id: str, *, file_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.attach_thread_context(
+            thread_id="threadId",
+            file_id="fileId",
+        )
+        """
+        _response = self._raw_client.attach_thread_context(thread_id, file_id=file_id, request_options=request_options)
+        return _response.data
+
+    def detach_thread_context(
+        self, thread_id: str, attachment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        attachment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.detach_thread_context(
+            thread_id="threadId",
+            attachment_id="attachmentId",
+        )
+        """
+        _response = self._raw_client.detach_thread_context(thread_id, attachment_id, request_options=request_options)
+        return _response.data
+
+    def read_thread_context(
+        self, thread_id: str, attachment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        attachment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.read_thread_context(
+            thread_id="threadId",
+            attachment_id="attachmentId",
+        )
+        """
+        _response = self._raw_client.read_thread_context(thread_id, attachment_id, request_options=request_options)
+        return _response.data
+
+    def invite_thread_member(
+        self,
+        thread_id: str,
+        *,
+        email: str,
+        role: ThreadInvitationRole,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        email : str
+
+        role : ThreadInvitationRole
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.invite_thread_member(
+            thread_id="threadId",
+            email="email",
+            role="viewer",
+        )
+        """
+        _response = self._raw_client.invite_thread_member(
+            thread_id, email=email, role=role, request_options=request_options
+        )
+        return _response.data
+
+    def accept_thread_invitation(
+        self, thread_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.accept_thread_invitation(
+            thread_id="threadId",
+        )
+        """
+        _response = self._raw_client.accept_thread_invitation(thread_id, request_options=request_options)
+        return _response.data
+
+    def read_thread(
+        self,
+        thread_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[ReadThreadRequestAudience] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReadThreadResponse:
+        """
+        Read a Navigate or Act session without starting work. Use owner credentials or the matching guest token. An ID alone grants no access.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        before : typing.Optional[str]
+            Navigate turn pagination cursor.
+
+        cursor : typing.Optional[str]
+            Act event pagination cursor.
+
+        limit : typing.Optional[int]
+            Act page size.
+
+        audience : typing.Optional[ReadThreadRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        assist_token : typing.Optional[str]
+            Guest Navigate session token.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReadThreadResponse
+            Current session state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.read_thread(
+            thread_id="threadId",
+        )
+        """
+        _response = self._raw_client.read_thread(
+            thread_id,
+            before=before,
+            cursor=cursor,
+            limit=limit,
+            audience=audience,
+            assist_token=assist_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def update_thread(
+        self,
+        thread_id: str,
+        *,
+        title: typing.Optional[str] = OMIT,
+        archived: typing.Optional[bool] = OMIT,
+        brief: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        title : typing.Optional[str]
+
+        archived : typing.Optional[bool]
+
+        brief : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.update_thread(
+            thread_id="threadId",
+        )
+        """
+        _response = self._raw_client.update_thread(
+            thread_id, title=title, archived=archived, brief=brief, request_options=request_options
+        )
+        return _response.data
+
+    def get_act_thread(
+        self,
+        thread_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[GetActThreadRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3GetThreadResponse:
+        """
+        Parameters
+        ----------
+        thread_id : str
+
+        cursor : typing.Optional[str]
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[GetActThreadRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3GetThreadResponse
+            Durable session state and paginated messages
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_act_thread(
+            thread_id="threadId",
+        )
+        """
+        _response = self._raw_client.get_act_thread(
+            thread_id, cursor=cursor, limit=limit, audience=audience, request_options=request_options
+        )
+        return _response.data
+
 
 def _make_default_async_client(
     timeout: typing.Optional[float],
@@ -1119,10 +5768,6 @@ class AsyncDarwin:
     ):
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         _defaulted_max_retries = max_retries if max_retries is not None else 2
-        if api_key is None:
-            raise ApiError(
-                body="The client must be instantiated be either passing in api_key or setting DARWIN_API_KEY"
-            )
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
@@ -1149,27 +5794,667 @@ class AsyncDarwin:
         """
         return self._raw_client
 
+    async def list_account_agents(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_account_agents()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_account_agents(request_options=request_options)
+        return _response.data
+
+    async def create_account_agent(
+        self,
+        *,
+        idempotency_key: str,
+        type: CreateAccountAgentRequestType,
+        name: str,
+        handle: str,
+        application_id: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        idempotency_key : str
+
+        type : CreateAccountAgentRequestType
+
+        name : str
+
+        handle : str
+
+        application_id : typing.Optional[str]
+
+        description : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.create_account_agent(
+                idempotency_key="Idempotency-Key",
+                type="personal",
+                name="name",
+                handle="handle",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_account_agent(
+            idempotency_key=idempotency_key,
+            type=type,
+            name=name,
+            handle=handle,
+            application_id=application_id,
+            description=description,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_active_account_agent(
+        self,
+        *,
+        channel: typing.Optional[GetActiveAccountAgentRequestChannel] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        channel : typing.Optional[GetActiveAccountAgentRequestChannel]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_active_account_agent()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_active_account_agent(channel=channel, request_options=request_options)
+        return _response.data
+
+    async def get_account_agent(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_account_agent(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_account_agent(id, request_options=request_options)
+        return _response.data
+
+    async def update_account_agent(
+        self,
+        id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        handle: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        name : typing.Optional[str]
+
+        handle : typing.Optional[str]
+
+        description : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.update_account_agent(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_account_agent(
+            id, name=name, handle=handle, description=description, request_options=request_options
+        )
+        return _response.data
+
+    async def select_account_agent(
+        self,
+        id: str,
+        *,
+        channel: typing.Optional[SelectAccountAgentRequestChannel] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        channel : typing.Optional[SelectAccountAgentRequestChannel]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.select_account_agent(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.select_account_agent(id, channel=channel, request_options=request_options)
+        return _response.data
+
+    async def connect_account_agent(
+        self, id: str, application_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        application_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.connect_account_agent(
+                id="id",
+                application_id="applicationId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.connect_account_agent(id, application_id, request_options=request_options)
+        return _response.data
+
+    async def start_phone_account(
+        self, *, phone: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        phone : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.start_phone_account(
+                phone="phone",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.start_phone_account(phone=phone, request_options=request_options)
+        return _response.data
+
+    async def verify_phone_account(
+        self, *, challenge_id: str, code: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        challenge_id : str
+
+        code : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.verify_phone_account(
+                challenge_id="challengeId",
+                code="code",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.verify_phone_account(
+            challenge_id=challenge_id, code=code, request_options=request_options
+        )
+        return _response.data
+
+    async def enroll_machine_key(
+        self,
+        *,
+        name: str,
+        public_key: EnrollMachineKeyRequestPublicKey,
+        recovery_key: EnrollMachineKeyRequestRecoveryKey,
+        scopes: typing.Sequence[EnrollMachineKeyRequestScopesItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        name : str
+
+        public_key : EnrollMachineKeyRequestPublicKey
+
+        recovery_key : EnrollMachineKeyRequestRecoveryKey
+
+        scopes : typing.Sequence[EnrollMachineKeyRequestScopesItem]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import (
+            AsyncDarwin,
+            EnrollMachineKeyRequestPublicKey,
+            EnrollMachineKeyRequestRecoveryKey,
+        )
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.enroll_machine_key(
+                name="name",
+                public_key=EnrollMachineKeyRequestPublicKey(
+                    kty="OKP",
+                    crv="Ed25519",
+                    x="x",
+                ),
+                recovery_key=EnrollMachineKeyRequestRecoveryKey(
+                    kty="OKP",
+                    crv="Ed25519",
+                    x="x",
+                ),
+                scopes=["account:read"],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.enroll_machine_key(
+            name=name, public_key=public_key, recovery_key=recovery_key, scopes=scopes, request_options=request_options
+        )
+        return _response.data
+
+    async def revoke_machine_key(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.revoke_machine_key(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.revoke_machine_key(id, request_options=request_options)
+        return _response.data
+
+    async def challenge_machine_key(
+        self,
+        id: str,
+        *,
+        request: ChallengeMachineKeyRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        request : ChallengeMachineKeyRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, ChallengeMachineKeyRequestBodyZero
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.challenge_machine_key(
+                id="id",
+                request=ChallengeMachineKeyRequestBodyZero(
+                    purpose="token",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.challenge_machine_key(id, request=request, request_options=request_options)
+        return _response.data
+
+    async def verify_machine_key(
+        self,
+        id: str,
+        *,
+        challenge_id: str,
+        signature: str,
+        recovery_signature: typing.Optional[str] = OMIT,
+        new_signature: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Local preview. Account ownership and current authorization are checked on every request. Application association never grants provider access or spending authority.
+
+        Parameters
+        ----------
+        id : str
+
+        challenge_id : str
+
+        signature : str
+
+        recovery_signature : typing.Optional[str]
+
+        new_signature : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            The request completed.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.verify_machine_key(
+                id="id",
+                challenge_id="challengeId",
+                signature="signature",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.verify_machine_key(
+            id,
+            challenge_id=challenge_id,
+            signature=signature,
+            recovery_signature=recovery_signature,
+            new_signature=new_signature,
+            request_options=request_options,
+        )
+        return _response.data
+
     async def search(
         self,
         *,
         query: str,
-        filters: typing.Optional[SearchFilters] = OMIT,
-        limit: typing.Optional[int] = OMIT,
+        category: typing.Optional[str] = OMIT,
+        objective: typing.Optional[str] = OMIT,
+        num_results: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SearchResponse:
         """
-        Find and rank public capabilities from the active Creora Product v2 index. Search is discovery, not execution authorization. No credential is required at the public anonymous limit. You may supply a Darwin API key or OAuth bearer with directory:read for the higher authenticated limit.
+        Find ranked public agents from a natural-language query. Optional category and objective hints refine ranking. Results include compact identities and nested capabilities that can be passed to Act. Every request requires an API key or scoped OAuth access token.
 
         Parameters
         ----------
         query : str
-            Describe the capability or outcome you need in natural language. Include the task, important constraints, and success criteria that should affect ranking; use the dedicated AI and capability read endpoints for exact lookups.
+            Describe the agent or capability you need in natural language.
 
-        filters : typing.Optional[SearchFilters]
-            Optional structured constraints applied in addition to the natural-language query. Use these fields for hard requirements instead of embedding machine-readable filters in query text.
+        category : typing.Optional[str]
+            Optional open-ended agent or capability category focus for ranking.
 
-        limit : typing.Optional[int]
-            Maximum number of ranked capabilities to return. Defaults to 10 and cannot exceed 50.
+        objective : typing.Optional[str]
+            Optional outcome or success objective that should affect ranking.
+
+        num_results : typing.Optional[int]
+            Maximum number of canonical ranked capabilities to return. Defaults to 10 and cannot exceed 50.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1177,7 +6462,7 @@ class AsyncDarwin:
         Returns
         -------
         SearchResponse
-            A page of public capabilities in canonical order.
+            Public agents in canonical rank order with nested Act capabilities.
 
         Examples
         --------
@@ -1192,14 +6477,18 @@ class AsyncDarwin:
 
         async def main() -> None:
             await client.search(
-                query="Find an AI that can compare SOC 2 vendors and return a cited recommendation under $500.",
+                query="Find an agent that can compare SOC 2 vendors.",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.search(
-            query=query, filters=filters, limit=limit, request_options=request_options
+            query=query,
+            category=category,
+            objective=objective,
+            num_results=num_results,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1208,14 +6497,14 @@ class AsyncDarwin:
         *,
         email: str,
         password: str,
-        name: str,
-        type: CreateAccountRequestType,
+        name: typing.Optional[str] = OMIT,
+        type: typing.Optional[CreateAccountRequestType] = OMIT,
         organization_name: typing.Optional[str] = OMIT,
         organization_domain: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreatedAccount:
         """
-        Register an unverified Darwin account without creating an AI or API key. Verify the email address through Darwin sign-in, then complete account setup before issuing application credentials. An application key never identifies an end user.
+        Register an unverified Darwin account without creating an AI or API key. Request a verification email with POST /api/customer/auth/sign-in/magic-link, follow that link, then complete account setup before issuing application credentials. An application key never identifies an end user.
 
         Parameters
         ----------
@@ -1223,15 +6512,15 @@ class AsyncDarwin:
 
         password : str
 
-        name : str
+        name : typing.Optional[str]
 
-        type : CreateAccountRequestType
+        type : typing.Optional[CreateAccountRequestType]
 
         organization_name : typing.Optional[str]
-            Required for business and software.
+            Optional legacy account metadata; agent type is chosen when creating an agent.
 
         organization_domain : typing.Optional[str]
-            Required for business and software; not ownership proof.
+            Optional legacy metadata; not ownership proof.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1256,8 +6545,6 @@ class AsyncDarwin:
             await client.create_account(
                 email="email",
                 password="password",
-                name="name",
-                type="personal",
             )
 
 
@@ -1313,6 +6600,40 @@ class AsyncDarwin:
         _response = await self._raw_client.get_account(ai_id=ai_id, request_options=request_options)
         return _response.data
 
+    async def get_account_identity(self, *, request_options: typing.Optional[RequestOptions] = None) -> AccountIdentity:
+        """
+        Preview: read only the authenticated owner ID using a user-bound Darwin API key with account:read. OAuth and application keys are not accepted. No query or body inputs are allowed. This does not select or provision an AI, grant execution authority, or load an account profile.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AccountIdentity
+            Only the authenticated account ID. Private and not cacheable.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_account_identity()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_account_identity(request_options=request_options)
+        return _response.data
+
     async def create_application(
         self,
         *,
@@ -1324,7 +6645,7 @@ class AsyncDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ApplicationResponse:
         """
-        Register a developer application for the authenticated account. Requires applications:write on a user-scoped OAuth grant or a legacy user key. This does not grant access to another user.
+        Register a developer application for the authenticated account. A verified signed-in account session is the bootstrap path for the first application; a user-scoped OAuth grant or legacy user key with applications:write also works. This does not grant access to another user.
 
         Parameters
         ----------
@@ -1379,7 +6700,7 @@ class AsyncDarwin:
         self, application_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ApplicationResponse:
         """
-        Read one application owned by the authenticated account. Requires applications:read on a user-scoped grant or legacy key.
+        Read one application owned by the authenticated account using its signed-in session, a user-scoped OAuth grant, or a legacy key with applications:read.
 
         Parameters
         ----------
@@ -1415,569 +6736,9 @@ class AsyncDarwin:
         _response = await self._raw_client.get_application(application_id, request_options=request_options)
         return _response.data
 
-    async def list_actions(
-        self,
-        *,
-        acting_ai_id: typing.Optional[str] = None,
-        target_ai_id: typing.Optional[str] = None,
-        lifecycle: typing.Optional[ListActionsRequestLifecycle] = None,
-        cursor: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActListResponse:
-        """
-        List current or ended human Actions with human:actions, or select an acting AI for an AI-scoped agent:read/goals:read grant.
-
-        Parameters
-        ----------
-        acting_ai_id : typing.Optional[str]
-
-        target_ai_id : typing.Optional[str]
-
-        lifecycle : typing.Optional[ListActionsRequestLifecycle]
-
-        cursor : typing.Optional[str]
-
-        limit : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActListResponse
-            A page of the caller’s current actions.
-
-        Examples
-        --------
-        import asyncio
-
-        from darwin_sdk import AsyncDarwin
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.list_actions()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.list_actions(
-            acting_ai_id=acting_ai_id,
-            target_ai_id=target_ai_id,
-            lifecycle=lifecycle,
-            cursor=cursor,
-            limit=limit,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def start_action(
-        self,
-        *,
-        capability_id: str,
-        capability_revision: int,
-        request_id: str,
-        inputs: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        attachments: typing.Optional[typing.Sequence[ActionAttachment]] = OMIT,
-        intent: typing.Optional[str] = OMIT,
-        acting_ai_id: typing.Optional[str] = OMIT,
-        target_ai_id: typing.Optional[str] = OMIT,
-        search_attribution_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActStartActionResponse:
-        """
-        Start durable work from an exact Search result. A consenting human OAuth user uses human:actions without an AI; an AI-scoped caller uses agent:write or goals:write and selects an authorized acting AI.
-
-        Parameters
-        ----------
-        capability_id : str
-
-        capability_revision : int
-
-        request_id : str
-
-        inputs : typing.Optional[typing.Dict[str, typing.Any]]
-
-        attachments : typing.Optional[typing.Sequence[ActionAttachment]]
-
-        intent : typing.Optional[str]
-
-        acting_ai_id : typing.Optional[str]
-
-        target_ai_id : typing.Optional[str]
-
-        search_attribution_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActStartActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        import asyncio
-
-        from darwin_sdk import AsyncDarwin
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.start_action(
-                capability_id="capabilityId",
-                capability_revision=1,
-                request_id="requestId",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.start_action(
-            capability_id=capability_id,
-            capability_revision=capability_revision,
-            request_id=request_id,
-            inputs=inputs,
-            attachments=attachments,
-            intent=intent,
-            acting_ai_id=acting_ai_id,
-            target_ai_id=target_ai_id,
-            search_attribution_id=search_attribution_id,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def get_action(
-        self, action_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ActGetActionResponse:
-        """
-        Get the truthful current status and required next step for one action. Requires the matching human:actions grant or an AI-scoped agent:read/goals:read grant.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActGetActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        import asyncio
-
-        from darwin_sdk import AsyncDarwin
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.get_action(
-                action_id="actionId",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_action(action_id, request_options=request_options)
-        return _response.data
-
-    async def continue_action(
-        self, action_id: str, *, request: ActUpdateRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> ActUpdateActionResponse:
-        """
-        Give an action more information without implicitly approving anything. Requires the matching human:actions or AI-scoped agent:write/goals:write grant.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        request : ActUpdateRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActUpdateActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        import asyncio
-
-        from darwin_sdk import ActUpdateRequestAttachments, AsyncDarwin
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.continue_action(
-                action_id="actionId",
-                request=ActUpdateRequestAttachments(
-                    request_id="requestId",
-                ),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.continue_action(action_id, request=request, request_options=request_options)
-        return _response.data
-
-    async def authenticate_session(
-        self,
-        ai_id: str,
-        *,
-        method_id: str,
-        source: AuthenticateSessionRequestSource,
-        save_to_darwin_vault: bool,
-        request_id: str,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AuthenticateSessionResponse:
-        """
-        Establish or reuse one bounded authentication relationship between the caller and a destination AI. When the destination has no account for the user, the same hosted flow completes required first-time setup before connecting. The relationship can be reused across Actions until it expires or is revoked.
-
-        Parameters
-        ----------
-        ai_id : str
-            The destination AI to authenticate with.
-
-        method_id : str
-
-        source : AuthenticateSessionRequestSource
-
-        save_to_darwin_vault : bool
-            Explicit consent to persist a one-time credential in Darwin Vault after authorization.
-
-        request_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AuthenticateSessionResponse
-            The reusable authentication relationship or a first-party webLink for the required provider step.
-
-        Examples
-        --------
-        import asyncio
-
-        from darwin_sdk import AsyncDarwin, AuthenticateSessionRequestSource_OneTime
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.authenticate_session(
-                ai_id="aiId",
-                method_id="oauth_github",
-                source=AuthenticateSessionRequestSource_OneTime(),
-                save_to_darwin_vault=False,
-                request_id="request_auth_01J9Y8M4Z7B9R6K2X3C5V1N0PQ",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.authenticate_session(
-            ai_id,
-            method_id=method_id,
-            source=source,
-            save_to_darwin_vault=save_to_darwin_vault,
-            request_id=request_id,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def pay_action(
-        self,
-        action_id: str,
-        *,
-        interaction_id: str,
-        expected_revision: int,
-        route: ActPayRequestRoute,
-        source: ActPayRequestSource,
-        save: bool,
-        request_id: str,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActPayActionResponse:
-        """
-        Choose a bound direct or Darwin Pay route without overriding the reviewed merchant, amount, currency, protocol, or scope.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        interaction_id : str
-
-        expected_revision : int
-
-        route : ActPayRequestRoute
-
-        source : ActPayRequestSource
-
-        save : bool
-            Explicit consent to save a tokenized processor reference after a successful one-time flow.
-
-        request_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActPayActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        import asyncio
-
-        from darwin_sdk import ActPayRequestSource_OneTime, AsyncDarwin
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.pay_action(
-                action_id="actionId",
-                interaction_id="interaction_pay_01J9Y8M4Z7B9R6K2X3C5V1N0PQ",
-                expected_revision=4,
-                route="darwin_pay",
-                source=ActPayRequestSource_OneTime(),
-                save=False,
-                request_id="request_pay_01J9Y8M4Z7B9R6K2X3C5V1N0PQ",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.pay_action(
-            action_id,
-            interaction_id=interaction_id,
-            expected_revision=expected_revision,
-            route=route,
-            source=source,
-            save=save,
-            request_id=request_id,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def approve_action(
-        self,
-        action_id: str,
-        *,
-        approval_id: str,
-        decision: ActApproveRequestDecision,
-        expected_revision: dt.datetime,
-        reviewed_payload_digest: str,
-        request_id: str,
-        reason: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActApproveActionResponse:
-        """
-        Apply an exact reviewed approval decision with stale-preview protection. Requires the matching human:actions or AI-scoped agent:write/goals:write grant.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        approval_id : str
-
-        decision : ActApproveRequestDecision
-
-        expected_revision : dt.datetime
-
-        reviewed_payload_digest : str
-
-        request_id : str
-
-        reason : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActApproveActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        import asyncio
-        import datetime
-
-        from darwin_sdk import AsyncDarwin
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.approve_action(
-                action_id="actionId",
-                approval_id="approvalId",
-                decision="approve",
-                expected_revision=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                reviewed_payload_digest="reviewedPayloadDigest",
-                request_id="requestId",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.approve_action(
-            action_id,
-            approval_id=approval_id,
-            decision=decision,
-            expected_revision=expected_revision,
-            reviewed_payload_digest=reviewed_payload_digest,
-            request_id=request_id,
-            reason=reason,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def stop_action(
-        self, action_id: str, *, request_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> ActStopActionResponse:
-        """
-        Compatibility operation that interrupts only the current queued or running turn. New integrations should use End action for one clear finish-or-cancel closure flow. Requires the matching human:actions or AI-scoped agent:write/goals:write grant.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        request_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActStopActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        import asyncio
-
-        from darwin_sdk import AsyncDarwin
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.stop_action(
-                action_id="actionId",
-                request_id="requestId",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.stop_action(
-            action_id, request_id=request_id, request_options=request_options
-        )
-        return _response.data
-
-    async def end_action(
-        self,
-        action_id: str,
-        *,
-        expected_revision: int,
-        intent: ActEndRequestIntent,
-        request_id: str,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ActEndActionResponse:
-        """
-        Freeze ordinary new work and request durable closure with finish or cancel intent. Darwin derives the final outcome; the caller cannot declare success.
-
-        Parameters
-        ----------
-        action_id : str
-            The Action identifier returned by Start action or List actions.
-
-        expected_revision : int
-
-        intent : ActEndRequestIntent
-
-        request_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ActEndActionResponse
-            The current truthful state of the action.
-
-        Examples
-        --------
-        import asyncio
-
-        from darwin_sdk import AsyncDarwin
-
-        client = AsyncDarwin(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.end_action(
-                action_id="actionId",
-                expected_revision=7,
-                intent="finish",
-                request_id="request_end_01J9Y8M4Z7B9R6K2X3C5V1N0PQ",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.end_action(
-            action_id,
-            expected_revision=expected_revision,
-            intent=intent,
-            request_id=request_id,
-            request_options=request_options,
-        )
-        return _response.data
-
     async def list_api_keys(self, *, request_options: typing.Optional[RequestOptions] = None) -> ApiKeyList:
         """
-        List application keys and existing legacy user-bound keys for the signed-in account. Plaintext secrets are never included.
+        List application keys and user-bound account keys for the signed-in account. Plaintext secrets are never included.
 
         Parameters
         ----------
@@ -2012,25 +6773,29 @@ class AsyncDarwin:
     async def create_api_key(
         self,
         *,
-        application_id: str,
         name: str,
+        kind: typing.Optional[CreateApiKeyRequestKind] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
         scopes: typing.Optional[typing.Sequence[CreateApiKeyRequestScopesItem]] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreatedApiKey:
         """
-        Create an application-only key for an owned application. It can Search public capabilities but cannot impersonate a user or Act. The plaintext apiKey is returned once. Requires a verified account session.
+        Create an account key with kind=user to Search and Act as yourself, or an application key with applicationId for Search only. Account keys cannot impersonate other users. The plaintext apiKey is returned once. Requires a verified account session.
 
         Parameters
         ----------
-        application_id : str
-            An active application owned by the signed-in account.
-
         name : str
             A recognizable name for the environment or integration that will use this key.
 
+        kind : typing.Optional[CreateApiKeyRequestKind]
+            user creates an account key; application creates a Search-only key for an owned application.
+
+        application_id : typing.Optional[str]
+            Required for application keys. Omit for kind=user.
+
         scopes : typing.Optional[typing.Sequence[CreateApiKeyRequestScopesItem]]
-            Optional. New application keys are limited to directory:read; use OAuth for user-scoped Act.
+            Account keys can use directory:read for Search and agent:read plus agent:write for Act as the owner. Application keys are limited to directory:read. human:actions requires end-user OAuth and cannot be granted to an API key.
 
         expires_at : typing.Optional[dt.datetime]
             Optional future ISO 8601 expiration. Omit or set null for no scheduled expiration.
@@ -2056,7 +6821,6 @@ class AsyncDarwin:
 
         async def main() -> None:
             await client.create_api_key(
-                application_id="applicationId",
                 name="Production server",
             )
 
@@ -2064,8 +6828,9 @@ class AsyncDarwin:
         asyncio.run(main())
         """
         _response = await self._raw_client.create_api_key(
-            application_id=application_id,
             name=name,
+            kind=kind,
+            application_id=application_id,
             scopes=scopes,
             expires_at=expires_at,
             request_options=request_options,
@@ -2190,6 +6955,5231 @@ class AsyncDarwin:
         """
         _response = await self._raw_client.list_search_history(
             cursor=cursor, limit=limit, request_options=request_options
+        )
+        return _response.data
+
+    async def get_account_spend(
+        self,
+        *,
+        ai_id: typing.Optional[str] = None,
+        application_id: typing.Optional[str] = None,
+        days: typing.Optional[GetAccountSpendRequestDays] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetAccountSpendResponse:
+        """
+        Read recorded posted spending and refunds by target AI where a deal is linked, category and currency, plus separately measured credits. Exact decimal strings use major currency units. Reservations and funding are excluded. Coverage is partial; do not treat this as an invoice or infer missing costs are zero. Requires usage:read and current resource ownership. Business reports require owner/admin membership. Application-only keys cannot read these reports. Does not create billing accounts or execute work.
+
+        Parameters
+        ----------
+        ai_id : typing.Optional[str]
+            Personal or business AI you own/administer. Defaults to your personal AI. OAuth grants must explicitly include this AI.
+
+        application_id : typing.Optional[str]
+            Your developer application. Requires an owner user API key. Mutually exclusive with aiId.
+
+        days : typing.Optional[GetAccountSpendRequestDays]
+            UTC calendar days including the current partial day. Reports return an inclusive from and exclusive to timestamp.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountSpendResponse
+            Scoped report with explicit coverage and measurement window.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_account_spend()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_account_spend(
+            ai_id=ai_id, application_id=application_id, days=days, request_options=request_options
+        )
+        return _response.data
+
+    async def get_account_usage(
+        self,
+        *,
+        ai_id: typing.Optional[str] = None,
+        application_id: typing.Optional[str] = None,
+        days: typing.Optional[GetAccountUsageRequestDays] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetAccountUsageResponse:
+        """
+        Compare observed task outcomes within this AI’s history by target AI and task category, retaining partial/unknown outcomes in the denominator. Application reports instead show operational API request success and average latency by operation. Neither is a verified benchmark score or SLA. Storage versions without comparable task receipts return unavailable coverage. Requires usage:read and current resource ownership. Business reports require owner/admin membership. Application-only keys cannot read these reports. Does not create billing accounts or execute work.
+
+        Parameters
+        ----------
+        ai_id : typing.Optional[str]
+            Personal or business AI you own/administer. Defaults to your personal AI. OAuth grants must explicitly include this AI.
+
+        application_id : typing.Optional[str]
+            Your developer application. Requires an owner user API key. Mutually exclusive with aiId.
+
+        days : typing.Optional[GetAccountUsageRequestDays]
+            UTC calendar days including the current partial day. Reports return an inclusive from and exclusive to timestamp.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountUsageResponse
+            Scoped report with explicit coverage and measurement window.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_account_usage()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_account_usage(
+            ai_id=ai_id, application_id=application_id, days=days, request_options=request_options
+        )
+        return _response.data
+
+    async def get_account_memory(
+        self,
+        *,
+        user_id: typing.Optional[str] = None,
+        ai_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetAccountMemoryResponse:
+        """
+        Preview: requires the personalization API release and DARWIN_ACCOUNT_MEMORY_ENABLED. Read personal, business-agent, or application-user preferences. Requires memory:read. Omit both selectors for your own personal memory only when the credential is not application-scoped; application-scoped grants require userId. Memory is not execution authority.
+
+        Parameters
+        ----------
+        user_id : typing.Optional[str]
+            Application-scoped user ID. Required with application credentials; never grants access to a Darwin user account.
+
+        ai_id : typing.Optional[str]
+            Account agent memory. Requires active membership; updates require owner/admin. Mutually exclusive with userId.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountMemoryResponse
+            Saved Markdown preferences. An empty value means cleared or not set.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_account_memory()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_account_memory(
+            user_id=user_id, ai_id=ai_id, request_options=request_options
+        )
+        return _response.data
+
+    async def replace_account_memory(
+        self,
+        *,
+        memory: str,
+        user_id: typing.Optional[str] = OMIT,
+        ai_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReplaceAccountMemoryResponse:
+        """
+        Preview: requires the personalization API release and DARWIN_ACCOUNT_MEMORY_ENABLED. Replace the Markdown preference document; send an empty memory string to clear it. Requires memory:write. Does not delete past thread messages, schedule work or authorize actions. Concurrent updates are last-write-wins. Automatic inference is not enabled by this endpoint.
+
+        Parameters
+        ----------
+        memory : str
+
+        user_id : typing.Optional[str]
+            Application-scoped user ID. Required with application credentials; never grants access to a Darwin user account.
+
+        ai_id : typing.Optional[str]
+            Account agent memory. Requires active membership; updates require owner/admin. Mutually exclusive with userId.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReplaceAccountMemoryResponse
+            Saved Markdown preferences. An empty value means cleared or not set.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.replace_account_memory(
+                memory="memory",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.replace_account_memory(
+            memory=memory, user_id=user_id, ai_id=ai_id, request_options=request_options
+        )
+        return _response.data
+
+    async def list_threads(
+        self,
+        *,
+        agent: typing.Optional[str] = None,
+        target_agent: typing.Optional[str] = None,
+        needs_attention: typing.Optional[bool] = None,
+        archived: typing.Optional[bool] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListThreadsResponse:
+        """
+        List private threads with simple target, attention and archive filters.
+
+        Parameters
+        ----------
+        agent : typing.Optional[str]
+            Optional agent whose threads to list.
+
+        target_agent : typing.Optional[str]
+            Optional filter for conversations with one target agent.
+
+        needs_attention : typing.Optional[bool]
+            When true, include threads with unresolved work or decisions needing attention.
+
+        archived : typing.Optional[bool]
+            Filter by whether this side of the thread is archived.
+
+        cursor : typing.Optional[str]
+            Pagination cursor from the previous response. Omit it for the first page.
+
+        limit : typing.Optional[int]
+            Maximum thread summaries to return in one page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListThreadsResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_threads(
+                needs_attention=True,
+                limit=50,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_threads(
+            agent=agent,
+            target_agent=target_agent,
+            needs_attention=needs_attention,
+            archived=archived,
+            cursor=cursor,
+            limit=limit,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def start_thread(
+        self, *, request: StartThreadBody, request_options: typing.Optional[RequestOptions] = None
+    ) -> StartThreadResponse:
+        """
+        Start a private thread and atomically send its first message. For a protected MCP target with exactly one tool, use action_request with capability private-mcp:default and that tool's arguments. Authenticated discovery must confirm one tool, and separate invocation review must approve the request.
+
+        Parameters
+        ----------
+        request : StartThreadBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StartThreadResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, StartThreadBody_Message
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.start_thread(
+                request=StartThreadBody_Message(
+                    target_agent="venue-agent-id",
+                    message_content="Is your outdoor space available?",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.start_thread(request=request, request_options=request_options)
+        return _response.data
+
+    async def send_message(
+        self, thread: str, *, request: SendMessageBody, request_options: typing.Optional[RequestOptions] = None
+    ) -> SendMessageResponse:
+        """
+        Append one typed event to an authorized thread. Use message for ordinary text; action_request for one advertised capability; action_confirmation for the exact proposed external effect; approval_confirmation with decision allow or deny for one additional permission; completion_confirmation to accept a result without authorizing a new effect; or cancellation_request to ask the provider to cancel one operation. Exact request and operation IDs must come from get_thread. Plain text never grants authority, a cancellation request is not confirmed cancellation, and durable acceptance is not remote completion.
+
+        Parameters
+        ----------
+        thread : str
+            The thread returned by Start thread.
+
+        request : SendMessageBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SendMessageResponse
+            Durable acceptance only; inspect the thread for delivery and operation results.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, SendMessageBody_Message
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.send_message(
+                thread="thread-id",
+                request=SendMessageBody_Message(
+                    message_content="What dates are available?",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.send_message(thread, request=request, request_options=request_options)
+        return _response.data
+
+    async def get_thread(
+        self,
+        thread: str,
+        *,
+        audience: typing.Optional[GetThreadRequestAudience] = None,
+        agent: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        wait: typing.Optional[bool] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetThreadResponse:
+        """
+        Read a thread, optionally waiting for new events.
+
+        Parameters
+        ----------
+        thread : str
+            The thread whose history and current state you want to read.
+
+        audience : typing.Optional[GetThreadRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        agent : typing.Optional[str]
+            Optional agent whose authorized view of this thread you want to read.
+
+        cursor : typing.Optional[str]
+            Return messages after this cursor. Omit it for the first page and use the returned cursor thereafter.
+
+        wait : typing.Optional[bool]
+            When true, wait briefly for new messages after the cursor.
+
+        limit : typing.Optional[int]
+            Maximum events to return in one page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetThreadResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_thread(
+                thread="thread-id",
+                wait=False,
+                limit=50,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_thread(
+            thread,
+            audience=audience,
+            agent=agent,
+            cursor=cursor,
+            wait=wait,
+            limit=limit,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def archive_thread(
+        self,
+        thread: str,
+        *,
+        agent: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ArchiveThreadResponse:
+        """
+        Archive a thread without cancelling its work.
+
+        Parameters
+        ----------
+        thread : str
+            The thread to hide from the active list.
+
+        agent : typing.Optional[str]
+            Optional agent whose side of the thread you want to archive.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ArchiveThreadResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.archive_thread(
+                thread="thread-id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.archive_thread(thread, agent=agent, request_options=request_options)
+        return _response.data
+
+    async def authenticate(
+        self,
+        *,
+        request: str,
+        idempotency_key: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AuthenticateResponse:
+        """
+        Start hosted authentication for a thread request.
+
+        Parameters
+        ----------
+        request : str
+            The authentication request returned by the thread.
+
+        idempotency_key : typing.Optional[str]
+            A stable key for this connection attempt. Reuse it after a timeout.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AuthenticateResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.authenticate(
+                request="authentication-request-id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.authenticate(
+            request=request, idempotency_key=idempotency_key, request_options=request_options
+        )
+        return _response.data
+
+    async def pay(
+        self,
+        *,
+        request: str,
+        idempotency_key: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayResponse:
+        """
+        Open hosted selection for an immutable payment request.
+
+        Parameters
+        ----------
+        request : str
+            The immutable payment request returned in the thread.
+
+        idempotency_key : typing.Optional[str]
+            A stable key for this payment request. Reuse it with the same request after a timeout.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.pay(
+                request="payment-request-id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.pay(
+            request=request, idempotency_key=idempotency_key, request_options=request_options
+        )
+        return _response.data
+
+    async def get_owner_processing_context(
+        self, *, agent: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetOwnerProcessingContextResponse:
+        """
+        Read current owner-local processing availability without creating an identity, thread or job. Requires the existing account human:actions grant or agent:read for the selected owned identity. A ready external provider is not required. Use the returned canonical actingAiId, targetAiId and operationId with ordinary Start thread, then send a normal message. Metadata grants no execution permission. A missing account identity is reported without provisioning it. The owner-context lease bounds new work; accepted job observation and result recovery retain the original custody.
+
+        Parameters
+        ----------
+        agent : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetOwnerProcessingContextResponse
+            Current native owner context, or unavailable without execution authority.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_owner_processing_context()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_owner_processing_context(agent=agent, request_options=request_options)
+        return _response.data
+
+    async def get_result_artifact_download_url(
+        self,
+        thread: str,
+        ticket: str,
+        *,
+        agent: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetResultArtifactDownloadUrlResponse:
+        """
+        Use the downloadUrlPath returned in a result_artifact message or a captured_file_result artifacts entry. Current credentials and thread ownership are revalidated before a fresh HTTPS URL is issued. The ticket is opaque and is not a bearer grant. Verify downloaded bytes using sizeBytes and sha256. URLs expire after at most five minutes; request a fresh URL when needed.
+
+        Parameters
+        ----------
+        thread : str
+
+        ticket : str
+
+        agent : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetResultArtifactDownloadUrlResponse
+            Fresh authorized download URL and byte verification metadata.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_result_artifact_download_url(
+                thread="thread",
+                ticket="ticket",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_result_artifact_download_url(
+            thread, ticket, agent=agent, request_options=request_options
+        )
+        return _response.data
+
+    async def get_payment_options(
+        self, payment_request_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetPaymentOptionsResponse:
+        """
+        Return currently eligible payment rails and saved methods for one immutable payment request. Requires the signed-in person’s OAuth human:actions grant. No payment or provider checkout is started.
+
+        Parameters
+        ----------
+        payment_request_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetPaymentOptionsResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_payment_options(
+                payment_request_id="paymentRequestId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_payment_options(payment_request_id, request_options=request_options)
+        return _response.data
+
+    async def get_payment_status(
+        self, payment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetPaymentStatusResponse:
+        """
+        Read the durable state of a payment already started for this account. No new charge is created. A receipt appears only after verified provider settlement.
+
+        Parameters
+        ----------
+        payment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetPaymentStatusResponse
+            Authorized state. Pending auth or checkout is not completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_payment_status(
+                payment_id="paymentId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_payment_status(payment_id, request_options=request_options)
+        return _response.data
+
+    async def start_account_auth_credential_setup(
+        self,
+        *,
+        request: str,
+        idempotency_key: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> StartAccountAuthCredentialSetupResponse:
+        """
+        Start hosted credential connection for an immutable authentication request from a thread. The person chooses whether to save the verified credential in the hosted flow. Check GET /v2/account/auth-credential-setups/{setupId} for verified completion. A standalone target-only connection is not available yet. Never send a provider secret here.
+
+        Parameters
+        ----------
+        request : str
+
+        idempotency_key : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StartAccountAuthCredentialSetupResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.start_account_auth_credential_setup(
+                request="request",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.start_account_auth_credential_setup(
+            request=request, idempotency_key=idempotency_key, request_options=request_options
+        )
+        return _response.data
+
+    async def get_account_auth_credential_setup(
+        self, setup_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetAccountAuthCredentialSetupResponse:
+        """
+        Read safe status for one account-owned hosted authentication attempt. Never returns a credential secret.
+
+        Parameters
+        ----------
+        setup_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountAuthCredentialSetupResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_account_auth_credential_setup(
+                setup_id="setupId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_account_auth_credential_setup(setup_id, request_options=request_options)
+        return _response.data
+
+    async def start_account_payment_method_setup(
+        self,
+        *,
+        request: str,
+        method: StartAccountPaymentMethodSetupBodyMethod,
+        consent: StartAccountPaymentMethodSetupBodyConsent,
+        idempotency_key: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> StartAccountPaymentMethodSetupResponse:
+        """
+        Start hosted card or bank enrollment for an immutable payment request from a thread. Check GET /v2/account/payment-method-setups/{setupId} for verified completion before using a saved method. This setup does not charge or settle the request. Standalone enrollment without a request is not available yet.
+
+        Parameters
+        ----------
+        request : str
+            An immutable payment request from an account-owned thread.
+
+        method : StartAccountPaymentMethodSetupBodyMethod
+            Funding method to enroll through the hosted provider.
+
+        consent : StartAccountPaymentMethodSetupBodyConsent
+            Explicit permission to save the verified method.
+
+        idempotency_key : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StartAccountPaymentMethodSetupResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.start_account_payment_method_setup(
+                request="request",
+                method="card",
+                consent="save_payment_method",
+                idempotency_key="idempotencyKey",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.start_account_payment_method_setup(
+            request=request,
+            method=method,
+            consent=consent,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_account_payment_method_setup(
+        self, setup_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetAccountPaymentMethodSetupResponse:
+        """
+        Read safe enrollment status. Only provider-verified completion identifies a saved method.
+
+        Parameters
+        ----------
+        setup_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountPaymentMethodSetupResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_account_payment_method_setup(
+                setup_id="setupId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_account_payment_method_setup(setup_id, request_options=request_options)
+        return _response.data
+
+    async def list_account_auth_credentials(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListAccountAuthCredentialsResponse:
+        """
+        List safe metadata for the signed-in account. The caller must have a live user-authorized human:actions OAuth grant. The response never contains provider secrets.
+
+        Parameters
+        ----------
+        limit : typing.Optional[int]
+            Maximum saved credentials to return, up to 100.
+
+        after_cursor : typing.Optional[str]
+            Continue after the previous response nextCursor.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListAccountAuthCredentialsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_account_auth_credentials()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_account_auth_credentials(
+            limit=limit, after_cursor=after_cursor, request_options=request_options
+        )
+        return _response.data
+
+    async def revoke_account_auth_credential(
+        self, credential_id: str, *, if_match: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> RevokeAccountAuthCredentialResponse:
+        """
+        Disconnect the saved credential and all its Darwin grants after comparing If-Match with the revision from the account credential list. Provider-side revocation is queued separately; this does not undo work already dispatched.
+
+        Parameters
+        ----------
+        credential_id : str
+
+        if_match : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokeAccountAuthCredentialResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.revoke_account_auth_credential(
+                credential_id="credentialId",
+                if_match="If-Match",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.revoke_account_auth_credential(
+            credential_id, if_match=if_match, request_options=request_options
+        )
+        return _response.data
+
+    async def list_account_payment_methods(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListAccountPaymentMethodsResponse:
+        """
+        List safe payment-method metadata for the signed-in account. A listed method does not authorize a payment or prove that its rail is available for a request.
+
+        Parameters
+        ----------
+        limit : typing.Optional[int]
+            Maximum saved methods to return, up to 100.
+
+        after_cursor : typing.Optional[str]
+            Continue after the previous response nextCursor.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListAccountPaymentMethodsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_account_payment_methods()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_account_payment_methods(
+            limit=limit, after_cursor=after_cursor, request_options=request_options
+        )
+        return _response.data
+
+    async def revoke_account_payment_method(
+        self, method_id: str, *, if_match: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> RevokeAccountPaymentMethodResponse:
+        """
+        Revoke a saved method by its Darwin ID with If-Match set to its quoted integer revision. This prevents future selection but does not cancel a payment already dispatched.
+
+        Parameters
+        ----------
+        method_id : str
+
+        if_match : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokeAccountPaymentMethodResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.revoke_account_payment_method(
+                method_id="methodId",
+                if_match="If-Match",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.revoke_account_payment_method(
+            method_id, if_match=if_match, request_options=request_options
+        )
+        return _response.data
+
+    async def list_auth_credentials(
+        self,
+        ai_id: str,
+        *,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListAuthCredentialsResponse:
+        """
+        List a bounded cursor page of saved connection metadata for one of your AIs. Follow nextCursor until null. The response never contains tokens or secrets. Use credentialId to revoke a saved connection and its grants.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        limit : typing.Optional[int]
+            Maximum saved credentials to return, up to 100.
+
+        after_cursor : typing.Optional[str]
+            Continue after the previous response nextCursor.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListAuthCredentialsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_auth_credentials(
+                ai_id="aiId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_auth_credentials(
+            ai_id, limit=limit, after_cursor=after_cursor, request_options=request_options
+        )
+        return _response.data
+
+    async def revoke_auth_credential(
+        self, ai_id: str, credential_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RevokeAuthCredentialResponse:
+        """
+        Disconnect a saved credential from Darwin and revoke all of its grants for this AI. This prevents future use by Darwin; it does not promise provider-side logout or undo work already dispatched.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        credential_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokeAuthCredentialResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.revoke_auth_credential(
+                ai_id="aiId",
+                credential_id="credentialId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.revoke_auth_credential(ai_id, credential_id, request_options=request_options)
+        return _response.data
+
+    async def set_payment_method_default(
+        self,
+        ai_id: str,
+        method_id: str,
+        *,
+        expected_revision: int,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetPaymentMethodDefaultResponse:
+        """
+        Select an active, unexpired saved method as the default within its provider, merchant and payment-rail context for this acting AI. Requires a current expectedRevision and a user API key with payments:write. Does not charge, switch a payment already pinned to another method, activate a rail, or authorize future spending. Model OAuth and service-account mutations are rejected.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        method_id : str
+
+        expected_revision : int
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetPaymentMethodDefaultResponse
+            Updated safe payment-method metadata only. No payment is initiated.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.set_payment_method_default(
+                ai_id="aiId",
+                method_id="methodId",
+                expected_revision=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.set_payment_method_default(
+            ai_id, method_id, expected_revision=expected_revision, request_options=request_options
+        )
+        return _response.data
+
+    async def revoke_payment_method(
+        self,
+        ai_id: str,
+        method_id: str,
+        *,
+        expected_revision: int,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RevokePaymentMethodResponse:
+        """
+        Revoke the saved method for future Darwin selection under this acting AI, using its current expectedRevision. Requires a user API key with payments:write. Keeps safe metadata and audit history; does not claim provider-side deletion, cancel a dispatched payment, void a charge or issue a refund. Model OAuth and service-account mutations are rejected.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        method_id : str
+
+        expected_revision : int
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokePaymentMethodResponse
+            Updated safe payment-method metadata only. No payment is initiated.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.revoke_payment_method(
+                ai_id="aiId",
+                method_id="methodId",
+                expected_revision=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.revoke_payment_method(
+            ai_id, method_id, expected_revision=expected_revision, request_options=request_options
+        )
+        return _response.data
+
+    async def list_payment_methods(
+        self,
+        ai_id: str,
+        *,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListPaymentMethodsResponse:
+        """
+        List a bounded cursor page of saved payment method labels and Darwin IDs for the selected acting AI. Follow nextCursor until null. Returns active, expired and revoked records without raw card data, provider instrument references or credentials. A listed method is not permission to spend and may not be accepted by a particular payment request. Creating a saved method remains a separate first-party Darwin account-session flow and is intentionally unavailable through this API, the SDK and MCP. Service accounts cannot use this route.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        limit : typing.Optional[int]
+            Maximum saved methods to return, up to 100.
+
+        after_cursor : typing.Optional[str]
+            Continue after the previous response nextCursor.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListPaymentMethodsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_payment_methods(
+                ai_id="aiId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_payment_methods(
+            ai_id, limit=limit, after_cursor=after_cursor, request_options=request_options
+        )
+        return _response.data
+
+    async def list_target_accounts(
+        self,
+        ai_id: str,
+        target_ai_id: str,
+        *,
+        include_unavailable: typing.Optional[bool] = None,
+        limit: typing.Optional[int] = None,
+        after_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListTargetAccountsResponse:
+        """
+        List accounts under one acting AI and target AI. Defaults to selectable accounts; includeUnavailable=true includes expired and revoked grants for management. Follow nextCursor even when accounts is empty. Availability permits selection, not execution without current authorization. Service accounts cannot use this route.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        target_ai_id : str
+
+        include_unavailable : typing.Optional[bool]
+
+        limit : typing.Optional[int]
+
+        after_cursor : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListTargetAccountsResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_target_accounts(
+                ai_id="aiId",
+                target_ai_id="targetAiId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_target_accounts(
+            ai_id,
+            target_ai_id,
+            include_unavailable=include_unavailable,
+            limit=limit,
+            after_cursor=after_cursor,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def set_target_account_default(
+        self,
+        ai_id: str,
+        target_ai_id: str,
+        connection_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetTargetAccountDefaultResponse:
+        """
+        Select the default within the same provider/resource and acting-AI/target pair. Does not change accounts already pinned to operations, grant new scopes, reconnect, or authorize effects. Requires a user API key; model OAuth mutations remain unavailable.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        target_ai_id : str
+
+        connection_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetTargetAccountDefaultResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.set_target_account_default(
+                ai_id="aiId",
+                target_ai_id="targetAiId",
+                connection_id="connectionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.set_target_account_default(
+            ai_id, target_ai_id, connection_id, request_options=request_options
+        )
+        return _response.data
+
+    async def revoke_target_account(
+        self,
+        ai_id: str,
+        target_ai_id: str,
+        connection_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RevokeTargetAccountResponse:
+        """
+        Revoke this target grant, not other target grants. Darwin authority is committed inactive before volatile cleanup or one reviewed provider-revocation attempt. providerRevocation is confirmed only with a verified provider receipt, unsupported when no exact reviewed revoker exists, and uncertain after any ambiguous dispatch; uncertain requests are never replayed. Does not cancel already dispatched work or delete history. Requires a user API key; model OAuth mutations remain unavailable.
+
+        Parameters
+        ----------
+        ai_id : str
+
+        target_ai_id : str
+
+        connection_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RevokeTargetAccountResponse
+            Authorized account metadata only.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.revoke_target_account(
+                ai_id="aiId",
+                target_ai_id="targetAiId",
+                connection_id="connectionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.revoke_target_account(
+            ai_id, target_ai_id, connection_id, request_options=request_options
+        )
+        return _response.data
+
+    async def create_search(
+        self,
+        *,
+        query: str,
+        audience: typing.Optional[AdaptiveSearchRequestAudience] = OMIT,
+        live_search: typing.Optional[bool] = OMIT,
+        previous_response_id: typing.Optional[str] = OMIT,
+        fork_search_id: typing.Optional[str] = OMIT,
+        agent_count: typing.Optional[AdaptiveSearchRequestAgentCount] = OMIT,
+        max_results: typing.Optional[int] = OMIT,
+        budget_usd: typing.Optional[float] = OMIT,
+        context: typing.Optional[typing.Sequence[AdaptiveSearchRequestContextItem]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AdaptiveSearchResponse:
+        """
+        Returns a concise assessment and at most ten relevant agents, with optional related searches, a clarification question, or a no-match reason. Search does not authorize execution or promise a plan. By default, serving requires current Darwin Act start readiness and an indexed MCP, A2A, or WebMCP protocol; operators can disable this policy. Each match includes nullable execution metadata and typed connection methods. Null provider endpoints are not verified direct connections. Exact identities skip the model relevance gate but not the serving policy. Continue with previousResponseId. Public supply only. Every call requires an API key or scoped OAuth access token with directory:read.
+
+        Parameters
+        ----------
+        query : str
+
+        audience : typing.Optional[AdaptiveSearchRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        live_search : typing.Optional[bool]
+            Preview: request current provider replies. Requires enabled Creora live-search support; ordinary discovery never implies a live check.
+
+        previous_response_id : typing.Optional[str]
+
+        fork_search_id : typing.Optional[str]
+            Copy a public Search conversation into a new owned search before refining it.
+
+        agent_count : typing.Optional[AdaptiveSearchRequestAgentCount]
+
+        max_results : typing.Optional[int]
+
+        budget_usd : typing.Optional[float]
+            Maximum total task budget in US dollars, with at most two decimal places. This guides Search matching; it is not an API usage limit, provider price guarantee, or permission to spend.
+
+        context : typing.Optional[typing.Sequence[AdaptiveSearchRequestContextItem]]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AdaptiveSearchResponse
+            Search response
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.create_search(
+                query="query",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_search(
+            query=query,
+            audience=audience,
+            live_search=live_search,
+            previous_response_id=previous_response_id,
+            fork_search_id=fork_search_id,
+            agent_count=agent_count,
+            max_results=max_results,
+            budget_usd=budget_usd,
+            context=context,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_search(
+        self,
+        search_id: str,
+        *,
+        cursor: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AdaptiveSearchHistoryResponse:
+        """
+        Parameters
+        ----------
+        search_id : str
+
+        cursor : typing.Optional[int]
+
+        limit : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AdaptiveSearchHistoryResponse
+            Ordered, paginated responses in this search
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_search(
+                search_id="searchId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_search(
+            search_id, cursor=cursor, limit=limit, request_options=request_options
+        )
+        return _response.data
+
+    async def create_or_continue_act(
+        self,
+        *,
+        request: ActV3Request,
+        idempotency_key: typing.Optional[str] = None,
+        search_token: typing.Optional[str] = None,
+        act_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Optional context.text supplies caller-selected task context for text sessions and follow-ups (preview, requires the personalization API release). Operation calls use schema-declared arguments instead. Context is retained as message data, never authority; account memory is not automatically forwarded. Account keys and OAuth are supported. Anonymous public Act is enabled separately: the first start may omit credentials and returns X-Act-Token; keep it in private client custody and send it on every read, continuation and retry. It expires after 24 hours. Sign in with the same token to claim the existing session before authentication, payment or private account access. Invalid supplied credentials never fall back to guest access. Exactly one of searchId, targets, or threadId. For a Search handoff, arguments is an object keyed by agentId (not operationId); each value is that agent’s capability arguments. Omit arguments to open a text-only session, not execute a tool. Search handoff requires the same owner credential; an anonymous Search also requires X-Search-Token. Caller identity comes from the credential. A user API key requires agent:write; OAuth requires a live human:actions grant. Authentication and payment messages open hosted consent or selection for a request in that exact session; they do not submit secrets or charge a payment.
+
+        Parameters
+        ----------
+        request : ActV3Request
+
+        idempotency_key : typing.Optional[str]
+
+        search_token : typing.Optional[str]
+
+        act_token : typing.Optional[str]
+            Private guest credential; never place it in messages or URLs.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Typed continuation receipt. This acknowledges the message, not terminal provider completion.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import ActV3RequestAgentIds, AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.create_or_continue_act(
+                request=ActV3RequestAgentIds(
+                    search_id="searchId",
+                    message="message",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_or_continue_act(
+            request=request,
+            idempotency_key=idempotency_key,
+            search_token=search_token,
+            act_token=act_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_act_request(
+        self,
+        act_request_id: str,
+        *,
+        include_thread_state: typing.Optional[bool] = None,
+        session_id: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[GetActRequestRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3RequestResponse:
+        """
+        Read an Act request and its authorized session messages, actions and pending requests. Use the actRequestId returned by Act or an Assist child step. Includes current session state by default; continue the selected session through POST /v3/act.
+
+        Parameters
+        ----------
+        act_request_id : str
+
+        include_thread_state : typing.Optional[bool]
+            Include authorized child session messages, actions and pending requests.
+
+        session_id : typing.Optional[str]
+            Read state for this child session only. Must belong to the Act request.
+
+        cursor : typing.Optional[str]
+            Read the next message page for sessionId. Requires includeThreadState=true.
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[GetActRequestRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3RequestResponse
+            Act request receipt and optional live, authorized child session state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_act_request(
+                act_request_id="actRequestId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_act_request(
+            act_request_id,
+            include_thread_state=include_thread_state,
+            session_id=session_id,
+            cursor=cursor,
+            limit=limit,
+            audience=audience,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def create_or_revise_assist(
+        self,
+        *,
+        request: AssistV3Request,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AssistV3Response:
+        """
+        Plan, execute, and update agent work through one typed request endpoint using an authenticated API key. Create or refine a plan, quote, authorize the exact budget, execute, message a child, refresh, accept a result, stop, or update a settled plan using the same assistId. Planning never starts work or spends. Budget authorization and execution require their own exact typed approvals and Idempotency-Key. Structural updates require a settled terminal run; previous runs remain in history. Claiming an existing guest draft additionally requires its X-Assist-Token.
+
+        Parameters
+        ----------
+        request : AssistV3Request
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AssistV3Response
+            Current Assist conversation, revisions, quote, funding, run and previous runs. Only an explicitly authorized execute request starts work.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import (
+            AssistV3Request_Create,
+            AssistV3RequestCreateMessage,
+            AsyncDarwin,
+        )
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.create_or_revise_assist(
+                request=AssistV3Request_Create(
+                    message=AssistV3RequestCreateMessage(
+                        type="text",
+                        text="text",
+                    ),
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_or_revise_assist(
+            request=request, assist_token=assist_token, idempotency_key=idempotency_key, request_options=request_options
+        )
+        return _response.data
+
+    async def get_assist(
+        self,
+        assist_id: str,
+        *,
+        audience: typing.Optional[GetAssistRequestAudience] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AssistV3Response:
+        """
+        Parameters
+        ----------
+        assist_id : str
+
+        audience : typing.Optional[GetAssistRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        assist_token : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AssistV3Response
+            Current plan revisions, quote, funding, run progress, and child-session evidence when available.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_assist(
+                assist_id="assistId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_assist(
+            assist_id, audience=audience, assist_token=assist_token, request_options=request_options
+        )
+        return _response.data
+
+    async def list_act_threads(
+        self,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[ListActThreadsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3ListThreadsResponse:
+        """
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[ListActThreadsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3ListThreadsResponse
+            Paginated durable inbound and outbound sessions
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_act_threads()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_act_threads(
+            cursor=cursor, limit=limit, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def list_context(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_context()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_context(request_options=request_options)
+        return _response.data
+
+    async def begin_context_upload(
+        self,
+        file_id: str,
+        *,
+        id: str,
+        name: str,
+        type: str,
+        size: int,
+        modified: float,
+        key: str,
+        iv: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        id : str
+
+        name : str
+
+        type : str
+
+        size : int
+
+        modified : float
+
+        key : str
+            Per-file AES-256 key; keep out of logs and analytics.
+
+        iv : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.begin_context_upload(
+                file_id="fileId",
+                id="id",
+                name="name",
+                type="type",
+                size=1,
+                modified=1.1,
+                key="key",
+                iv="iv",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.begin_context_upload(
+            file_id,
+            id=id,
+            name=name,
+            type=type,
+            size=size,
+            modified=modified,
+            key=key,
+            iv=iv,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def delete_context(
+        self, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.delete_context(
+                file_id="fileId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_context(file_id, request_options=request_options)
+        return _response.data
+
+    async def update_context_metadata(
+        self,
+        file_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        name : typing.Optional[str]
+
+        tags : typing.Optional[typing.Sequence[str]]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.update_context_metadata(
+                file_id="fileId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_context_metadata(
+            file_id, name=name, tags=tags, request_options=request_options
+        )
+        return _response.data
+
+    async def complete_context_upload(
+        self, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.complete_context_upload(
+                file_id="fileId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.complete_context_upload(file_id, request_options=request_options)
+        return _response.data
+
+    async def read_context_content(
+        self, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.read_context_content(
+                file_id="fileId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.read_context_content(file_id, request_options=request_options)
+        return _response.data
+
+    async def list_sessions(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[ListSessionsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SessionList:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        before : typing.Optional[str]
+            nextBefore from the previous page.
+
+        audience : typing.Optional[ListSessionsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SessionList
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_sessions()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_sessions(
+            before=before, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def create_session(
+        self,
+        *,
+        client_request_id: str,
+        audience: typing.Optional[CreateSessionRequestAudience] = OMIT,
+        title: typing.Optional[str] = OMIT,
+        message: typing.Optional[CreateSessionRequestMessage] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        client_request_id : str
+
+        audience : typing.Optional[CreateSessionRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        title : typing.Optional[str]
+
+        message : typing.Optional[CreateSessionRequestMessage]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.create_session(
+                client_request_id="clientRequestId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_session(
+            client_request_id=client_request_id,
+            audience=audience,
+            title=title,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_session_messages(
+        self,
+        session_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[ListSessionMessagesRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        before : typing.Optional[str]
+
+        audience : typing.Optional[ListSessionMessagesRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_session_messages(
+                session_id="sessionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_session_messages(
+            session_id, before=before, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def post_session_message(
+        self,
+        session_id: str,
+        *,
+        client_message_id: str,
+        message: str,
+        audience: typing.Optional[SessionMessageRequestAudience] = OMIT,
+        target: typing.Optional[SessionMessageRequestTarget] = OMIT,
+        mode: typing.Optional[SessionMessageRequestMode] = OMIT,
+        context: typing.Optional[SessionMessageRequestContext] = OMIT,
+        live_search: typing.Optional[SessionMessageRequestLiveSearch] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        attachment_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Continue an existing Navigator session. Omit target for automatic interpretation in session context, or supply an explicit agent target. Reuse clientMessageId only for an identical retry. Current access, contribution permissions, and execution approvals still apply. A successful response acknowledges the durable turn, not completed provider work. For a specific existing operation instance, use its operation actions endpoint.
+
+        Parameters
+        ----------
+        session_id : str
+
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        audience : typing.Optional[SessionMessageRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[SessionMessageRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        mode : typing.Optional[SessionMessageRequestMode]
+            Omit for Auto. Search returns indexed matches; live_search asks providers for current task fit; execute coordinates work; route opens primed agent threads for direct interaction; chat discusses. Approvals still apply.
+
+        context : typing.Optional[SessionMessageRequestContext]
+
+        live_search : typing.Optional[SessionMessageRequestLiveSearch]
+            Owner-reviewed provider-contact consent or a control for an existing durable session. Omit to review indexed choices without contacting providers.
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        attachment_ids : typing.Optional[typing.Sequence[str]]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.post_session_message(
+                session_id="sessionId",
+                client_message_id="followup-002",
+                message="Focus on papers published this year.",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.post_session_message(
+            session_id,
+            client_message_id=client_message_id,
+            message=message,
+            audience=audience,
+            target=target,
+            mode=mode,
+            context=context,
+            live_search=live_search,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            attachment_ids=attachment_ids,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_session_events(
+        self,
+        session_id: str,
+        *,
+        last_event_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.AsyncIterator[str]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        last_event_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Yields
+        ------
+        typing.AsyncIterator[str]
+            Bounded SSE stream. Reconnect with the last event ID. A GET never starts work.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            response = client.get_session_events(
+                session_id="sessionId",
+            )
+            async for chunk in response:
+                yield chunk
+
+
+        asyncio.run(main())
+        """
+        async with self._raw_client.get_session_events(
+            session_id, last_event_id=last_event_id, request_options=request_options
+        ) as r:
+            async for _chunk in r.data:
+                yield _chunk
+
+    async def list_session_operations(
+        self,
+        session_id: str,
+        *,
+        audience: typing.Optional[ListSessionOperationsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        audience : typing.Optional[ListSessionOperationsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_session_operations(
+                session_id="sessionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_session_operations(
+            session_id, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def start_session_operation(
+        self,
+        session_id: str,
+        *,
+        client_request_id: str,
+        turn_id: str,
+        target: SessionOperationStartTarget,
+        message: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        client_request_id : str
+
+        turn_id : str
+
+        target : SessionOperationStartTarget
+
+        message : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, SessionOperationStartTarget
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.start_session_operation(
+                session_id="sessionId",
+                client_request_id="clientRequestId",
+                turn_id="turnId",
+                target=SessionOperationStartTarget(
+                    agent_id="agentId",
+                ),
+                message="message",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.start_session_operation(
+            session_id,
+            client_request_id=client_request_id,
+            turn_id=turn_id,
+            target=target,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_session_operation(
+        self,
+        session_id: str,
+        operation_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        audience: typing.Optional[GetSessionOperationRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3GetThreadResponse:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        operation_id : str
+
+        cursor : typing.Optional[str]
+
+        audience : typing.Optional[GetSessionOperationRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3GetThreadResponse
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_session_operation(
+                session_id="sessionId",
+                operation_id="operationId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_session_operation(
+            session_id, operation_id, cursor=cursor, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def interact_with_session_operation(
+        self,
+        session_id: str,
+        operation_id: str,
+        *,
+        client_message_id: str,
+        message: SessionOperationActionMessage,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        operation_id : str
+
+        client_message_id : str
+
+        message : SessionOperationActionMessage
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, SessionOperationActionMessage_Text
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.interact_with_session_operation(
+                session_id="sessionId",
+                operation_id="operationId",
+                client_message_id="clientMessageId",
+                message=SessionOperationActionMessage_Text(
+                    text="text",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.interact_with_session_operation(
+            session_id,
+            operation_id,
+            client_message_id=client_message_id,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_session_invitations(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_session_invitations()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_session_invitations(request_options=request_options)
+        return _response.data
+
+    async def list_session_members(
+        self, session_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_session_members(
+                session_id="sessionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_session_members(session_id, request_options=request_options)
+        return _response.data
+
+    async def remove_session_member(
+        self, session_id: str, member_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        member_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.remove_session_member(
+                session_id="sessionId",
+                member_id="memberId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.remove_session_member(session_id, member_id, request_options=request_options)
+        return _response.data
+
+    async def change_session_member(
+        self,
+        session_id: str,
+        member_id: str,
+        *,
+        role: SessionMemberChangeRole,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        member_id : str
+
+        role : SessionMemberChangeRole
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.change_session_member(
+                session_id="sessionId",
+                member_id="memberId",
+                role="viewer",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.change_session_member(
+            session_id, member_id, role=role, request_options=request_options
+        )
+        return _response.data
+
+    async def list_session_attachments(
+        self, session_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_session_attachments(
+                session_id="sessionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_session_attachments(session_id, request_options=request_options)
+        return _response.data
+
+    async def attach_session_context(
+        self, session_id: str, *, file_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.attach_session_context(
+                session_id="sessionId",
+                file_id="fileId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.attach_session_context(
+            session_id, file_id=file_id, request_options=request_options
+        )
+        return _response.data
+
+    async def detach_session_context(
+        self, session_id: str, attachment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        attachment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.detach_session_context(
+                session_id="sessionId",
+                attachment_id="attachmentId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.detach_session_context(
+            session_id, attachment_id, request_options=request_options
+        )
+        return _response.data
+
+    async def read_session_context(
+        self, session_id: str, attachment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        attachment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.read_session_context(
+                session_id="sessionId",
+                attachment_id="attachmentId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.read_session_context(
+            session_id, attachment_id, request_options=request_options
+        )
+        return _response.data
+
+    async def invite_session_member(
+        self,
+        session_id: str,
+        *,
+        email: str,
+        role: SessionInvitationRole,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        email : str
+
+        role : SessionInvitationRole
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.invite_session_member(
+                session_id="sessionId",
+                email="email",
+                role="viewer",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.invite_session_member(
+            session_id, email=email, role=role, request_options=request_options
+        )
+        return _response.data
+
+    async def accept_session_invitation(
+        self, session_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accept_session_invitation(
+                session_id="sessionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.accept_session_invitation(session_id, request_options=request_options)
+        return _response.data
+
+    async def navigate(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[NavigateRequestType] = OMIT,
+        audience: typing.Optional[NavigateRequestAudience] = OMIT,
+        target: typing.Optional[NavigateRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[NavigateRequestMode] = OMIT,
+        context: typing.Optional[NavigateRequestContext] = OMIT,
+        live_search: typing.Optional[NavigateRequestLiveSearch] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Navigate chooses the appropriate action. Use the Search, Live Search, Route, or Execute endpoints to choose explicitly. Answers and clarification stay within the session. Omit sessionId to start; pass it on follow-ups. Read with GET /v3/sessions/{sessionId}. The legacy conversationId alias is still accepted. Optional context holds text and files. Personalize with application-scoped userId or Markdown user_memory. Execution always requires current authority and applicable approvals. Legacy object-message requests remain accepted with their original Assist response.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[NavigateRequestType]
+
+        audience : typing.Optional[NavigateRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[NavigateRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[NavigateRequestMode]
+            Omit for Auto. Search returns indexed matches; live_search asks providers for current task fit; execute coordinates work; route opens primed agent threads for direct interaction; chat discusses. Approvals still apply.
+
+        context : typing.Optional[NavigateRequestContext]
+
+        live_search : typing.Optional[NavigateRequestLiveSearch]
+            Owner-reviewed provider-contact consent or a control for an existing durable session. Omit to review indexed choices without contacting providers.
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.navigate(
+                type="turn",
+                client_message_id="message-001",
+                message="Find agents that can summarize research papers.",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.navigate(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            live_search=live_search,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_navigate_request(
+        self,
+        conversation_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[GetNavigateRequestRequestAudience] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Read with owner credentials or the matching guest X-Assist-Token. An ID alone grants no access. Reading does not start work. Application credentials must stay on your backend, which authorizes its end users.
+
+        Parameters
+        ----------
+        conversation_id : str
+
+        before : typing.Optional[str]
+            Use conversation.nextBefore to read earlier turns.
+
+        audience : typing.Optional[GetNavigateRequestRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        assist_token : typing.Optional[str]
+            Guest conversationToken returned by Navigate.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_navigate_request(
+                conversation_id="conversationId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_navigate_request(
+            conversation_id,
+            before=before,
+            audience=audience,
+            assist_token=assist_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def live_search(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[LiveSearchRequestType] = OMIT,
+        audience: typing.Optional[LiveSearchRequestAudience] = OMIT,
+        target: typing.Optional[LiveSearchRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[LiveSearchRequestMode] = OMIT,
+        context: typing.Optional[LiveSearchRequestContext] = OMIT,
+        live_search: typing.Optional[LiveSearchRequestLiveSearch] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[LiveSearchRequestType]
+
+        audience : typing.Optional[LiveSearchRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[LiveSearchRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[LiveSearchRequestMode]
+
+        context : typing.Optional[LiveSearchRequestContext]
+
+        live_search : typing.Optional[LiveSearchRequestLiveSearch]
+            Owner-reviewed provider-contact consent or a control for an existing durable session. Omit to review indexed choices without contacting providers.
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.live_search(
+                type="turn",
+                client_message_id="message-001",
+                message="Find agents that can summarize research papers.",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.live_search(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            live_search=live_search,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def orchestrate(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[OrchestrateRequestType] = OMIT,
+        audience: typing.Optional[OrchestrateRequestAudience] = OMIT,
+        target: typing.Optional[OrchestrateRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[OrchestrateRequestMode] = OMIT,
+        context: typing.Optional[OrchestrateRequestContext] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[OrchestrateRequestType]
+
+        audience : typing.Optional[OrchestrateRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[OrchestrateRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[OrchestrateRequestMode]
+
+        context : typing.Optional[OrchestrateRequestContext]
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.orchestrate(
+                type="turn",
+                client_message_id="message-001",
+                message="Find agents that can summarize research papers.",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.orchestrate(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def read_session(
+        self,
+        session_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[ReadSessionRequestAudience] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReadSessionResponse:
+        """
+        Read a Navigate or Act session without starting work. Use owner credentials or the matching guest token. An ID alone grants no access.
+
+        Parameters
+        ----------
+        session_id : str
+
+        before : typing.Optional[str]
+            Navigate turn pagination cursor.
+
+        cursor : typing.Optional[str]
+            Act event pagination cursor.
+
+        limit : typing.Optional[int]
+            Act page size.
+
+        audience : typing.Optional[ReadSessionRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        assist_token : typing.Optional[str]
+            Guest Navigate session token.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReadSessionResponse
+            Current session state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.read_session(
+                session_id="sessionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.read_session(
+            session_id,
+            before=before,
+            cursor=cursor,
+            limit=limit,
+            audience=audience,
+            assist_token=assist_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def update_session(
+        self,
+        session_id: str,
+        *,
+        title: typing.Optional[str] = OMIT,
+        archived: typing.Optional[bool] = OMIT,
+        brief: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        session_id : str
+
+        title : typing.Optional[str]
+
+        archived : typing.Optional[bool]
+
+        brief : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.update_session(
+                session_id="sessionId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_session(
+            session_id, title=title, archived=archived, brief=brief, request_options=request_options
+        )
+        return _response.data
+
+    async def route(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[RouteRequestType] = OMIT,
+        audience: typing.Optional[RouteRequestAudience] = OMIT,
+        target: typing.Optional[RouteRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[RouteRequestMode] = OMIT,
+        context: typing.Optional[RouteRequestContext] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[RouteRequestType]
+
+        audience : typing.Optional[RouteRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[RouteRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[RouteRequestMode]
+
+        context : typing.Optional[RouteRequestContext]
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.route(
+                type="turn",
+                client_message_id="message-001",
+                message="Find agents that can summarize research papers.",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.route(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def execute(
+        self,
+        *,
+        client_message_id: str,
+        message: str,
+        assist_token: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[str] = None,
+        type: typing.Optional[ExecuteRequestType] = OMIT,
+        audience: typing.Optional[ExecuteRequestAudience] = OMIT,
+        target: typing.Optional[ExecuteRequestTarget] = OMIT,
+        session_id: typing.Optional[str] = OMIT,
+        thread_id: typing.Optional[str] = OMIT,
+        conversation_id: typing.Optional[str] = OMIT,
+        mode: typing.Optional[ExecuteRequestMode] = OMIT,
+        context: typing.Optional[ExecuteRequestContext] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+
+        Parameters
+        ----------
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        assist_token : typing.Optional[str]
+
+        idempotency_key : typing.Optional[str]
+
+        type : typing.Optional[ExecuteRequestType]
+
+        audience : typing.Optional[ExecuteRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[ExecuteRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        session_id : typing.Optional[str]
+            Session to continue. Omit to start a new session.
+
+        thread_id : typing.Optional[str]
+            Deprecated alias for sessionId.
+
+        conversation_id : typing.Optional[str]
+            Omit to start a conversation; return this ID on follow-ups.
+
+        mode : typing.Optional[ExecuteRequestMode]
+
+        context : typing.Optional[ExecuteRequestContext]
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Conversation state. Acceptance is not proof of completed work.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.execute(
+                type="turn",
+                client_message_id="message-001",
+                message="Find agents that can summarize research papers.",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.execute(
+            client_message_id=client_message_id,
+            message=message,
+            assist_token=assist_token,
+            idempotency_key=idempotency_key,
+            type=type,
+            audience=audience,
+            target=target,
+            session_id=session_id,
+            thread_id=thread_id,
+            conversation_id=conversation_id,
+            mode=mode,
+            context=context,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_navigator_threads(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[ListNavigatorThreadsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ThreadList:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        before : typing.Optional[str]
+            nextBefore from the previous page.
+
+        audience : typing.Optional[ListNavigatorThreadsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ThreadList
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_navigator_threads()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_navigator_threads(
+            before=before, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def create_thread(
+        self,
+        *,
+        client_request_id: str,
+        audience: typing.Optional[CreateThreadRequestAudience] = OMIT,
+        title: typing.Optional[str] = OMIT,
+        message: typing.Optional[CreateThreadRequestMessage] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        client_request_id : str
+
+        audience : typing.Optional[CreateThreadRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        title : typing.Optional[str]
+
+        message : typing.Optional[CreateThreadRequestMessage]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.create_thread(
+                client_request_id="clientRequestId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_thread(
+            client_request_id=client_request_id,
+            audience=audience,
+            title=title,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_thread_messages(
+        self,
+        thread_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        audience: typing.Optional[ListThreadMessagesRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        before : typing.Optional[str]
+
+        audience : typing.Optional[ListThreadMessagesRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_thread_messages(
+                thread_id="threadId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_thread_messages(
+            thread_id, before=before, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def post_thread_message(
+        self,
+        thread_id: str,
+        *,
+        client_message_id: str,
+        message: str,
+        audience: typing.Optional[ThreadMessageRequestAudience] = OMIT,
+        target: typing.Optional[ThreadMessageRequestTarget] = OMIT,
+        mode: typing.Optional[ThreadMessageRequestMode] = OMIT,
+        context: typing.Optional[ThreadMessageRequestContext] = OMIT,
+        live_search: typing.Optional[ThreadMessageRequestLiveSearch] = OMIT,
+        memory_agent_id: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        user_memory: typing.Optional[str] = OMIT,
+        application_id: typing.Optional[str] = OMIT,
+        attachment_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        Continue an existing Navigator session. Omit target for automatic interpretation in session context, or supply an explicit agent target. Reuse clientMessageId only for an identical retry. Current access, contribution permissions, and execution approvals still apply. A successful response acknowledges the durable turn, not completed provider work. For a specific existing operation instance, use its operation actions endpoint.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        client_message_id : str
+            A unique ID for this message. Reuse it only when retrying the same request.
+
+        message : str
+            What you want to find, do, or discuss.
+
+        audience : typing.Optional[ThreadMessageRequestAudience]
+            Who consumes this response. Controls presentation only; never identity, permissions, or approval.
+
+        target : typing.Optional[ThreadMessageRequestTarget]
+            Explicit agent target. Bypasses Darwin discovery; it never grants execution authority.
+
+        mode : typing.Optional[ThreadMessageRequestMode]
+            Omit for Auto. Search returns indexed matches; live_search asks providers for current task fit; execute coordinates work; route opens primed agent threads for direct interaction; chat discusses. Approvals still apply.
+
+        context : typing.Optional[ThreadMessageRequestContext]
+
+        live_search : typing.Optional[ThreadMessageRequestLiveSearch]
+            Owner-reviewed provider-contact consent or a control for an existing durable session. Omit to review indexed choices without contacting providers.
+
+        memory_agent_id : typing.Optional[str]
+            Read memory for an account agent you belong to. Does not change the acting identity. Cannot be combined with userId or user_memory.
+
+        user_id : typing.Optional[str]
+            Your application-scoped user ID, or your own Darwin user ID with a user credential. Reuses memory previously supplied for this user; never grants account access.
+
+        user_memory : typing.Optional[str]
+            Markdown preferences to personalize this request. Read a .md file and pass its text, not a path or URL. With userId, saves these preferences for later requests; empty text clears them.
+
+        application_id : typing.Optional[str]
+            Optional attribution check. Must match the application attached to your API credential; inferred when omitted.
+
+        attachment_ids : typing.Optional[typing.Sequence[str]]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.post_thread_message(
+                thread_id="threadId",
+                client_message_id="followup-002",
+                message="Focus on papers published this year.",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.post_thread_message(
+            thread_id,
+            client_message_id=client_message_id,
+            message=message,
+            audience=audience,
+            target=target,
+            mode=mode,
+            context=context,
+            live_search=live_search,
+            memory_agent_id=memory_agent_id,
+            user_id=user_id,
+            user_memory=user_memory,
+            application_id=application_id,
+            attachment_ids=attachment_ids,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_thread_events(
+        self,
+        thread_id: str,
+        *,
+        last_event_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.AsyncIterator[str]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        last_event_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Yields
+        ------
+        typing.AsyncIterator[str]
+            Bounded SSE stream. Reconnect with the last event ID. A GET never starts work.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            response = client.get_thread_events(
+                thread_id="threadId",
+            )
+            async for chunk in response:
+                yield chunk
+
+
+        asyncio.run(main())
+        """
+        async with self._raw_client.get_thread_events(
+            thread_id, last_event_id=last_event_id, request_options=request_options
+        ) as r:
+            async for _chunk in r.data:
+                yield _chunk
+
+    async def list_thread_operations(
+        self,
+        thread_id: str,
+        *,
+        audience: typing.Optional[ListThreadOperationsRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        audience : typing.Optional[ListThreadOperationsRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_thread_operations(
+                thread_id="threadId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_thread_operations(
+            thread_id, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def start_thread_operation(
+        self,
+        thread_id: str,
+        *,
+        client_request_id: str,
+        turn_id: str,
+        target: ThreadOperationStartTarget,
+        message: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        client_request_id : str
+
+        turn_id : str
+
+        target : ThreadOperationStartTarget
+
+        message : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, ThreadOperationStartTarget
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.start_thread_operation(
+                thread_id="threadId",
+                client_request_id="clientRequestId",
+                turn_id="turnId",
+                target=ThreadOperationStartTarget(
+                    agent_id="agentId",
+                ),
+                message="message",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.start_thread_operation(
+            thread_id,
+            client_request_id=client_request_id,
+            turn_id=turn_id,
+            target=target,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_thread_operation(
+        self,
+        thread_id: str,
+        operation_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        audience: typing.Optional[GetThreadOperationRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3GetThreadResponse:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        operation_id : str
+
+        cursor : typing.Optional[str]
+
+        audience : typing.Optional[GetThreadOperationRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3GetThreadResponse
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_thread_operation(
+                thread_id="threadId",
+                operation_id="operationId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_thread_operation(
+            thread_id, operation_id, cursor=cursor, audience=audience, request_options=request_options
+        )
+        return _response.data
+
+    async def interact_with_thread_operation(
+        self,
+        thread_id: str,
+        operation_id: str,
+        *,
+        client_message_id: str,
+        message: ThreadOperationMessageMessage,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3Response:
+        """
+        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        operation_id : str
+
+        client_message_id : str
+
+        message : ThreadOperationMessageMessage
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3Response
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, ThreadOperationMessageMessage_Text
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.interact_with_thread_operation(
+                thread_id="threadId",
+                operation_id="operationId",
+                client_message_id="clientMessageId",
+                message=ThreadOperationMessageMessage_Text(
+                    text="text",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.interact_with_thread_operation(
+            thread_id,
+            operation_id,
+            client_message_id=client_message_id,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_thread_invitations(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_thread_invitations()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_thread_invitations(request_options=request_options)
+        return _response.data
+
+    async def list_thread_members(
+        self, thread_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_thread_members(
+                thread_id="threadId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_thread_members(thread_id, request_options=request_options)
+        return _response.data
+
+    async def remove_thread_member(
+        self, thread_id: str, member_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        member_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.remove_thread_member(
+                thread_id="threadId",
+                member_id="memberId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.remove_thread_member(thread_id, member_id, request_options=request_options)
+        return _response.data
+
+    async def change_thread_member(
+        self,
+        thread_id: str,
+        member_id: str,
+        *,
+        role: ThreadMemberChangeRole,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        member_id : str
+
+        role : ThreadMemberChangeRole
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.change_thread_member(
+                thread_id="threadId",
+                member_id="memberId",
+                role="viewer",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.change_thread_member(
+            thread_id, member_id, role=role, request_options=request_options
+        )
+        return _response.data
+
+    async def list_thread_attachments(
+        self, thread_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.list_thread_attachments(
+                thread_id="threadId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_thread_attachments(thread_id, request_options=request_options)
+        return _response.data
+
+    async def attach_thread_context(
+        self, thread_id: str, *, file_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.attach_thread_context(
+                thread_id="threadId",
+                file_id="fileId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.attach_thread_context(
+            thread_id, file_id=file_id, request_options=request_options
+        )
+        return _response.data
+
+    async def detach_thread_context(
+        self, thread_id: str, attachment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        attachment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.detach_thread_context(
+                thread_id="threadId",
+                attachment_id="attachmentId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.detach_thread_context(
+            thread_id, attachment_id, request_options=request_options
+        )
+        return _response.data
+
+    async def read_thread_context(
+        self, thread_id: str, attachment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        attachment_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.read_thread_context(
+                thread_id="threadId",
+                attachment_id="attachmentId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.read_thread_context(
+            thread_id, attachment_id, request_options=request_options
+        )
+        return _response.data
+
+    async def invite_thread_member(
+        self,
+        thread_id: str,
+        *,
+        email: str,
+        role: ThreadInvitationRole,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        email : str
+
+        role : ThreadInvitationRole
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.invite_thread_member(
+                thread_id="threadId",
+                email="email",
+                role="viewer",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.invite_thread_member(
+            thread_id, email=email, role=role, request_options=request_options
+        )
+        return _response.data
+
+    async def accept_thread_invitation(
+        self, thread_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accept_thread_invitation(
+                thread_id="threadId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.accept_thread_invitation(thread_id, request_options=request_options)
+        return _response.data
+
+    async def read_thread(
+        self,
+        thread_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[ReadThreadRequestAudience] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReadThreadResponse:
+        """
+        Read a Navigate or Act session without starting work. Use owner credentials or the matching guest token. An ID alone grants no access.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        before : typing.Optional[str]
+            Navigate turn pagination cursor.
+
+        cursor : typing.Optional[str]
+            Act event pagination cursor.
+
+        limit : typing.Optional[int]
+            Act page size.
+
+        audience : typing.Optional[ReadThreadRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        assist_token : typing.Optional[str]
+            Guest Navigate session token.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReadThreadResponse
+            Current session state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.read_thread(
+                thread_id="threadId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.read_thread(
+            thread_id,
+            before=before,
+            cursor=cursor,
+            limit=limit,
+            audience=audience,
+            assist_token=assist_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def update_thread(
+        self,
+        thread_id: str,
+        *,
+        title: typing.Optional[str] = OMIT,
+        archived: typing.Optional[bool] = OMIT,
+        brief: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> NavigateResponse:
+        """
+        The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+
+        Parameters
+        ----------
+        thread_id : str
+
+        title : typing.Optional[str]
+
+        archived : typing.Optional[bool]
+
+        brief : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NavigateResponse
+            Accepted state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.update_thread(
+                thread_id="threadId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_thread(
+            thread_id, title=title, archived=archived, brief=brief, request_options=request_options
+        )
+        return _response.data
+
+    async def get_act_thread(
+        self,
+        thread_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[GetActThreadRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3GetThreadResponse:
+        """
+        Parameters
+        ----------
+        thread_id : str
+
+        cursor : typing.Optional[str]
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[GetActThreadRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3GetThreadResponse
+            Durable session state and paginated messages
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_act_thread(
+                thread_id="threadId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_act_thread(
+            thread_id, cursor=cursor, limit=limit, audience=audience, request_options=request_options
         )
         return _response.data
 

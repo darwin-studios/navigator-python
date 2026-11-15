@@ -6,27 +6,26 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .capability import Capability
-from .search_response_degraded_reason import SearchResponseDegradedReason
+from .search_agent import SearchAgent
+from .search_ordered_capability import SearchOrderedCapability
+from .search_response_contract_version import SearchResponseContractVersion
+from .search_response_diagnostics import SearchResponseDiagnostics
+from .search_response_outcome import SearchResponseOutcome
+from .search_versions import SearchVersions
 
 
 class SearchResponse(UniversalBaseModel):
-    results: typing.List[Capability]
-    next_cursor: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="nextCursor"), pydantic.Field(alias="nextCursor")
-    ] = None
-    degraded: typing.Optional[bool] = None
-    degraded_reason: typing_extensions.Annotated[
-        typing.Optional[SearchResponseDegradedReason],
-        FieldMetadata(alias="degradedReason"),
-        pydantic.Field(alias="degradedReason"),
-    ] = None
-    partial_hydration: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="partialHydration"), pydantic.Field(alias="partialHydration")
-    ] = None
-    ranking_version: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="rankingVersion"), pydantic.Field(alias="rankingVersion")
-    ] = None
+    contract_version: typing_extensions.Annotated[
+        SearchResponseContractVersion, FieldMetadata(alias="contractVersion"), pydantic.Field(alias="contractVersion")
+    ]
+    outcome: SearchResponseOutcome
+    results: typing.List[SearchOrderedCapability]
+    agents: typing.List[SearchAgent]
+    versions: SearchVersions
+    diagnostics: typing.Optional[SearchResponseDiagnostics] = pydantic.Field(default=None)
+    """
+    Present only for a server-configured read-only evaluation service account; ordinary clients cannot request it.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

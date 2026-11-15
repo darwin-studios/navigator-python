@@ -11,7 +11,7 @@ class BaseClientWrapper:
     def __init__(
         self,
         *,
-        api_key: str,
+        api_key: typing.Optional[str] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -32,7 +32,7 @@ class BaseClientWrapper:
     def get_headers(self) -> typing.Dict[str, str]:
         import platform
 
-        _user_agent = "darwin_sdk/0.4.0"
+        _user_agent = "darwin_sdk/0.5.0"
         _os = platform.system().lower()
         _arch = platform.machine()
         if _arch.lower() in ("x64", "amd64", "x86_64"):
@@ -48,7 +48,8 @@ class BaseClientWrapper:
             "X-Fern-Language": "Python",
             **(self.get_custom_headers() or {}),
         }
-        headers["x-api-key"] = self.api_key
+        if self.api_key is not None:
+            headers["x-api-key"] = self.api_key
         return headers
 
     def get_custom_headers(self) -> typing.Optional[typing.Dict[str, str]]:
@@ -74,7 +75,7 @@ class SyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        api_key: str,
+        api_key: typing.Optional[str] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -108,7 +109,7 @@ class AsyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        api_key: str,
+        api_key: typing.Optional[str] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,

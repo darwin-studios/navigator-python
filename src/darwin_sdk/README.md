@@ -13,6 +13,7 @@ The Darwin Python library provides convenient access to the Darwin APIs from Pyt
 - [Environments](#environments)
 - [Async Client](#async-client)
 - [Exception Handling](#exception-handling)
+- [Streaming](#streaming)
 - [Advanced](#advanced)
   - [Access Raw Response Data](#access-raw-response-data)
   - [Retries](#retries)
@@ -41,8 +42,11 @@ client = Darwin(
     api_key="<value>",
 )
 
-client.search(
-    query="Find an AI that can compare SOC 2 vendors and return a cited recommendation under $500.",
+client.create_account_agent(
+    idempotency_key="Idempotency-Key",
+    type="personal",
+    name="name",
+    handle="handle",
 )
 ```
 
@@ -74,8 +78,11 @@ client = AsyncDarwin(
 
 
 async def main() -> None:
-    await client.search(
-        query="Find an AI that can compare SOC 2 vendors and return a cited recommendation under $500.",
+    await client.create_account_agent(
+        idempotency_key="Idempotency-Key",
+        type="personal",
+        name="name",
+        handle="handle",
     )
 
 
@@ -91,10 +98,26 @@ will be thrown.
 from darwin_sdk.core.api_error import ApiError
 
 try:
-    client.search(...)
+    client.create_account_agent(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
+```
+
+## Streaming
+
+The SDK supports streaming responses, as well, the response will be a generator that you can loop over.
+
+```python
+from darwin_sdk import Darwin
+
+client = Darwin(
+    api_key="<value>",
+)
+
+client.get_session_events(
+    session_id="sessionId",
+)
 ```
 
 ## Advanced
@@ -108,7 +131,7 @@ The `.with_raw_response` property returns a "raw" client that can be used to acc
 from darwin_sdk import Darwin
 
 client = Darwin(...)
-response = client.with_raw_response.search(...)
+response = client.with_raw_response.create_account_agent(...)
 print(response.headers)  # access the response headers
 print(response.status_code)  # access the response status code
 print(response.data)  # access the underlying object
@@ -139,7 +162,7 @@ Which status codes are retried depends on the `retryStatusCodes` generator confi
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.search(..., request_options={
+client.create_account_agent(..., request_options={
     "max_retries": 1
 })
 ```
@@ -154,7 +177,7 @@ from darwin_sdk import Darwin
 client = Darwin(..., timeout=20.0)
 
 # Override timeout for a specific method
-client.search(..., request_options={
+client.create_account_agent(..., request_options={
     "timeout": 1
 })
 ```
