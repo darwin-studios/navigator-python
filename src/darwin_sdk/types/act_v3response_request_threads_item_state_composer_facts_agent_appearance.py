@@ -9,6 +9,12 @@ from ..core.serialization import FieldMetadata
 from .act_v3response_request_threads_item_state_composer_facts_agent_appearance_component_contracts_item import (
     ActV3ResponseRequestThreadsItemStateComposerFactsAgentAppearanceComponentContractsItem,
 )
+from .act_v3response_request_threads_item_state_composer_facts_agent_appearance_library import (
+    ActV3ResponseRequestThreadsItemStateComposerFactsAgentAppearanceLibrary,
+)
+from .act_v3response_request_threads_item_state_composer_facts_agent_appearance_source import (
+    ActV3ResponseRequestThreadsItemStateComposerFactsAgentAppearanceSource,
+)
 
 
 class ActV3ResponseRequestThreadsItemStateComposerFactsAgentAppearance(UniversalBaseModel):
@@ -16,6 +22,8 @@ class ActV3ResponseRequestThreadsItemStateComposerFactsAgentAppearance(Universal
     library_name: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="libraryName"), pydantic.Field(alias="libraryName")
     ] = None
+    source: typing.Optional[ActV3ResponseRequestThreadsItemStateComposerFactsAgentAppearanceSource] = None
+    library: typing.Optional[ActV3ResponseRequestThreadsItemStateComposerFactsAgentAppearanceLibrary] = None
     component_contracts: typing_extensions.Annotated[
         typing.List[ActV3ResponseRequestThreadsItemStateComposerFactsAgentAppearanceComponentContractsItem],
         FieldMetadata(alias="componentContracts"),

@@ -9,6 +9,9 @@ from ..core.serialization import FieldMetadata
 from .act_v3get_thread_response_delivery_presentation_request_audio import (
     ActV3GetThreadResponseDeliveryPresentationRequestAudio,
 )
+from .act_v3get_thread_response_delivery_presentation_request_authoring import (
+    ActV3GetThreadResponseDeliveryPresentationRequestAuthoring,
+)
 from .act_v3get_thread_response_delivery_presentation_request_host import (
     ActV3GetThreadResponseDeliveryPresentationRequestHost,
 )
@@ -36,6 +39,7 @@ class ActV3GetThreadResponseDeliveryPresentationRequest(UniversalBaseModel):
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
     ] = None
+    authoring: typing.Optional[ActV3GetThreadResponseDeliveryPresentationRequestAuthoring] = None
     audio: typing.Optional[ActV3GetThreadResponseDeliveryPresentationRequestAudio] = None
     presentation_override: typing_extensions.Annotated[
         typing.Optional[ActV3GetThreadResponseDeliveryPresentationRequestPresentationOverride],

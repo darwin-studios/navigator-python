@@ -14,11 +14,13 @@ from .act_v3response_continuation_composer_generated import ActV3ResponseContinu
 from .act_v3response_continuation_composer_mode import ActV3ResponseContinuationComposerMode
 from .act_v3response_continuation_composer_policy import ActV3ResponseContinuationComposerPolicy
 from .act_v3response_continuation_composer_request import ActV3ResponseContinuationComposerRequest
+from .act_v3response_continuation_composer_selection import ActV3ResponseContinuationComposerSelection
 from .act_v3response_continuation_composer_version import ActV3ResponseContinuationComposerVersion
 
 
 class ActV3ResponseContinuationComposer(UniversalBaseModel):
     version: ActV3ResponseContinuationComposerVersion
+    selection: typing.Optional[ActV3ResponseContinuationComposerSelection] = None
     decision: typing.Optional[ActV3ResponseContinuationComposerDecision] = None
     experience: typing.Optional[ActV3ResponseContinuationComposerExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

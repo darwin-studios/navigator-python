@@ -14,11 +14,13 @@ from .get_thread_response_composer_generated import GetThreadResponseComposerGen
 from .get_thread_response_composer_mode import GetThreadResponseComposerMode
 from .get_thread_response_composer_policy import GetThreadResponseComposerPolicy
 from .get_thread_response_composer_request import GetThreadResponseComposerRequest
+from .get_thread_response_composer_selection import GetThreadResponseComposerSelection
 from .get_thread_response_composer_version import GetThreadResponseComposerVersion
 
 
 class GetThreadResponseComposer(UniversalBaseModel):
     version: GetThreadResponseComposerVersion
+    selection: typing.Optional[GetThreadResponseComposerSelection] = None
     decision: typing.Optional[GetThreadResponseComposerDecision] = None
     experience: typing.Optional[GetThreadResponseComposerExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

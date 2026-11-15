@@ -4,6 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .adaptive_search_history_response_responses_item_delivery_presentation_request_interaction_modality import (
+    AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestInteractionModality,
+)
 from .adaptive_search_history_response_responses_item_delivery_presentation_request_interaction_type import (
     AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestInteractionType,
 )
@@ -11,6 +14,9 @@ from .adaptive_search_history_response_responses_item_delivery_presentation_requ
 
 class AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestInteraction(UniversalBaseModel):
     type: AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestInteractionType
+    modality: typing.Optional[
+        AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestInteractionModality
+    ] = None
     fields: typing.Dict[str, str]
 
     if IS_PYDANTIC_V2:

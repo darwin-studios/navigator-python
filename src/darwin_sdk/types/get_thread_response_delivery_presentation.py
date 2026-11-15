@@ -14,11 +14,13 @@ from .get_thread_response_delivery_presentation_generated import GetThreadRespon
 from .get_thread_response_delivery_presentation_mode import GetThreadResponseDeliveryPresentationMode
 from .get_thread_response_delivery_presentation_policy import GetThreadResponseDeliveryPresentationPolicy
 from .get_thread_response_delivery_presentation_request import GetThreadResponseDeliveryPresentationRequest
+from .get_thread_response_delivery_presentation_selection import GetThreadResponseDeliveryPresentationSelection
 from .get_thread_response_delivery_presentation_version import GetThreadResponseDeliveryPresentationVersion
 
 
 class GetThreadResponseDeliveryPresentation(UniversalBaseModel):
     version: GetThreadResponseDeliveryPresentationVersion
+    selection: typing.Optional[GetThreadResponseDeliveryPresentationSelection] = None
     decision: typing.Optional[GetThreadResponseDeliveryPresentationDecision] = None
     experience: typing.Optional[GetThreadResponseDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

@@ -24,6 +24,9 @@ from .assist_v3response_conversation_turns_item_search_result_delivery_presentat
 from .assist_v3response_conversation_turns_item_search_result_delivery_presentation_generated_representation import (
     AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedRepresentation,
 )
+from .assist_v3response_conversation_turns_item_search_result_delivery_presentation_generated_runtime_regions_item import (
+    AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedRuntimeRegionsItem,
+)
 from .assist_v3response_conversation_turns_item_search_result_delivery_presentation_generated_sections_item import (
     AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedSectionsItem,
 )
@@ -41,6 +44,15 @@ class AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationGener
         None
     )
     design: typing.Optional[AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[
+                AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedRuntimeRegionsItem
+            ]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedSectionsItem]
     next: typing.List[AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedNextItem]
     react_source: typing_extensions.Annotated[

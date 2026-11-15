@@ -6,6 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .assist_v3response_conversation_turns_item_search_result_delivery_presentation_facts_operations_item_experience import (
+    AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationFactsOperationsItemExperience,
+)
 from .assist_v3response_conversation_turns_item_search_result_delivery_presentation_facts_operations_item_fields_item import (
     AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationFactsOperationsItemFieldsItem,
 )
@@ -20,6 +23,9 @@ class AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationFacts
     description: str
     guidance: typing.Optional[
         AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationFactsOperationsItemGuidance
+    ] = None
+    experience: typing.Optional[
+        AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationFactsOperationsItemExperience
     ] = None
     revision: typing.Optional[int] = None
     available: bool

@@ -4,6 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .get_thread_response_delivery_presentation_request_interaction_modality import (
+    GetThreadResponseDeliveryPresentationRequestInteractionModality,
+)
 from .get_thread_response_delivery_presentation_request_interaction_type import (
     GetThreadResponseDeliveryPresentationRequestInteractionType,
 )
@@ -11,6 +14,7 @@ from .get_thread_response_delivery_presentation_request_interaction_type import 
 
 class GetThreadResponseDeliveryPresentationRequestInteraction(UniversalBaseModel):
     type: GetThreadResponseDeliveryPresentationRequestInteractionType
+    modality: typing.Optional[GetThreadResponseDeliveryPresentationRequestInteractionModality] = None
     fields: typing.Dict[str, str]
 
     if IS_PYDANTIC_V2:

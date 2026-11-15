@@ -4,6 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .act_v3get_thread_response_composer_request_interaction_modality import (
+    ActV3GetThreadResponseComposerRequestInteractionModality,
+)
 from .act_v3get_thread_response_composer_request_interaction_type import (
     ActV3GetThreadResponseComposerRequestInteractionType,
 )
@@ -11,6 +14,7 @@ from .act_v3get_thread_response_composer_request_interaction_type import (
 
 class ActV3GetThreadResponseComposerRequestInteraction(UniversalBaseModel):
     type: ActV3GetThreadResponseComposerRequestInteractionType
+    modality: typing.Optional[ActV3GetThreadResponseComposerRequestInteractionModality] = None
     fields: typing.Dict[str, str]
 
     if IS_PYDANTIC_V2:

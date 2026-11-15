@@ -24,6 +24,9 @@ from .act_v3request_response_threads_item_state_composer_experience_surfaces_ite
 from .act_v3request_response_threads_item_state_composer_experience_surfaces_item_generated_representation import (
     ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGeneratedRepresentation,
 )
+from .act_v3request_response_threads_item_state_composer_experience_surfaces_item_generated_runtime_regions_item import (
+    ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGeneratedRuntimeRegionsItem,
+)
 from .act_v3request_response_threads_item_state_composer_experience_surfaces_item_generated_sections_item import (
     ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGeneratedSectionsItem,
 )
@@ -39,6 +42,13 @@ class ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGenerate
     )
     journey: typing.Optional[ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGeneratedJourney] = None
     design: typing.Optional[ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGeneratedRuntimeRegionsItem]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGeneratedSectionsItem]
     next: typing.List[ActV3RequestResponseThreadsItemStateComposerExperienceSurfacesItemGeneratedNextItem]
     react_source: typing_extensions.Annotated[

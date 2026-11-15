@@ -3865,6 +3865,88 @@ client.list_account_payment_methods()
 </dl>
 </details>
 
+<details><summary><code>client.<a href="src/darwin_sdk/client.py">set_default_account_payment_method</a>(...) -> SetDefaultAccountPaymentMethodResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Choose a saved method for the signed-in account using its quoted If-Match revision. Replaces the default only within the same provider, merchant account, and payment type. Does not authorize or dispatch a purchase.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from darwin_sdk import Darwin
+from darwin_sdk.environment import DarwinEnvironment
+
+client = Darwin(
+    api_key="<value>",
+    environment=DarwinEnvironment.DEFAULT,
+)
+
+client.set_default_account_payment_method(
+    method_id="methodId",
+    if_match="If-Match",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**method_id:** `str`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**if_match:** `str`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.<a href="src/darwin_sdk/client.py">revoke_account_payment_method</a>(...) -> RevokeAccountPaymentMethodResponse</code></summary>
 <dl>
 <dd>
@@ -5863,7 +5945,7 @@ client.read_context_content(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -5942,7 +6024,7 @@ client.list_sessions()
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -6039,7 +6121,7 @@ client.create_session(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -6299,7 +6381,7 @@ client.post_session_message(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -6380,7 +6462,7 @@ client.get_session_events(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -6461,7 +6543,7 @@ client.list_session_operations(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -6572,7 +6654,7 @@ client.start_session_operation(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -6670,7 +6752,7 @@ client.get_session_operation(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -8862,7 +8944,7 @@ client.execute(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -8941,7 +9023,7 @@ client.list_navigator_threads()
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -9038,7 +9120,7 @@ client.create_thread(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -9298,7 +9380,7 @@ client.post_thread_message(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -9379,7 +9461,7 @@ client.get_thread_events(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -9460,7 +9542,7 @@ client.list_thread_operations(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -9571,7 +9653,7 @@ client.start_thread_operation(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>
@@ -9669,7 +9751,7 @@ client.get_thread_operation(
 <dl>
 <dd>
 
-Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 </dd>
 </dl>
 </dd>

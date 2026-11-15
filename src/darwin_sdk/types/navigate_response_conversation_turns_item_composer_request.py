@@ -9,6 +9,9 @@ from ..core.serialization import FieldMetadata
 from .navigate_response_conversation_turns_item_composer_request_audio import (
     NavigateResponseConversationTurnsItemComposerRequestAudio,
 )
+from .navigate_response_conversation_turns_item_composer_request_authoring import (
+    NavigateResponseConversationTurnsItemComposerRequestAuthoring,
+)
 from .navigate_response_conversation_turns_item_composer_request_host import (
     NavigateResponseConversationTurnsItemComposerRequestHost,
 )
@@ -36,6 +39,7 @@ class NavigateResponseConversationTurnsItemComposerRequest(UniversalBaseModel):
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
     ] = None
+    authoring: typing.Optional[NavigateResponseConversationTurnsItemComposerRequestAuthoring] = None
     audio: typing.Optional[NavigateResponseConversationTurnsItemComposerRequestAudio] = None
     presentation_override: typing_extensions.Annotated[
         typing.Optional[NavigateResponseConversationTurnsItemComposerRequestPresentationOverride],

@@ -20,11 +20,15 @@ from .act_v3get_thread_response_delivery_presentation_generated import (
 from .act_v3get_thread_response_delivery_presentation_mode import ActV3GetThreadResponseDeliveryPresentationMode
 from .act_v3get_thread_response_delivery_presentation_policy import ActV3GetThreadResponseDeliveryPresentationPolicy
 from .act_v3get_thread_response_delivery_presentation_request import ActV3GetThreadResponseDeliveryPresentationRequest
+from .act_v3get_thread_response_delivery_presentation_selection import (
+    ActV3GetThreadResponseDeliveryPresentationSelection,
+)
 from .act_v3get_thread_response_delivery_presentation_version import ActV3GetThreadResponseDeliveryPresentationVersion
 
 
 class ActV3GetThreadResponseDeliveryPresentation(UniversalBaseModel):
     version: ActV3GetThreadResponseDeliveryPresentationVersion
+    selection: typing.Optional[ActV3GetThreadResponseDeliveryPresentationSelection] = None
     decision: typing.Optional[ActV3GetThreadResponseDeliveryPresentationDecision] = None
     experience: typing.Optional[ActV3GetThreadResponseDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

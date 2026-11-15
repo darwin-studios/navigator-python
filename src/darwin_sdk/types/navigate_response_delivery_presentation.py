@@ -14,11 +14,13 @@ from .navigate_response_delivery_presentation_generated import NavigateResponseD
 from .navigate_response_delivery_presentation_mode import NavigateResponseDeliveryPresentationMode
 from .navigate_response_delivery_presentation_policy import NavigateResponseDeliveryPresentationPolicy
 from .navigate_response_delivery_presentation_request import NavigateResponseDeliveryPresentationRequest
+from .navigate_response_delivery_presentation_selection import NavigateResponseDeliveryPresentationSelection
 from .navigate_response_delivery_presentation_version import NavigateResponseDeliveryPresentationVersion
 
 
 class NavigateResponseDeliveryPresentation(UniversalBaseModel):
     version: NavigateResponseDeliveryPresentationVersion
+    selection: typing.Optional[NavigateResponseDeliveryPresentationSelection] = None
     decision: typing.Optional[NavigateResponseDeliveryPresentationDecision] = None
     experience: typing.Optional[NavigateResponseDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

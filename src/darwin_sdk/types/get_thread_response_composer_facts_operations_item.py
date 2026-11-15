@@ -6,6 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .get_thread_response_composer_facts_operations_item_experience import (
+    GetThreadResponseComposerFactsOperationsItemExperience,
+)
 from .get_thread_response_composer_facts_operations_item_fields_item import (
     GetThreadResponseComposerFactsOperationsItemFieldsItem,
 )
@@ -19,6 +22,7 @@ class GetThreadResponseComposerFactsOperationsItem(UniversalBaseModel):
     name: str
     description: str
     guidance: typing.Optional[GetThreadResponseComposerFactsOperationsItemGuidance] = None
+    experience: typing.Optional[GetThreadResponseComposerFactsOperationsItemExperience] = None
     revision: typing.Optional[int] = None
     available: bool
     reason: typing.Optional[str] = None

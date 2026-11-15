@@ -20,11 +20,15 @@ from .adaptive_search_response_delivery_presentation_generated import (
 from .adaptive_search_response_delivery_presentation_mode import AdaptiveSearchResponseDeliveryPresentationMode
 from .adaptive_search_response_delivery_presentation_policy import AdaptiveSearchResponseDeliveryPresentationPolicy
 from .adaptive_search_response_delivery_presentation_request import AdaptiveSearchResponseDeliveryPresentationRequest
+from .adaptive_search_response_delivery_presentation_selection import (
+    AdaptiveSearchResponseDeliveryPresentationSelection,
+)
 from .adaptive_search_response_delivery_presentation_version import AdaptiveSearchResponseDeliveryPresentationVersion
 
 
 class AdaptiveSearchResponseDeliveryPresentation(UniversalBaseModel):
     version: AdaptiveSearchResponseDeliveryPresentationVersion
+    selection: typing.Optional[AdaptiveSearchResponseDeliveryPresentationSelection] = None
     decision: typing.Optional[AdaptiveSearchResponseDeliveryPresentationDecision] = None
     experience: typing.Optional[AdaptiveSearchResponseDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

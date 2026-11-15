@@ -24,6 +24,9 @@ from .navigate_response_delivery_presentation_generated_next_item import (
 from .navigate_response_delivery_presentation_generated_representation import (
     NavigateResponseDeliveryPresentationGeneratedRepresentation,
 )
+from .navigate_response_delivery_presentation_generated_runtime_regions_item import (
+    NavigateResponseDeliveryPresentationGeneratedRuntimeRegionsItem,
+)
 from .navigate_response_delivery_presentation_generated_sections_item import (
     NavigateResponseDeliveryPresentationGeneratedSectionsItem,
 )
@@ -37,6 +40,11 @@ class NavigateResponseDeliveryPresentationGenerated(UniversalBaseModel):
     artifact: typing.Optional[NavigateResponseDeliveryPresentationGeneratedArtifact] = None
     journey: typing.Optional[NavigateResponseDeliveryPresentationGeneratedJourney] = None
     design: typing.Optional[NavigateResponseDeliveryPresentationGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[typing.List[NavigateResponseDeliveryPresentationGeneratedRuntimeRegionsItem]],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[NavigateResponseDeliveryPresentationGeneratedSectionsItem]
     next: typing.List[NavigateResponseDeliveryPresentationGeneratedNextItem]
     react_source: typing_extensions.Annotated[

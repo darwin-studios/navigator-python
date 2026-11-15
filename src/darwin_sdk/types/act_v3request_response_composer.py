@@ -14,11 +14,13 @@ from .act_v3request_response_composer_generated import ActV3RequestResponseCompo
 from .act_v3request_response_composer_mode import ActV3RequestResponseComposerMode
 from .act_v3request_response_composer_policy import ActV3RequestResponseComposerPolicy
 from .act_v3request_response_composer_request import ActV3RequestResponseComposerRequest
+from .act_v3request_response_composer_selection import ActV3RequestResponseComposerSelection
 from .act_v3request_response_composer_version import ActV3RequestResponseComposerVersion
 
 
 class ActV3RequestResponseComposer(UniversalBaseModel):
     version: ActV3RequestResponseComposerVersion
+    selection: typing.Optional[ActV3RequestResponseComposerSelection] = None
     decision: typing.Optional[ActV3RequestResponseComposerDecision] = None
     experience: typing.Optional[ActV3RequestResponseComposerExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

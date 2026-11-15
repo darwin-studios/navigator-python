@@ -24,6 +24,9 @@ from .navigate_response_conversation_turns_item_composer_generated_next_item imp
 from .navigate_response_conversation_turns_item_composer_generated_representation import (
     NavigateResponseConversationTurnsItemComposerGeneratedRepresentation,
 )
+from .navigate_response_conversation_turns_item_composer_generated_runtime_regions_item import (
+    NavigateResponseConversationTurnsItemComposerGeneratedRuntimeRegionsItem,
+)
 from .navigate_response_conversation_turns_item_composer_generated_sections_item import (
     NavigateResponseConversationTurnsItemComposerGeneratedSectionsItem,
 )
@@ -37,6 +40,11 @@ class NavigateResponseConversationTurnsItemComposerGenerated(UniversalBaseModel)
     artifact: typing.Optional[NavigateResponseConversationTurnsItemComposerGeneratedArtifact] = None
     journey: typing.Optional[NavigateResponseConversationTurnsItemComposerGeneratedJourney] = None
     design: typing.Optional[NavigateResponseConversationTurnsItemComposerGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[typing.List[NavigateResponseConversationTurnsItemComposerGeneratedRuntimeRegionsItem]],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[NavigateResponseConversationTurnsItemComposerGeneratedSectionsItem]
     next: typing.List[NavigateResponseConversationTurnsItemComposerGeneratedNextItem]
     react_source: typing_extensions.Annotated[

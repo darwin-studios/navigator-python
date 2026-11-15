@@ -8,6 +8,11 @@ from .thread_message_request_context_files_item import ThreadMessageRequestConte
 
 
 class ThreadMessageRequestContext(UniversalBaseModel):
+    texts: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Additional text context blocks. Text blocks and files share a ten-item limit.
+    """
+
     text: typing.Optional[str] = pydantic.Field(default=None)
     """
     Task details, constraints, budget, or deadline. This is not permission to spend.

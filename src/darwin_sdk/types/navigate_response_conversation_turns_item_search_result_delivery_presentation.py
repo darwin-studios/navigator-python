@@ -30,6 +30,9 @@ from .navigate_response_conversation_turns_item_search_result_delivery_presentat
 from .navigate_response_conversation_turns_item_search_result_delivery_presentation_request import (
     NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationRequest,
 )
+from .navigate_response_conversation_turns_item_search_result_delivery_presentation_selection import (
+    NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationSelection,
+)
 from .navigate_response_conversation_turns_item_search_result_delivery_presentation_version import (
     NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationVersion,
 )
@@ -37,6 +40,7 @@ from .navigate_response_conversation_turns_item_search_result_delivery_presentat
 
 class NavigateResponseConversationTurnsItemSearchResultDeliveryPresentation(UniversalBaseModel):
     version: NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationVersion
+    selection: typing.Optional[NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationSelection] = None
     decision: typing.Optional[NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationDecision] = None
     experience: typing.Optional[NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

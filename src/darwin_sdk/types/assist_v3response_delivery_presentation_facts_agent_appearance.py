@@ -9,6 +9,12 @@ from ..core.serialization import FieldMetadata
 from .assist_v3response_delivery_presentation_facts_agent_appearance_component_contracts_item import (
     AssistV3ResponseDeliveryPresentationFactsAgentAppearanceComponentContractsItem,
 )
+from .assist_v3response_delivery_presentation_facts_agent_appearance_library import (
+    AssistV3ResponseDeliveryPresentationFactsAgentAppearanceLibrary,
+)
+from .assist_v3response_delivery_presentation_facts_agent_appearance_source import (
+    AssistV3ResponseDeliveryPresentationFactsAgentAppearanceSource,
+)
 
 
 class AssistV3ResponseDeliveryPresentationFactsAgentAppearance(UniversalBaseModel):
@@ -16,6 +22,8 @@ class AssistV3ResponseDeliveryPresentationFactsAgentAppearance(UniversalBaseMode
     library_name: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="libraryName"), pydantic.Field(alias="libraryName")
     ] = None
+    source: typing.Optional[AssistV3ResponseDeliveryPresentationFactsAgentAppearanceSource] = None
+    library: typing.Optional[AssistV3ResponseDeliveryPresentationFactsAgentAppearanceLibrary] = None
     component_contracts: typing_extensions.Annotated[
         typing.List[AssistV3ResponseDeliveryPresentationFactsAgentAppearanceComponentContractsItem],
         FieldMetadata(alias="componentContracts"),

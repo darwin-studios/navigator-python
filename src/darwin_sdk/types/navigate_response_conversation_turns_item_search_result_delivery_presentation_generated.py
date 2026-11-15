@@ -24,6 +24,9 @@ from .navigate_response_conversation_turns_item_search_result_delivery_presentat
 from .navigate_response_conversation_turns_item_search_result_delivery_presentation_generated_representation import (
     NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedRepresentation,
 )
+from .navigate_response_conversation_turns_item_search_result_delivery_presentation_generated_runtime_regions_item import (
+    NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedRuntimeRegionsItem,
+)
 from .navigate_response_conversation_turns_item_search_result_delivery_presentation_generated_sections_item import (
     NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedSectionsItem,
 )
@@ -41,6 +44,15 @@ class NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationGener
         None
     )
     design: typing.Optional[NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[
+                NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedRuntimeRegionsItem
+            ]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedSectionsItem]
     next: typing.List[NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationGeneratedNextItem]
     react_source: typing_extensions.Annotated[

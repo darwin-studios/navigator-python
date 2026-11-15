@@ -26,6 +26,9 @@ from .act_v3response_request_threads_item_state_composer_policy import (
 from .act_v3response_request_threads_item_state_composer_request import (
     ActV3ResponseRequestThreadsItemStateComposerRequest,
 )
+from .act_v3response_request_threads_item_state_composer_selection import (
+    ActV3ResponseRequestThreadsItemStateComposerSelection,
+)
 from .act_v3response_request_threads_item_state_composer_version import (
     ActV3ResponseRequestThreadsItemStateComposerVersion,
 )
@@ -33,6 +36,7 @@ from .act_v3response_request_threads_item_state_composer_version import (
 
 class ActV3ResponseRequestThreadsItemStateComposer(UniversalBaseModel):
     version: ActV3ResponseRequestThreadsItemStateComposerVersion
+    selection: typing.Optional[ActV3ResponseRequestThreadsItemStateComposerSelection] = None
     decision: typing.Optional[ActV3ResponseRequestThreadsItemStateComposerDecision] = None
     experience: typing.Optional[ActV3ResponseRequestThreadsItemStateComposerExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

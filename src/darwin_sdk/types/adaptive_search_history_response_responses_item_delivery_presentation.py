@@ -30,6 +30,9 @@ from .adaptive_search_history_response_responses_item_delivery_presentation_poli
 from .adaptive_search_history_response_responses_item_delivery_presentation_request import (
     AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequest,
 )
+from .adaptive_search_history_response_responses_item_delivery_presentation_selection import (
+    AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationSelection,
+)
 from .adaptive_search_history_response_responses_item_delivery_presentation_version import (
     AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationVersion,
 )
@@ -37,6 +40,7 @@ from .adaptive_search_history_response_responses_item_delivery_presentation_vers
 
 class AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentation(UniversalBaseModel):
     version: AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationVersion
+    selection: typing.Optional[AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationSelection] = None
     decision: typing.Optional[AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationDecision] = None
     experience: typing.Optional[AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

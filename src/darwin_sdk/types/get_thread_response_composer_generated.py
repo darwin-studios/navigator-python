@@ -12,6 +12,9 @@ from .get_thread_response_composer_generated_journey import GetThreadResponseCom
 from .get_thread_response_composer_generated_layout import GetThreadResponseComposerGeneratedLayout
 from .get_thread_response_composer_generated_next_item import GetThreadResponseComposerGeneratedNextItem
 from .get_thread_response_composer_generated_representation import GetThreadResponseComposerGeneratedRepresentation
+from .get_thread_response_composer_generated_runtime_regions_item import (
+    GetThreadResponseComposerGeneratedRuntimeRegionsItem,
+)
 from .get_thread_response_composer_generated_sections_item import GetThreadResponseComposerGeneratedSectionsItem
 
 
@@ -23,6 +26,11 @@ class GetThreadResponseComposerGenerated(UniversalBaseModel):
     artifact: typing.Optional[GetThreadResponseComposerGeneratedArtifact] = None
     journey: typing.Optional[GetThreadResponseComposerGeneratedJourney] = None
     design: typing.Optional[GetThreadResponseComposerGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[typing.List[GetThreadResponseComposerGeneratedRuntimeRegionsItem]],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[GetThreadResponseComposerGeneratedSectionsItem]
     next: typing.List[GetThreadResponseComposerGeneratedNextItem]
     react_source: typing_extensions.Annotated[

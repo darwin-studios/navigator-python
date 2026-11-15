@@ -26,6 +26,9 @@ from .act_v3response_continuation_delivery_presentation_policy import (
 from .act_v3response_continuation_delivery_presentation_request import (
     ActV3ResponseContinuationDeliveryPresentationRequest,
 )
+from .act_v3response_continuation_delivery_presentation_selection import (
+    ActV3ResponseContinuationDeliveryPresentationSelection,
+)
 from .act_v3response_continuation_delivery_presentation_version import (
     ActV3ResponseContinuationDeliveryPresentationVersion,
 )
@@ -33,6 +36,7 @@ from .act_v3response_continuation_delivery_presentation_version import (
 
 class ActV3ResponseContinuationDeliveryPresentation(UniversalBaseModel):
     version: ActV3ResponseContinuationDeliveryPresentationVersion
+    selection: typing.Optional[ActV3ResponseContinuationDeliveryPresentationSelection] = None
     decision: typing.Optional[ActV3ResponseContinuationDeliveryPresentationDecision] = None
     experience: typing.Optional[ActV3ResponseContinuationDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

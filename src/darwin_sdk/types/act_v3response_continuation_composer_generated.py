@@ -14,6 +14,9 @@ from .act_v3response_continuation_composer_generated_next_item import ActV3Respo
 from .act_v3response_continuation_composer_generated_representation import (
     ActV3ResponseContinuationComposerGeneratedRepresentation,
 )
+from .act_v3response_continuation_composer_generated_runtime_regions_item import (
+    ActV3ResponseContinuationComposerGeneratedRuntimeRegionsItem,
+)
 from .act_v3response_continuation_composer_generated_sections_item import (
     ActV3ResponseContinuationComposerGeneratedSectionsItem,
 )
@@ -27,6 +30,11 @@ class ActV3ResponseContinuationComposerGenerated(UniversalBaseModel):
     artifact: typing.Optional[ActV3ResponseContinuationComposerGeneratedArtifact] = None
     journey: typing.Optional[ActV3ResponseContinuationComposerGeneratedJourney] = None
     design: typing.Optional[ActV3ResponseContinuationComposerGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[typing.List[ActV3ResponseContinuationComposerGeneratedRuntimeRegionsItem]],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[ActV3ResponseContinuationComposerGeneratedSectionsItem]
     next: typing.List[ActV3ResponseContinuationComposerGeneratedNextItem]
     react_source: typing_extensions.Annotated[

@@ -16,11 +16,13 @@ from .act_v3request_response_delivery_presentation_generated import ActV3Request
 from .act_v3request_response_delivery_presentation_mode import ActV3RequestResponseDeliveryPresentationMode
 from .act_v3request_response_delivery_presentation_policy import ActV3RequestResponseDeliveryPresentationPolicy
 from .act_v3request_response_delivery_presentation_request import ActV3RequestResponseDeliveryPresentationRequest
+from .act_v3request_response_delivery_presentation_selection import ActV3RequestResponseDeliveryPresentationSelection
 from .act_v3request_response_delivery_presentation_version import ActV3RequestResponseDeliveryPresentationVersion
 
 
 class ActV3RequestResponseDeliveryPresentation(UniversalBaseModel):
     version: ActV3RequestResponseDeliveryPresentationVersion
+    selection: typing.Optional[ActV3RequestResponseDeliveryPresentationSelection] = None
     decision: typing.Optional[ActV3RequestResponseDeliveryPresentationDecision] = None
     experience: typing.Optional[ActV3RequestResponseDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

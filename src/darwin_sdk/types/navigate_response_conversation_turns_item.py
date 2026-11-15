@@ -19,6 +19,7 @@ from .navigate_response_conversation_turns_item_composer import NavigateResponse
 from .navigate_response_conversation_turns_item_data_transfers_item import (
     NavigateResponseConversationTurnsItemDataTransfersItem,
 )
+from .navigate_response_conversation_turns_item_presentation import NavigateResponseConversationTurnsItemPresentation
 from .navigate_response_conversation_turns_item_search_result import NavigateResponseConversationTurnsItemSearchResult
 from .navigate_response_conversation_turns_item_status import NavigateResponseConversationTurnsItemStatus
 from .navigate_response_conversation_turns_item_target import NavigateResponseConversationTurnsItemTarget
@@ -26,6 +27,7 @@ from .navigate_response_conversation_turns_item_target import NavigateResponseCo
 
 class NavigateResponseConversationTurnsItem(UniversalBaseModel):
     turn_id: typing_extensions.Annotated[str, FieldMetadata(alias="turnId"), pydantic.Field(alias="turnId")]
+    presentation: typing.Optional[NavigateResponseConversationTurnsItemPresentation] = None
     composer: typing.Optional[NavigateResponseConversationTurnsItemComposer] = None
     target: typing.Optional[NavigateResponseConversationTurnsItemTarget] = None
     client_message_id: typing_extensions.Annotated[

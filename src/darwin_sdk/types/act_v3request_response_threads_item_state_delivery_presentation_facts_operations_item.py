@@ -6,6 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .act_v3request_response_threads_item_state_delivery_presentation_facts_operations_item_experience import (
+    ActV3RequestResponseThreadsItemStateDeliveryPresentationFactsOperationsItemExperience,
+)
 from .act_v3request_response_threads_item_state_delivery_presentation_facts_operations_item_fields_item import (
     ActV3RequestResponseThreadsItemStateDeliveryPresentationFactsOperationsItemFieldsItem,
 )
@@ -21,6 +24,9 @@ class ActV3RequestResponseThreadsItemStateDeliveryPresentationFactsOperationsIte
     guidance: typing.Optional[ActV3RequestResponseThreadsItemStateDeliveryPresentationFactsOperationsItemGuidance] = (
         None
     )
+    experience: typing.Optional[
+        ActV3RequestResponseThreadsItemStateDeliveryPresentationFactsOperationsItemExperience
+    ] = None
     revision: typing.Optional[int] = None
     available: bool
     reason: typing.Optional[str] = None

@@ -24,6 +24,9 @@ from .act_v3request_response_threads_item_state_delivery_presentation_experience
 from .act_v3request_response_threads_item_state_delivery_presentation_experience_surfaces_item_generated_representation import (
     ActV3RequestResponseThreadsItemStateDeliveryPresentationExperienceSurfacesItemGeneratedRepresentation,
 )
+from .act_v3request_response_threads_item_state_delivery_presentation_experience_surfaces_item_generated_runtime_regions_item import (
+    ActV3RequestResponseThreadsItemStateDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem,
+)
 from .act_v3request_response_threads_item_state_delivery_presentation_experience_surfaces_item_generated_sections_item import (
     ActV3RequestResponseThreadsItemStateDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem,
 )
@@ -44,6 +47,15 @@ class ActV3RequestResponseThreadsItemStateDeliveryPresentationExperienceSurfaces
     ] = None
     design: typing.Optional[
         ActV3RequestResponseThreadsItemStateDeliveryPresentationExperienceSurfacesItemGeneratedDesign
+    ] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[
+                ActV3RequestResponseThreadsItemStateDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem
+            ]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
     ] = None
     sections: typing.List[
         ActV3RequestResponseThreadsItemStateDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem

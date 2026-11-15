@@ -24,6 +24,9 @@ from .get_thread_response_delivery_presentation_generated_next_item import (
 from .get_thread_response_delivery_presentation_generated_representation import (
     GetThreadResponseDeliveryPresentationGeneratedRepresentation,
 )
+from .get_thread_response_delivery_presentation_generated_runtime_regions_item import (
+    GetThreadResponseDeliveryPresentationGeneratedRuntimeRegionsItem,
+)
 from .get_thread_response_delivery_presentation_generated_sections_item import (
     GetThreadResponseDeliveryPresentationGeneratedSectionsItem,
 )
@@ -37,6 +40,11 @@ class GetThreadResponseDeliveryPresentationGenerated(UniversalBaseModel):
     artifact: typing.Optional[GetThreadResponseDeliveryPresentationGeneratedArtifact] = None
     journey: typing.Optional[GetThreadResponseDeliveryPresentationGeneratedJourney] = None
     design: typing.Optional[GetThreadResponseDeliveryPresentationGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[typing.List[GetThreadResponseDeliveryPresentationGeneratedRuntimeRegionsItem]],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[GetThreadResponseDeliveryPresentationGeneratedSectionsItem]
     next: typing.List[GetThreadResponseDeliveryPresentationGeneratedNextItem]
     react_source: typing_extensions.Annotated[

@@ -19,6 +19,7 @@ from .assist_v3response_conversation_turns_item_composer import AssistV3Response
 from .assist_v3response_conversation_turns_item_data_transfers_item import (
     AssistV3ResponseConversationTurnsItemDataTransfersItem,
 )
+from .assist_v3response_conversation_turns_item_presentation import AssistV3ResponseConversationTurnsItemPresentation
 from .assist_v3response_conversation_turns_item_search_result import AssistV3ResponseConversationTurnsItemSearchResult
 from .assist_v3response_conversation_turns_item_status import AssistV3ResponseConversationTurnsItemStatus
 from .assist_v3response_conversation_turns_item_target import AssistV3ResponseConversationTurnsItemTarget
@@ -26,6 +27,7 @@ from .assist_v3response_conversation_turns_item_target import AssistV3ResponseCo
 
 class AssistV3ResponseConversationTurnsItem(UniversalBaseModel):
     turn_id: typing_extensions.Annotated[str, FieldMetadata(alias="turnId"), pydantic.Field(alias="turnId")]
+    presentation: typing.Optional[AssistV3ResponseConversationTurnsItemPresentation] = None
     composer: typing.Optional[AssistV3ResponseConversationTurnsItemComposer] = None
     target: typing.Optional[AssistV3ResponseConversationTurnsItemTarget] = None
     client_message_id: typing_extensions.Annotated[

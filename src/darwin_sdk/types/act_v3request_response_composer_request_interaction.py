@@ -4,11 +4,15 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .act_v3request_response_composer_request_interaction_modality import (
+    ActV3RequestResponseComposerRequestInteractionModality,
+)
 from .act_v3request_response_composer_request_interaction_type import ActV3RequestResponseComposerRequestInteractionType
 
 
 class ActV3RequestResponseComposerRequestInteraction(UniversalBaseModel):
     type: ActV3RequestResponseComposerRequestInteractionType
+    modality: typing.Optional[ActV3RequestResponseComposerRequestInteractionModality] = None
     fields: typing.Dict[str, str]
 
     if IS_PYDANTIC_V2:

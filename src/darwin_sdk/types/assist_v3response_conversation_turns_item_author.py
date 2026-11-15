@@ -16,6 +16,7 @@ from .assist_v3response_conversation_turns_item_author_via_agent import (
 class AssistV3ResponseConversationTurnsItemAuthor(UniversalBaseModel):
     type: AssistV3ResponseConversationTurnsItemAuthorType
     id: str
+    name: typing.Optional[str] = None
     via: typing.Optional[AssistV3ResponseConversationTurnsItemAuthorVia] = None
     via_agent: typing_extensions.Annotated[
         typing.Optional[AssistV3ResponseConversationTurnsItemAuthorViaAgent],

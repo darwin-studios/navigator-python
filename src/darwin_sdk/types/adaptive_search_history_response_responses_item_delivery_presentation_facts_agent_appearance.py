@@ -9,12 +9,24 @@ from ..core.serialization import FieldMetadata
 from .adaptive_search_history_response_responses_item_delivery_presentation_facts_agent_appearance_component_contracts_item import (
     AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationFactsAgentAppearanceComponentContractsItem,
 )
+from .adaptive_search_history_response_responses_item_delivery_presentation_facts_agent_appearance_library import (
+    AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationFactsAgentAppearanceLibrary,
+)
+from .adaptive_search_history_response_responses_item_delivery_presentation_facts_agent_appearance_source import (
+    AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationFactsAgentAppearanceSource,
+)
 
 
 class AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationFactsAgentAppearance(UniversalBaseModel):
     instructions: str
     library_name: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="libraryName"), pydantic.Field(alias="libraryName")
+    ] = None
+    source: typing.Optional[
+        AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationFactsAgentAppearanceSource
+    ] = None
+    library: typing.Optional[
+        AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationFactsAgentAppearanceLibrary
     ] = None
     component_contracts: typing_extensions.Annotated[
         typing.List[

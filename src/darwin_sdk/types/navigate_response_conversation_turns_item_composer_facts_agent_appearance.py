@@ -9,6 +9,12 @@ from ..core.serialization import FieldMetadata
 from .navigate_response_conversation_turns_item_composer_facts_agent_appearance_component_contracts_item import (
     NavigateResponseConversationTurnsItemComposerFactsAgentAppearanceComponentContractsItem,
 )
+from .navigate_response_conversation_turns_item_composer_facts_agent_appearance_library import (
+    NavigateResponseConversationTurnsItemComposerFactsAgentAppearanceLibrary,
+)
+from .navigate_response_conversation_turns_item_composer_facts_agent_appearance_source import (
+    NavigateResponseConversationTurnsItemComposerFactsAgentAppearanceSource,
+)
 
 
 class NavigateResponseConversationTurnsItemComposerFactsAgentAppearance(UniversalBaseModel):
@@ -16,6 +22,8 @@ class NavigateResponseConversationTurnsItemComposerFactsAgentAppearance(Universa
     library_name: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="libraryName"), pydantic.Field(alias="libraryName")
     ] = None
+    source: typing.Optional[NavigateResponseConversationTurnsItemComposerFactsAgentAppearanceSource] = None
+    library: typing.Optional[NavigateResponseConversationTurnsItemComposerFactsAgentAppearanceLibrary] = None
     component_contracts: typing_extensions.Annotated[
         typing.List[NavigateResponseConversationTurnsItemComposerFactsAgentAppearanceComponentContractsItem],
         FieldMetadata(alias="componentContracts"),

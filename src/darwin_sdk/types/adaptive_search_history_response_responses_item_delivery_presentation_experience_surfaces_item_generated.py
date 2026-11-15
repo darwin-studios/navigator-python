@@ -24,6 +24,9 @@ from .adaptive_search_history_response_responses_item_delivery_presentation_expe
 from .adaptive_search_history_response_responses_item_delivery_presentation_experience_surfaces_item_generated_representation import (
     AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationExperienceSurfacesItemGeneratedRepresentation,
 )
+from .adaptive_search_history_response_responses_item_delivery_presentation_experience_surfaces_item_generated_runtime_regions_item import (
+    AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem,
+)
 from .adaptive_search_history_response_responses_item_delivery_presentation_experience_surfaces_item_generated_sections_item import (
     AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem,
 )
@@ -44,6 +47,15 @@ class AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationExperienceSu
     ] = None
     design: typing.Optional[
         AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationExperienceSurfacesItemGeneratedDesign
+    ] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[
+                AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem
+            ]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
     ] = None
     sections: typing.List[
         AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem

@@ -3,5 +3,5 @@
 import typing
 
 ActV3GetThreadResponseComposerRequestHostCapabilitiesItem = typing.Union[
-    typing.Literal["components", "react", "media", "markdown", "structured"], typing.Any
+    typing.Literal["components", "runtime_components", "react", "media", "markdown", "structured"], typing.Any
 ]

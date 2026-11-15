@@ -9,6 +9,9 @@ from ..core.serialization import FieldMetadata
 from .adaptive_search_history_response_responses_item_delivery_presentation_request_audio import (
     AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestAudio,
 )
+from .adaptive_search_history_response_responses_item_delivery_presentation_request_authoring import (
+    AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestAuthoring,
+)
 from .adaptive_search_history_response_responses_item_delivery_presentation_request_host import (
     AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestHost,
 )
@@ -38,6 +41,7 @@ class AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequest(Univ
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
     ] = None
+    authoring: typing.Optional[AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestAuthoring] = None
     audio: typing.Optional[AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestAudio] = None
     presentation_override: typing_extensions.Annotated[
         typing.Optional[AdaptiveSearchHistoryResponseResponsesItemDeliveryPresentationRequestPresentationOverride],

@@ -26,6 +26,9 @@ from .navigate_response_conversation_turns_item_composer_policy import (
 from .navigate_response_conversation_turns_item_composer_request import (
     NavigateResponseConversationTurnsItemComposerRequest,
 )
+from .navigate_response_conversation_turns_item_composer_selection import (
+    NavigateResponseConversationTurnsItemComposerSelection,
+)
 from .navigate_response_conversation_turns_item_composer_version import (
     NavigateResponseConversationTurnsItemComposerVersion,
 )
@@ -33,6 +36,7 @@ from .navigate_response_conversation_turns_item_composer_version import (
 
 class NavigateResponseConversationTurnsItemComposer(UniversalBaseModel):
     version: NavigateResponseConversationTurnsItemComposerVersion
+    selection: typing.Optional[NavigateResponseConversationTurnsItemComposerSelection] = None
     decision: typing.Optional[NavigateResponseConversationTurnsItemComposerDecision] = None
     experience: typing.Optional[NavigateResponseConversationTurnsItemComposerExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

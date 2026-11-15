@@ -9,6 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .get_payment_options_response_eligible_methods_item import GetPaymentOptionsResponseEligibleMethodsItem
 from .get_payment_options_response_saved_methods_item import GetPaymentOptionsResponseSavedMethodsItem
+from .get_payment_options_response_seller_verification import GetPaymentOptionsResponseSellerVerification
 from .get_payment_options_response_unavailable_methods_item import GetPaymentOptionsResponseUnavailableMethodsItem
 from .get_payment_options_response_unavailable_reason import GetPaymentOptionsResponseUnavailableReason
 
@@ -36,6 +37,18 @@ class GetPaymentOptionsResponse(UniversalBaseModel):
     payee_id: typing_extensions.Annotated[str, FieldMetadata(alias="payeeId"), pydantic.Field(alias="payeeId")]
     payee_name: typing_extensions.Annotated[str, FieldMetadata(alias="payeeName"), pydantic.Field(alias="payeeName")]
     action_id: typing_extensions.Annotated[str, FieldMetadata(alias="actionId"), pydantic.Field(alias="actionId")]
+    seller_verification: typing_extensions.Annotated[
+        typing.Optional[GetPaymentOptionsResponseSellerVerification],
+        FieldMetadata(alias="sellerVerification"),
+        pydantic.Field(
+            alias="sellerVerification",
+            description="Independent seller identity review. Never grants payment eligibility or permission to spend.",
+        ),
+    ] = None
+    """
+    Independent seller identity review. Never grants payment eligibility or permission to spend.
+    """
+
     eligible_methods: typing_extensions.Annotated[
         typing.List[GetPaymentOptionsResponseEligibleMethodsItem],
         FieldMetadata(alias="eligibleMethods"),

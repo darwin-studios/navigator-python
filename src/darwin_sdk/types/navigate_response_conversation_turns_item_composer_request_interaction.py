@@ -4,6 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .navigate_response_conversation_turns_item_composer_request_interaction_modality import (
+    NavigateResponseConversationTurnsItemComposerRequestInteractionModality,
+)
 from .navigate_response_conversation_turns_item_composer_request_interaction_type import (
     NavigateResponseConversationTurnsItemComposerRequestInteractionType,
 )
@@ -11,6 +14,7 @@ from .navigate_response_conversation_turns_item_composer_request_interaction_typ
 
 class NavigateResponseConversationTurnsItemComposerRequestInteraction(UniversalBaseModel):
     type: NavigateResponseConversationTurnsItemComposerRequestInteractionType
+    modality: typing.Optional[NavigateResponseConversationTurnsItemComposerRequestInteractionModality] = None
     fields: typing.Dict[str, str]
 
     if IS_PYDANTIC_V2:

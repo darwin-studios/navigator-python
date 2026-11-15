@@ -24,6 +24,9 @@ from .act_v3request_response_delivery_presentation_generated_next_item import (
 from .act_v3request_response_delivery_presentation_generated_representation import (
     ActV3RequestResponseDeliveryPresentationGeneratedRepresentation,
 )
+from .act_v3request_response_delivery_presentation_generated_runtime_regions_item import (
+    ActV3RequestResponseDeliveryPresentationGeneratedRuntimeRegionsItem,
+)
 from .act_v3request_response_delivery_presentation_generated_sections_item import (
     ActV3RequestResponseDeliveryPresentationGeneratedSectionsItem,
 )
@@ -37,6 +40,11 @@ class ActV3RequestResponseDeliveryPresentationGenerated(UniversalBaseModel):
     artifact: typing.Optional[ActV3RequestResponseDeliveryPresentationGeneratedArtifact] = None
     journey: typing.Optional[ActV3RequestResponseDeliveryPresentationGeneratedJourney] = None
     design: typing.Optional[ActV3RequestResponseDeliveryPresentationGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[typing.List[ActV3RequestResponseDeliveryPresentationGeneratedRuntimeRegionsItem]],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[ActV3RequestResponseDeliveryPresentationGeneratedSectionsItem]
     next: typing.List[ActV3RequestResponseDeliveryPresentationGeneratedNextItem]
     react_source: typing_extensions.Annotated[

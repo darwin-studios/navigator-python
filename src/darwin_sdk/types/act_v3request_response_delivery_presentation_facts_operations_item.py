@@ -6,6 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .act_v3request_response_delivery_presentation_facts_operations_item_experience import (
+    ActV3RequestResponseDeliveryPresentationFactsOperationsItemExperience,
+)
 from .act_v3request_response_delivery_presentation_facts_operations_item_fields_item import (
     ActV3RequestResponseDeliveryPresentationFactsOperationsItemFieldsItem,
 )
@@ -19,6 +22,7 @@ class ActV3RequestResponseDeliveryPresentationFactsOperationsItem(UniversalBaseM
     name: str
     description: str
     guidance: typing.Optional[ActV3RequestResponseDeliveryPresentationFactsOperationsItemGuidance] = None
+    experience: typing.Optional[ActV3RequestResponseDeliveryPresentationFactsOperationsItemExperience] = None
     revision: typing.Optional[int] = None
     available: bool
     reason: typing.Optional[str] = None

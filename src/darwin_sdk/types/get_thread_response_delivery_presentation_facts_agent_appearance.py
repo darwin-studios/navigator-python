@@ -9,6 +9,12 @@ from ..core.serialization import FieldMetadata
 from .get_thread_response_delivery_presentation_facts_agent_appearance_component_contracts_item import (
     GetThreadResponseDeliveryPresentationFactsAgentAppearanceComponentContractsItem,
 )
+from .get_thread_response_delivery_presentation_facts_agent_appearance_library import (
+    GetThreadResponseDeliveryPresentationFactsAgentAppearanceLibrary,
+)
+from .get_thread_response_delivery_presentation_facts_agent_appearance_source import (
+    GetThreadResponseDeliveryPresentationFactsAgentAppearanceSource,
+)
 
 
 class GetThreadResponseDeliveryPresentationFactsAgentAppearance(UniversalBaseModel):
@@ -16,6 +22,8 @@ class GetThreadResponseDeliveryPresentationFactsAgentAppearance(UniversalBaseMod
     library_name: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="libraryName"), pydantic.Field(alias="libraryName")
     ] = None
+    source: typing.Optional[GetThreadResponseDeliveryPresentationFactsAgentAppearanceSource] = None
+    library: typing.Optional[GetThreadResponseDeliveryPresentationFactsAgentAppearanceLibrary] = None
     component_contracts: typing_extensions.Annotated[
         typing.List[GetThreadResponseDeliveryPresentationFactsAgentAppearanceComponentContractsItem],
         FieldMetadata(alias="componentContracts"),

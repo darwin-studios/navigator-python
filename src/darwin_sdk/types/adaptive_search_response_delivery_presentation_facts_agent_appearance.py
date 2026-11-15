@@ -9,6 +9,12 @@ from ..core.serialization import FieldMetadata
 from .adaptive_search_response_delivery_presentation_facts_agent_appearance_component_contracts_item import (
     AdaptiveSearchResponseDeliveryPresentationFactsAgentAppearanceComponentContractsItem,
 )
+from .adaptive_search_response_delivery_presentation_facts_agent_appearance_library import (
+    AdaptiveSearchResponseDeliveryPresentationFactsAgentAppearanceLibrary,
+)
+from .adaptive_search_response_delivery_presentation_facts_agent_appearance_source import (
+    AdaptiveSearchResponseDeliveryPresentationFactsAgentAppearanceSource,
+)
 
 
 class AdaptiveSearchResponseDeliveryPresentationFactsAgentAppearance(UniversalBaseModel):
@@ -16,6 +22,8 @@ class AdaptiveSearchResponseDeliveryPresentationFactsAgentAppearance(UniversalBa
     library_name: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="libraryName"), pydantic.Field(alias="libraryName")
     ] = None
+    source: typing.Optional[AdaptiveSearchResponseDeliveryPresentationFactsAgentAppearanceSource] = None
+    library: typing.Optional[AdaptiveSearchResponseDeliveryPresentationFactsAgentAppearanceLibrary] = None
     component_contracts: typing_extensions.Annotated[
         typing.List[AdaptiveSearchResponseDeliveryPresentationFactsAgentAppearanceComponentContractsItem],
         FieldMetadata(alias="componentContracts"),

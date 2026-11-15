@@ -146,6 +146,7 @@ from .types.session_message_request_mode import SessionMessageRequestMode
 from .types.session_message_request_target import SessionMessageRequestTarget
 from .types.session_operation_action_message import SessionOperationActionMessage
 from .types.session_operation_start_target import SessionOperationStartTarget
+from .types.set_default_account_payment_method_response import SetDefaultAccountPaymentMethodResponse
 from .types.set_payment_method_default_response import SetPaymentMethodDefaultResponse
 from .types.set_target_account_default_response import SetTargetAccountDefaultResponse
 from .types.start_account_auth_credential_setup_response import StartAccountAuthCredentialSetupResponse
@@ -5105,6 +5106,130 @@ class RawDarwin:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def set_default_account_payment_method(
+        self, method_id: str, *, if_match: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[SetDefaultAccountPaymentMethodResponse]:
+        """
+        Choose a saved method for the signed-in account using its quoted If-Match revision. Replaces the default only within the same provider, merchant account, and payment type. Does not authorize or dispatch a purchase.
+
+        Parameters
+        ----------
+        method_id : str
+
+        if_match : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SetDefaultAccountPaymentMethodResponse]
+            Authorized account metadata only.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/account/payment-methods/{quote_path_param(method_id)}/default",
+            method="POST",
+            headers={
+                "If-Match": str(if_match) if if_match is not None else None,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetDefaultAccountPaymentMethodResponse,
+                    parse_obj_as(
+                        type_=SetDefaultAccountPaymentMethodResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise errors_conflict_error_ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def revoke_account_payment_method(
         self, method_id: str, *, if_match: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[RevokeAccountPaymentMethodResponse]:
@@ -7788,7 +7913,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SessionList]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -7921,7 +8046,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[NavigateResponse]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -8064,7 +8189,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -8389,7 +8514,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[HttpResponse[typing.Iterator[str]]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -8471,7 +8596,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -8603,7 +8728,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ActV3Response]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -8748,7 +8873,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ActV3GetThreadResponse]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -8884,7 +9009,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ActV3Response]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -11528,7 +11653,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ThreadList]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -11661,7 +11786,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[NavigateResponse]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -11804,7 +11929,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -12129,7 +12254,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[HttpResponse[typing.Iterator[str]]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -12211,7 +12336,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -12343,7 +12468,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ActV3Response]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -12488,7 +12613,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ActV3GetThreadResponse]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -12624,7 +12749,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ActV3Response]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -19245,6 +19370,130 @@ class AsyncRawDarwin:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def set_default_account_payment_method(
+        self, method_id: str, *, if_match: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[SetDefaultAccountPaymentMethodResponse]:
+        """
+        Choose a saved method for the signed-in account using its quoted If-Match revision. Replaces the default only within the same provider, merchant account, and payment type. Does not authorize or dispatch a purchase.
+
+        Parameters
+        ----------
+        method_id : str
+
+        if_match : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SetDefaultAccountPaymentMethodResponse]
+            Authorized account metadata only.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/account/payment-methods/{quote_path_param(method_id)}/default",
+            method="POST",
+            headers={
+                "If-Match": str(if_match) if if_match is not None else None,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetDefaultAccountPaymentMethodResponse,
+                    parse_obj_as(
+                        type_=SetDefaultAccountPaymentMethodResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise errors_conflict_error_ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def revoke_account_payment_method(
         self, method_id: str, *, if_match: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[RevokeAccountPaymentMethodResponse]:
@@ -21928,7 +22177,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SessionList]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -22061,7 +22310,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[NavigateResponse]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -22204,7 +22453,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -22529,7 +22778,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[str]]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -22611,7 +22860,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -22743,7 +22992,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ActV3Response]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -22888,7 +23137,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ActV3GetThreadResponse]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -23024,7 +23273,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ActV3Response]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -25668,7 +25917,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ThreadList]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -25801,7 +26050,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[NavigateResponse]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -25944,7 +26193,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -26269,7 +26518,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[str]]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -26351,7 +26600,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -26483,7 +26732,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ActV3Response]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -26628,7 +26877,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ActV3GetThreadResponse]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------
@@ -26764,7 +27013,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ActV3Response]:
         """
-        Guest session preview requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
+        Guest session access requires no account or API key. Retain the returned conversationToken and send X-Assist-Token on follow-ups. Guest limits and sign-in gates apply. The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
 
         Parameters
         ----------

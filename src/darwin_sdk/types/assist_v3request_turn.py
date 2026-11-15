@@ -12,10 +12,12 @@ from .assist_v3request_turn_context_item import AssistV3RequestTurnContextItem
 from .assist_v3request_turn_live_search import AssistV3RequestTurnLiveSearch
 from .assist_v3request_turn_message import AssistV3RequestTurnMessage
 from .assist_v3request_turn_mode import AssistV3RequestTurnMode
+from .assist_v3request_turn_presentation import AssistV3RequestTurnPresentation
 from .assist_v3request_turn_target import AssistV3RequestTurnTarget
 
 
 class AssistV3RequestTurn(UniversalBaseModel):
+    presentation: typing.Optional[AssistV3RequestTurnPresentation] = None
     audience: typing.Optional[AssistV3RequestTurnAudience] = pydantic.Field(default=None)
     """
     Who consumes this response. Controls presentation only; never identity, permissions, or approval.

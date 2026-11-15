@@ -4,6 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .act_v3response_request_delivery_presentation_request_interaction_modality import (
+    ActV3ResponseRequestDeliveryPresentationRequestInteractionModality,
+)
 from .act_v3response_request_delivery_presentation_request_interaction_type import (
     ActV3ResponseRequestDeliveryPresentationRequestInteractionType,
 )
@@ -11,6 +14,7 @@ from .act_v3response_request_delivery_presentation_request_interaction_type impo
 
 class ActV3ResponseRequestDeliveryPresentationRequestInteraction(UniversalBaseModel):
     type: ActV3ResponseRequestDeliveryPresentationRequestInteractionType
+    modality: typing.Optional[ActV3ResponseRequestDeliveryPresentationRequestInteractionModality] = None
     fields: typing.Dict[str, str]
 
     if IS_PYDANTIC_V2:

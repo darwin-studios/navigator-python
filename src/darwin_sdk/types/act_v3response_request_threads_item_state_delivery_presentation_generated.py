@@ -24,6 +24,9 @@ from .act_v3response_request_threads_item_state_delivery_presentation_generated_
 from .act_v3response_request_threads_item_state_delivery_presentation_generated_representation import (
     ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedRepresentation,
 )
+from .act_v3response_request_threads_item_state_delivery_presentation_generated_runtime_regions_item import (
+    ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedRuntimeRegionsItem,
+)
 from .act_v3response_request_threads_item_state_delivery_presentation_generated_sections_item import (
     ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedSectionsItem,
 )
@@ -37,6 +40,13 @@ class ActV3ResponseRequestThreadsItemStateDeliveryPresentationGenerated(Universa
     artifact: typing.Optional[ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedArtifact] = None
     journey: typing.Optional[ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedJourney] = None
     design: typing.Optional[ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedRuntimeRegionsItem]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedSectionsItem]
     next: typing.List[ActV3ResponseRequestThreadsItemStateDeliveryPresentationGeneratedNextItem]
     react_source: typing_extensions.Annotated[

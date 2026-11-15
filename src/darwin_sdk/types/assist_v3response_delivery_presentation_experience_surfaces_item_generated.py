@@ -24,6 +24,9 @@ from .assist_v3response_delivery_presentation_experience_surfaces_item_generated
 from .assist_v3response_delivery_presentation_experience_surfaces_item_generated_representation import (
     AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedRepresentation,
 )
+from .assist_v3response_delivery_presentation_experience_surfaces_item_generated_runtime_regions_item import (
+    AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem,
+)
 from .assist_v3response_delivery_presentation_experience_surfaces_item_generated_sections_item import (
     AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem,
 )
@@ -37,6 +40,13 @@ class AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGenerated(Univer
     artifact: typing.Optional[AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedArtifact] = None
     journey: typing.Optional[AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedJourney] = None
     design: typing.Optional[AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem]
     next: typing.List[AssistV3ResponseDeliveryPresentationExperienceSurfacesItemGeneratedNextItem]
     react_source: typing_extensions.Annotated[

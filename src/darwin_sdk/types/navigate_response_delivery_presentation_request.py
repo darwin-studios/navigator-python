@@ -7,6 +7,9 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .navigate_response_delivery_presentation_request_audio import NavigateResponseDeliveryPresentationRequestAudio
+from .navigate_response_delivery_presentation_request_authoring import (
+    NavigateResponseDeliveryPresentationRequestAuthoring,
+)
 from .navigate_response_delivery_presentation_request_host import NavigateResponseDeliveryPresentationRequestHost
 from .navigate_response_delivery_presentation_request_interaction import (
     NavigateResponseDeliveryPresentationRequestInteraction,
@@ -30,6 +33,7 @@ class NavigateResponseDeliveryPresentationRequest(UniversalBaseModel):
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
     ] = None
+    authoring: typing.Optional[NavigateResponseDeliveryPresentationRequestAuthoring] = None
     audio: typing.Optional[NavigateResponseDeliveryPresentationRequestAudio] = None
     presentation_override: typing_extensions.Annotated[
         typing.Optional[NavigateResponseDeliveryPresentationRequestPresentationOverride],

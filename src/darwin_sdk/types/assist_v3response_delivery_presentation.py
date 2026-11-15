@@ -14,11 +14,13 @@ from .assist_v3response_delivery_presentation_generated import AssistV3ResponseD
 from .assist_v3response_delivery_presentation_mode import AssistV3ResponseDeliveryPresentationMode
 from .assist_v3response_delivery_presentation_policy import AssistV3ResponseDeliveryPresentationPolicy
 from .assist_v3response_delivery_presentation_request import AssistV3ResponseDeliveryPresentationRequest
+from .assist_v3response_delivery_presentation_selection import AssistV3ResponseDeliveryPresentationSelection
 from .assist_v3response_delivery_presentation_version import AssistV3ResponseDeliveryPresentationVersion
 
 
 class AssistV3ResponseDeliveryPresentation(UniversalBaseModel):
     version: AssistV3ResponseDeliveryPresentationVersion
+    selection: typing.Optional[AssistV3ResponseDeliveryPresentationSelection] = None
     decision: typing.Optional[AssistV3ResponseDeliveryPresentationDecision] = None
     experience: typing.Optional[AssistV3ResponseDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

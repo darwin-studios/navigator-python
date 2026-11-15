@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .act_v3response_request_composer_request_audio import ActV3ResponseRequestComposerRequestAudio
+from .act_v3response_request_composer_request_authoring import ActV3ResponseRequestComposerRequestAuthoring
 from .act_v3response_request_composer_request_host import ActV3ResponseRequestComposerRequestHost
 from .act_v3response_request_composer_request_interaction import ActV3ResponseRequestComposerRequestInteraction
 from .act_v3response_request_composer_request_mode import ActV3ResponseRequestComposerRequestMode
@@ -26,6 +27,7 @@ class ActV3ResponseRequestComposerRequest(UniversalBaseModel):
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
     ] = None
+    authoring: typing.Optional[ActV3ResponseRequestComposerRequestAuthoring] = None
     audio: typing.Optional[ActV3ResponseRequestComposerRequestAudio] = None
     presentation_override: typing_extensions.Annotated[
         typing.Optional[ActV3ResponseRequestComposerRequestPresentationOverride],

@@ -9,6 +9,12 @@ from ..core.serialization import FieldMetadata
 from .get_thread_response_composer_facts_agent_appearance_component_contracts_item import (
     GetThreadResponseComposerFactsAgentAppearanceComponentContractsItem,
 )
+from .get_thread_response_composer_facts_agent_appearance_library import (
+    GetThreadResponseComposerFactsAgentAppearanceLibrary,
+)
+from .get_thread_response_composer_facts_agent_appearance_source import (
+    GetThreadResponseComposerFactsAgentAppearanceSource,
+)
 
 
 class GetThreadResponseComposerFactsAgentAppearance(UniversalBaseModel):
@@ -16,6 +22,8 @@ class GetThreadResponseComposerFactsAgentAppearance(UniversalBaseModel):
     library_name: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="libraryName"), pydantic.Field(alias="libraryName")
     ] = None
+    source: typing.Optional[GetThreadResponseComposerFactsAgentAppearanceSource] = None
+    library: typing.Optional[GetThreadResponseComposerFactsAgentAppearanceLibrary] = None
     component_contracts: typing_extensions.Annotated[
         typing.List[GetThreadResponseComposerFactsAgentAppearanceComponentContractsItem],
         FieldMetadata(alias="componentContracts"),

@@ -6,6 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .navigate_response_conversation_turns_item_composer_facts_operations_item_experience import (
+    NavigateResponseConversationTurnsItemComposerFactsOperationsItemExperience,
+)
 from .navigate_response_conversation_turns_item_composer_facts_operations_item_fields_item import (
     NavigateResponseConversationTurnsItemComposerFactsOperationsItemFieldsItem,
 )
@@ -19,6 +22,7 @@ class NavigateResponseConversationTurnsItemComposerFactsOperationsItem(Universal
     name: str
     description: str
     guidance: typing.Optional[NavigateResponseConversationTurnsItemComposerFactsOperationsItemGuidance] = None
+    experience: typing.Optional[NavigateResponseConversationTurnsItemComposerFactsOperationsItemExperience] = None
     revision: typing.Optional[int] = None
     available: bool
     reason: typing.Optional[str] = None

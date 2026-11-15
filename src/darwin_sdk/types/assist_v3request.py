@@ -22,6 +22,7 @@ from .assist_v3request_turn_context_item import AssistV3RequestTurnContextItem
 from .assist_v3request_turn_live_search import AssistV3RequestTurnLiveSearch
 from .assist_v3request_turn_message import AssistV3RequestTurnMessage
 from .assist_v3request_turn_mode import AssistV3RequestTurnMode
+from .assist_v3request_turn_presentation import AssistV3RequestTurnPresentation
 from .assist_v3request_turn_target import AssistV3RequestTurnTarget
 from .assist_v3request_update_message import AssistV3RequestUpdateMessage
 
@@ -79,6 +80,7 @@ class AssistV3Request_Update(UniversalBaseModel):
 
 class AssistV3Request_Turn(UniversalBaseModel):
     type: typing.Literal["turn"] = "turn"
+    presentation: typing.Optional[AssistV3RequestTurnPresentation] = None
     audience: typing.Optional[AssistV3RequestTurnAudience] = None
     assist_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="assistId"), pydantic.Field(alias="assistId")

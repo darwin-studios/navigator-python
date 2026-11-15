@@ -9,6 +9,9 @@ from ..core.serialization import FieldMetadata
 from .act_v3request_response_threads_item_state_composer_request_audio import (
     ActV3RequestResponseThreadsItemStateComposerRequestAudio,
 )
+from .act_v3request_response_threads_item_state_composer_request_authoring import (
+    ActV3RequestResponseThreadsItemStateComposerRequestAuthoring,
+)
 from .act_v3request_response_threads_item_state_composer_request_host import (
     ActV3RequestResponseThreadsItemStateComposerRequestHost,
 )
@@ -36,6 +39,7 @@ class ActV3RequestResponseThreadsItemStateComposerRequest(UniversalBaseModel):
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
     ] = None
+    authoring: typing.Optional[ActV3RequestResponseThreadsItemStateComposerRequestAuthoring] = None
     audio: typing.Optional[ActV3RequestResponseThreadsItemStateComposerRequestAudio] = None
     presentation_override: typing_extensions.Annotated[
         typing.Optional[ActV3RequestResponseThreadsItemStateComposerRequestPresentationOverride],

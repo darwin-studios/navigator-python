@@ -7,6 +7,9 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .get_thread_response_delivery_presentation_request_audio import GetThreadResponseDeliveryPresentationRequestAudio
+from .get_thread_response_delivery_presentation_request_authoring import (
+    GetThreadResponseDeliveryPresentationRequestAuthoring,
+)
 from .get_thread_response_delivery_presentation_request_host import GetThreadResponseDeliveryPresentationRequestHost
 from .get_thread_response_delivery_presentation_request_interaction import (
     GetThreadResponseDeliveryPresentationRequestInteraction,
@@ -30,6 +33,7 @@ class GetThreadResponseDeliveryPresentationRequest(UniversalBaseModel):
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
     ] = None
+    authoring: typing.Optional[GetThreadResponseDeliveryPresentationRequestAuthoring] = None
     audio: typing.Optional[GetThreadResponseDeliveryPresentationRequestAudio] = None
     presentation_override: typing_extensions.Annotated[
         typing.Optional[GetThreadResponseDeliveryPresentationRequestPresentationOverride],

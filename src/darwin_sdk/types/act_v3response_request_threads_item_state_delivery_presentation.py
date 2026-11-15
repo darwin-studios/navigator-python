@@ -30,6 +30,9 @@ from .act_v3response_request_threads_item_state_delivery_presentation_policy imp
 from .act_v3response_request_threads_item_state_delivery_presentation_request import (
     ActV3ResponseRequestThreadsItemStateDeliveryPresentationRequest,
 )
+from .act_v3response_request_threads_item_state_delivery_presentation_selection import (
+    ActV3ResponseRequestThreadsItemStateDeliveryPresentationSelection,
+)
 from .act_v3response_request_threads_item_state_delivery_presentation_version import (
     ActV3ResponseRequestThreadsItemStateDeliveryPresentationVersion,
 )
@@ -37,6 +40,7 @@ from .act_v3response_request_threads_item_state_delivery_presentation_version im
 
 class ActV3ResponseRequestThreadsItemStateDeliveryPresentation(UniversalBaseModel):
     version: ActV3ResponseRequestThreadsItemStateDeliveryPresentationVersion
+    selection: typing.Optional[ActV3ResponseRequestThreadsItemStateDeliveryPresentationSelection] = None
     decision: typing.Optional[ActV3ResponseRequestThreadsItemStateDeliveryPresentationDecision] = None
     experience: typing.Optional[ActV3ResponseRequestThreadsItemStateDeliveryPresentationExperience] = None
     run_id: typing_extensions.Annotated[str, FieldMetadata(alias="runId"), pydantic.Field(alias="runId")]

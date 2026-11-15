@@ -6,6 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .navigate_response_delivery_presentation_facts_operations_item_experience import (
+    NavigateResponseDeliveryPresentationFactsOperationsItemExperience,
+)
 from .navigate_response_delivery_presentation_facts_operations_item_fields_item import (
     NavigateResponseDeliveryPresentationFactsOperationsItemFieldsItem,
 )
@@ -19,6 +22,7 @@ class NavigateResponseDeliveryPresentationFactsOperationsItem(UniversalBaseModel
     name: str
     description: str
     guidance: typing.Optional[NavigateResponseDeliveryPresentationFactsOperationsItemGuidance] = None
+    experience: typing.Optional[NavigateResponseDeliveryPresentationFactsOperationsItemExperience] = None
     revision: typing.Optional[int] = None
     available: bool
     reason: typing.Optional[str] = None

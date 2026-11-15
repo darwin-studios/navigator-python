@@ -16,6 +16,7 @@ from .navigate_response_conversation_turns_item_author_via_agent import (
 class NavigateResponseConversationTurnsItemAuthor(UniversalBaseModel):
     type: NavigateResponseConversationTurnsItemAuthorType
     id: str
+    name: typing.Optional[str] = None
     via: typing.Optional[NavigateResponseConversationTurnsItemAuthorVia] = None
     via_agent: typing_extensions.Annotated[
         typing.Optional[NavigateResponseConversationTurnsItemAuthorViaAgent],

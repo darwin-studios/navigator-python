@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .act_v3get_thread_response_composer_request_audio import ActV3GetThreadResponseComposerRequestAudio
+from .act_v3get_thread_response_composer_request_authoring import ActV3GetThreadResponseComposerRequestAuthoring
 from .act_v3get_thread_response_composer_request_host import ActV3GetThreadResponseComposerRequestHost
 from .act_v3get_thread_response_composer_request_interaction import ActV3GetThreadResponseComposerRequestInteraction
 from .act_v3get_thread_response_composer_request_mode import ActV3GetThreadResponseComposerRequestMode
@@ -26,6 +27,7 @@ class ActV3GetThreadResponseComposerRequest(UniversalBaseModel):
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
     ] = None
+    authoring: typing.Optional[ActV3GetThreadResponseComposerRequestAuthoring] = None
     audio: typing.Optional[ActV3GetThreadResponseComposerRequestAudio] = None
     presentation_override: typing_extensions.Annotated[
         typing.Optional[ActV3GetThreadResponseComposerRequestPresentationOverride],

@@ -24,6 +24,9 @@ from .act_v3request_response_threads_item_state_composer_generated_next_item imp
 from .act_v3request_response_threads_item_state_composer_generated_representation import (
     ActV3RequestResponseThreadsItemStateComposerGeneratedRepresentation,
 )
+from .act_v3request_response_threads_item_state_composer_generated_runtime_regions_item import (
+    ActV3RequestResponseThreadsItemStateComposerGeneratedRuntimeRegionsItem,
+)
 from .act_v3request_response_threads_item_state_composer_generated_sections_item import (
     ActV3RequestResponseThreadsItemStateComposerGeneratedSectionsItem,
 )
@@ -37,6 +40,11 @@ class ActV3RequestResponseThreadsItemStateComposerGenerated(UniversalBaseModel):
     artifact: typing.Optional[ActV3RequestResponseThreadsItemStateComposerGeneratedArtifact] = None
     journey: typing.Optional[ActV3RequestResponseThreadsItemStateComposerGeneratedJourney] = None
     design: typing.Optional[ActV3RequestResponseThreadsItemStateComposerGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[typing.List[ActV3RequestResponseThreadsItemStateComposerGeneratedRuntimeRegionsItem]],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[ActV3RequestResponseThreadsItemStateComposerGeneratedSectionsItem]
     next: typing.List[ActV3RequestResponseThreadsItemStateComposerGeneratedNextItem]
     react_source: typing_extensions.Annotated[

@@ -9,6 +9,9 @@ from ..core.serialization import FieldMetadata
 from .assist_v3response_conversation_turns_item_search_result_delivery_presentation_request_audio import (
     AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationRequestAudio,
 )
+from .assist_v3response_conversation_turns_item_search_result_delivery_presentation_request_authoring import (
+    AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationRequestAuthoring,
+)
 from .assist_v3response_conversation_turns_item_search_result_delivery_presentation_request_host import (
     AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationRequestHost,
 )
@@ -37,6 +40,9 @@ class AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationReque
     ] = None
     operation_id: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="operationId"), pydantic.Field(alias="operationId")
+    ] = None
+    authoring: typing.Optional[
+        AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationRequestAuthoring
     ] = None
     audio: typing.Optional[AssistV3ResponseConversationTurnsItemSearchResultDeliveryPresentationRequestAudio] = None
     presentation_override: typing_extensions.Annotated[

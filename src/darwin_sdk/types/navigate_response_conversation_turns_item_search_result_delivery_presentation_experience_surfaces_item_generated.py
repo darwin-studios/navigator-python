@@ -24,6 +24,9 @@ from .navigate_response_conversation_turns_item_search_result_delivery_presentat
 from .navigate_response_conversation_turns_item_search_result_delivery_presentation_experience_surfaces_item_generated_representation import (
     NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationExperienceSurfacesItemGeneratedRepresentation,
 )
+from .navigate_response_conversation_turns_item_search_result_delivery_presentation_experience_surfaces_item_generated_runtime_regions_item import (
+    NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem,
+)
 from .navigate_response_conversation_turns_item_search_result_delivery_presentation_experience_surfaces_item_generated_sections_item import (
     NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem,
 )
@@ -44,6 +47,15 @@ class NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationExper
     ] = None
     design: typing.Optional[
         NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationExperienceSurfacesItemGeneratedDesign
+    ] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[
+                NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem
+            ]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
     ] = None
     sections: typing.List[
         NavigateResponseConversationTurnsItemSearchResultDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem

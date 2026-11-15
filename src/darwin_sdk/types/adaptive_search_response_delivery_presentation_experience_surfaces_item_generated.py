@@ -24,6 +24,9 @@ from .adaptive_search_response_delivery_presentation_experience_surfaces_item_ge
 from .adaptive_search_response_delivery_presentation_experience_surfaces_item_generated_representation import (
     AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedRepresentation,
 )
+from .adaptive_search_response_delivery_presentation_experience_surfaces_item_generated_runtime_regions_item import (
+    AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem,
+)
 from .adaptive_search_response_delivery_presentation_experience_surfaces_item_generated_sections_item import (
     AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem,
 )
@@ -37,6 +40,13 @@ class AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGenerated(
     artifact: typing.Optional[AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedArtifact] = None
     journey: typing.Optional[AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedJourney] = None
     design: typing.Optional[AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedDesign] = None
+    runtime_regions: typing_extensions.Annotated[
+        typing.Optional[
+            typing.List[AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedRuntimeRegionsItem]
+        ],
+        FieldMetadata(alias="runtimeRegions"),
+        pydantic.Field(alias="runtimeRegions"),
+    ] = None
     sections: typing.List[AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedSectionsItem]
     next: typing.List[AdaptiveSearchResponseDeliveryPresentationExperienceSurfacesItemGeneratedNextItem]
     react_source: typing_extensions.Annotated[

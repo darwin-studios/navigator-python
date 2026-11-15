@@ -6,6 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .act_v3response_request_composer_facts_operations_item_experience import (
+    ActV3ResponseRequestComposerFactsOperationsItemExperience,
+)
 from .act_v3response_request_composer_facts_operations_item_fields_item import (
     ActV3ResponseRequestComposerFactsOperationsItemFieldsItem,
 )
@@ -19,6 +22,7 @@ class ActV3ResponseRequestComposerFactsOperationsItem(UniversalBaseModel):
     name: str
     description: str
     guidance: typing.Optional[ActV3ResponseRequestComposerFactsOperationsItemGuidance] = None
+    experience: typing.Optional[ActV3ResponseRequestComposerFactsOperationsItemExperience] = None
     revision: typing.Optional[int] = None
     available: bool
     reason: typing.Optional[str] = None

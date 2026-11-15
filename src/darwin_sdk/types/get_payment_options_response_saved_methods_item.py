@@ -19,6 +19,16 @@ class GetPaymentOptionsResponseSavedMethodsItem(UniversalBaseModel):
     expires_at: typing_extensions.Annotated[
         dt.datetime, FieldMetadata(alias="expiresAt"), pydantic.Field(alias="expiresAt")
     ]
+    is_default: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isDefault"),
+        pydantic.Field(
+            alias="isDefault", description="A saved preference within its provider and rail, never permission to pay."
+        ),
+    ] = None
+    """
+    A saved preference within its provider and rail, never permission to pay.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
