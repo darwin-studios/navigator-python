@@ -7178,7 +7178,7 @@ class RawDarwin:
                 "content-type": "application/json",
                 "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
             },
-            request_options=request_options,
+            request_options={**(request_options or {}), "max_retries": 0},
             omit=OMIT,
         )
         try:
@@ -7301,7 +7301,7 @@ class RawDarwin:
                 "content-type": "application/json",
                 "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
             },
-            request_options=request_options,
+            request_options={**(request_options or {}), "max_retries": 0},
             omit=OMIT,
         )
         try:
@@ -7435,7 +7435,7 @@ class RawDarwin:
                 "X-Act-Token": str(act_token) if act_token is not None else None,
                 "X-Assist-Token": str(assist_token) if assist_token is not None else None,
             },
-            request_options=request_options,
+            request_options={**(request_options or {}), "max_retries": 0},
             omit=OMIT,
         )
         try:
@@ -21926,7 +21926,7 @@ class AsyncRawDarwin:
                 "content-type": "application/json",
                 "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
             },
-            request_options=request_options,
+            request_options={**(request_options or {}), "max_retries": 0},
             omit=OMIT,
         )
         try:
@@ -22049,7 +22049,7 @@ class AsyncRawDarwin:
                 "content-type": "application/json",
                 "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
             },
-            request_options=request_options,
+            request_options={**(request_options or {}), "max_retries": 0},
             omit=OMIT,
         )
         try:
@@ -22183,7 +22183,7 @@ class AsyncRawDarwin:
                 "X-Act-Token": str(act_token) if act_token is not None else None,
                 "X-Assist-Token": str(assist_token) if assist_token is not None else None,
             },
-            request_options=request_options,
+            request_options={**(request_options or {}), "max_retries": 0},
             omit=OMIT,
         )
         try:

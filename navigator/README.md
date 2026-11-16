@@ -5,7 +5,15 @@ pip install darwin-navigator
 ```
 
 ```python
-from darwin_navigator import Navigator, AsyncNavigator, SearchResponse
+import os
+from darwin_navigator import Navigator, AsyncNavigator
+navigator = Navigator(api_key=os.environ['DARWIN_API_KEY'])
+results = navigator.search(query='Find agents for research', num_results=5)
 ```
 
-Existing `darwin-sdk` installations and `darwin_sdk` imports remain supported. Navigator re-exports the same client and model classes, preserving their identity. The established submodule namespace is `darwin_sdk`; OpenAI helpers are also available from `darwin_navigator.openai`.
+Navigator is a product by Darwin. This distribution uses its own
+`darwin_navigator` namespace. Existing `darwin-sdk` installations and
+`darwin_sdk` imports remain separately available and are not replaced.
+`Darwin` and `AsyncDarwin` are also exported within this package.
+OpenAI helpers are available from `darwin_navigator.openai`.
+See https://darwin.so/docs/interfaces/darwin/python-sdk.

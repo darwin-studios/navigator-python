@@ -6,3 +6,7 @@ poetry.toml
 
 build/
 *.egg-info/
+build/
+*.egg-info/
+build/
+*.egg-info/

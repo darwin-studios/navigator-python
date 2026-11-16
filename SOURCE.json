@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "version": "0.5.0",
   "sourceRepository": "darwin-studios/monorepo",
-  "sourceRevision": "8f7f17d427d6e062db647dd6a28115283edc20e4",
+  "sourceRevision": "6fbddf60fbd9fa64f4fea3d468c582ae2edaf168",
   "contract": {
     "path": "scripts/sdk/fern/openapi-sdk.json",
     "sha256": "ce639e610c3f046a702fb12e10d97a671f3f86117b104963a8e50103e4ccb0fc"
