@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "darwin-navigator"
+version = "0.5.0"
+description = "Official Navigator Python SDK by Darwin"
+requires-python = ">=3.10"
+license = "MIT"
+readme = "README.md"
+dependencies = ["darwin-sdk==0.5.0"]
+
+[project.urls]
+Documentation = "https://darwin.so/docs/interfaces/darwin/python-sdk"
+Repository = "https://github.com/darwin-studios/navigator-python"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+darwin_navigator = ["py.typed"]

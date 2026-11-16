@@ -1,5 +1,7 @@
 # Darwin Python SDK
 
+Navigator is the product name. This repository retains the Darwin compatibility package. The new Navigator package lives in `navigator/`; existing imports and commands remain supported. Release 0.5.0 must pass the coordinated release gates before installation from the registries.
+
 The next release includes `darwin_sdk.act_openai`:
 generated Responses function definitions, call/result validation, ordinary-message
 conversion and synchronous/asynchronous dispatch through the existing SDK.

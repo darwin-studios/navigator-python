@@ -11456,6 +11456,848 @@ if typing.TYPE_CHECKING:
     from .authenticate_response_one_status import AuthenticateResponseOneStatus
     from .authenticate_response_url import AuthenticateResponseUrl
     from .authenticate_response_url_status import AuthenticateResponseUrlStatus
+    from .build_request_body import BuildRequestBody
+    from .build_request_body_action import BuildRequestBodyAction
+    from .build_request_body_action_action import BuildRequestBodyActionAction
+    from .build_request_body_one import (
+        BuildRequestBodyOne,
+        BuildRequestBodyOne_CreateAgent,
+        BuildRequestBodyOne_CreateOperation,
+        BuildRequestBodyOne_GetAgent,
+        BuildRequestBodyOne_GetOperation,
+        BuildRequestBodyOne_TestAgent,
+        BuildRequestBodyOne_TestOperation,
+        BuildRequestBodyOne_UpdateAgent,
+        BuildRequestBodyOne_UpdateOperation,
+    )
+    from .build_request_body_one_create_agent import BuildRequestBodyOneCreateAgent
+    from .build_request_body_one_create_agent_input import BuildRequestBodyOneCreateAgentInput
+    from .build_request_body_one_create_agent_input_component_library import (
+        BuildRequestBodyOneCreateAgentInputComponentLibrary,
+    )
+    from .build_request_body_one_create_agent_input_component_library_components import (
+        BuildRequestBodyOneCreateAgentInputComponentLibraryComponents,
+    )
+    from .build_request_body_one_create_agent_input_component_library_components_components_item import (
+        BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItem,
+    )
+    from .build_request_body_one_create_agent_input_component_library_components_components_item_agent import (
+        BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemAgent,
+    )
+    from .build_request_body_one_create_agent_input_component_library_components_components_item_human import (
+        BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemHuman,
+    )
+    from .build_request_body_one_create_agent_input_component_library_components_components_item_human_states_item import (
+        BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemHumanStatesItem,
+    )
+    from .build_request_body_one_create_agent_input_component_library_source import (
+        BuildRequestBodyOneCreateAgentInputComponentLibrarySource,
+    )
+    from .build_request_body_one_create_agent_input_component_library_source_source import (
+        BuildRequestBodyOneCreateAgentInputComponentLibrarySourceSource,
+    )
+    from .build_request_body_one_create_operation import BuildRequestBodyOneCreateOperation
+    from .build_request_body_one_create_operation_input import BuildRequestBodyOneCreateOperationInput
+    from .build_request_body_one_create_operation_input_fulfillment import (
+        BuildRequestBodyOneCreateOperationInputFulfillment,
+    )
+    from .build_request_body_one_create_operation_input_fulfillment_mechanism import (
+        BuildRequestBodyOneCreateOperationInputFulfillmentMechanism,
+    )
+    from .build_request_body_one_create_operation_input_owner_approval import (
+        BuildRequestBodyOneCreateOperationInputOwnerApproval,
+    )
+    from .build_request_body_one_create_operation_input_pricing import BuildRequestBodyOneCreateOperationInputPricing
+    from .build_request_body_one_create_operation_input_pricing_currency import (
+        BuildRequestBodyOneCreateOperationInputPricingCurrency,
+    )
+    from .build_request_body_one_get_agent import BuildRequestBodyOneGetAgent
+    from .build_request_body_one_get_operation import BuildRequestBodyOneGetOperation
+    from .build_request_body_one_test_agent import BuildRequestBodyOneTestAgent
+    from .build_request_body_one_test_operation import BuildRequestBodyOneTestOperation
+    from .build_request_body_one_update_agent import BuildRequestBodyOneUpdateAgent
+    from .build_request_body_one_update_agent_input import BuildRequestBodyOneUpdateAgentInput
+    from .build_request_body_one_update_agent_input_component_library import (
+        BuildRequestBodyOneUpdateAgentInputComponentLibrary,
+    )
+    from .build_request_body_one_update_agent_input_component_library_components import (
+        BuildRequestBodyOneUpdateAgentInputComponentLibraryComponents,
+    )
+    from .build_request_body_one_update_agent_input_component_library_components_components_item import (
+        BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItem,
+    )
+    from .build_request_body_one_update_agent_input_component_library_components_components_item_agent import (
+        BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemAgent,
+    )
+    from .build_request_body_one_update_agent_input_component_library_components_components_item_human import (
+        BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemHuman,
+    )
+    from .build_request_body_one_update_agent_input_component_library_components_components_item_human_states_item import (
+        BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemHumanStatesItem,
+    )
+    from .build_request_body_one_update_agent_input_component_library_source import (
+        BuildRequestBodyOneUpdateAgentInputComponentLibrarySource,
+    )
+    from .build_request_body_one_update_agent_input_component_library_source_source import (
+        BuildRequestBodyOneUpdateAgentInputComponentLibrarySourceSource,
+    )
+    from .build_request_body_one_update_operation import BuildRequestBodyOneUpdateOperation
+    from .build_request_body_one_update_operation_input import BuildRequestBodyOneUpdateOperationInput
+    from .build_request_body_one_update_operation_input_fulfillment import (
+        BuildRequestBodyOneUpdateOperationInputFulfillment,
+    )
+    from .build_request_body_one_update_operation_input_fulfillment_mechanism import (
+        BuildRequestBodyOneUpdateOperationInputFulfillmentMechanism,
+    )
+    from .build_request_body_one_update_operation_input_owner_approval import (
+        BuildRequestBodyOneUpdateOperationInputOwnerApproval,
+    )
+    from .build_request_body_one_update_operation_input_pricing import BuildRequestBodyOneUpdateOperationInputPricing
+    from .build_request_body_one_update_operation_input_pricing_currency import (
+        BuildRequestBodyOneUpdateOperationInputPricingCurrency,
+    )
+    from .build_request_body_three import (
+        BuildRequestBodyThree,
+        BuildRequestBodyThree_Analytics,
+        BuildRequestBodyThree_Approve,
+        BuildRequestBodyThree_ReleaseAgent,
+        BuildRequestBodyThree_ReleaseOperation,
+    )
+    from .build_request_body_three_analytics import BuildRequestBodyThreeAnalytics
+    from .build_request_body_three_analytics_input import BuildRequestBodyThreeAnalyticsInput
+    from .build_request_body_three_approve import BuildRequestBodyThreeApprove
+    from .build_request_body_three_approve_input import BuildRequestBodyThreeApproveInput
+    from .build_request_body_three_approve_input_decision import BuildRequestBodyThreeApproveInputDecision
+    from .build_request_body_three_release_agent import BuildRequestBodyThreeReleaseAgent
+    from .build_request_body_three_release_operation import BuildRequestBodyThreeReleaseOperation
+    from .build_request_body_zero import (
+        BuildRequestBodyZero,
+        BuildRequestBodyZero_BillingSummary,
+        BuildRequestBodyZero_CancelJob,
+        BuildRequestBodyZero_CheckSlug,
+        BuildRequestBodyZero_ExportDestination,
+        BuildRequestBodyZero_ExportDraft,
+        BuildRequestBodyZero_GenerateDraft,
+        BuildRequestBodyZero_GetDraft,
+        BuildRequestBodyZero_GetJob,
+        BuildRequestBodyZero_GetNode,
+        BuildRequestBodyZero_GetTemplate,
+        BuildRequestBodyZero_ImportIndex,
+        BuildRequestBodyZero_ImportPackage,
+        BuildRequestBodyZero_ImportSource,
+        BuildRequestBodyZero_ListDrafts,
+        BuildRequestBodyZero_ListNodes,
+        BuildRequestBodyZero_ListTemplates,
+        BuildRequestBodyZero_ResumeJob,
+        BuildRequestBodyZero_SaveDraft,
+        BuildRequestBodyZero_SearchIndex,
+        BuildRequestBodyZero_StartDraft,
+        BuildRequestBodyZero_StartTest,
+        BuildRequestBodyZero_ValidateDraft,
+        BuildRequestBodyZero_ValidateExecutionPlan,
+    )
+    from .build_request_body_zero_billing_summary import BuildRequestBodyZeroBillingSummary
+    from .build_request_body_zero_cancel_job import BuildRequestBodyZeroCancelJob
+    from .build_request_body_zero_check_slug import BuildRequestBodyZeroCheckSlug
+    from .build_request_body_zero_export_destination import BuildRequestBodyZeroExportDestination
+    from .build_request_body_zero_export_destination_destination import BuildRequestBodyZeroExportDestinationDestination
+    from .build_request_body_zero_export_draft import BuildRequestBodyZeroExportDraft
+    from .build_request_body_zero_generate_draft import BuildRequestBodyZeroGenerateDraft
+    from .build_request_body_zero_generate_draft_draft import BuildRequestBodyZeroGenerateDraftDraft
+    from .build_request_body_zero_generate_draft_draft_advertising import (
+        BuildRequestBodyZeroGenerateDraftDraftAdvertising,
+    )
+    from .build_request_body_zero_generate_draft_draft_advertising_bid_model import (
+        BuildRequestBodyZeroGenerateDraftDraftAdvertisingBidModel,
+    )
+    from .build_request_body_zero_generate_draft_draft_advertising_conversion import (
+        BuildRequestBodyZeroGenerateDraftDraftAdvertisingConversion,
+    )
+    from .build_request_body_zero_generate_draft_draft_advertising_economics import (
+        BuildRequestBodyZeroGenerateDraftDraftAdvertisingEconomics,
+    )
+    from .build_request_body_zero_generate_draft_draft_advertising_external_channels_item import (
+        BuildRequestBodyZeroGenerateDraftDraftAdvertisingExternalChannelsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_advertising_match import (
+        BuildRequestBodyZeroGenerateDraftDraftAdvertisingMatch,
+    )
+    from .build_request_body_zero_generate_draft_draft_advertising_objective import (
+        BuildRequestBodyZeroGenerateDraftDraftAdvertisingObjective,
+    )
+    from .build_request_body_zero_generate_draft_draft_analytics import BuildRequestBodyZeroGenerateDraftDraftAnalytics
+    from .build_request_body_zero_generate_draft_draft_analytics_destinations_item import (
+        BuildRequestBodyZeroGenerateDraftDraftAnalyticsDestinationsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_analytics_destinations_item_provider import (
+        BuildRequestBodyZeroGenerateDraftDraftAnalyticsDestinationsItemProvider,
+    )
+    from .build_request_body_zero_generate_draft_draft_analytics_events_item import (
+        BuildRequestBodyZeroGenerateDraftDraftAnalyticsEventsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_analytics_identity_mode import (
+        BuildRequestBodyZeroGenerateDraftDraftAnalyticsIdentityMode,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearance,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_brand import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceBrand,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_brand_font import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceBrandFont,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_library import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceLibrary,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_library_components_item import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_library_components_item_agent import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemAgent,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_library_components_item_human import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemHuman,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_library_components_item_human_states_item import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemHumanStatesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_loading import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceLoading,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_loading_kind import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceLoadingKind,
+    )
+    from .build_request_body_zero_generate_draft_draft_appearance_source import (
+        BuildRequestBodyZeroGenerateDraftDraftAppearanceSource,
+    )
+    from .build_request_body_zero_generate_draft_draft_authentication import (
+        BuildRequestBodyZeroGenerateDraftDraftAuthentication,
+    )
+    from .build_request_body_zero_generate_draft_draft_authentication_agent_credentials_item import (
+        BuildRequestBodyZeroGenerateDraftDraftAuthenticationAgentCredentialsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_authentication_human_providers_item import (
+        BuildRequestBodyZeroGenerateDraftDraftAuthenticationHumanProvidersItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_authentication_mode import (
+        BuildRequestBodyZeroGenerateDraftDraftAuthenticationMode,
+    )
+    from .build_request_body_zero_generate_draft_draft_billing import BuildRequestBodyZeroGenerateDraftDraftBilling
+    from .build_request_body_zero_generate_draft_draft_billing_accepted_methods_item import (
+        BuildRequestBodyZeroGenerateDraftDraftBillingAcceptedMethodsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_billing_existing_system import (
+        BuildRequestBodyZeroGenerateDraftDraftBillingExistingSystem,
+    )
+    from .build_request_body_zero_generate_draft_draft_billing_processor import (
+        BuildRequestBodyZeroGenerateDraftDraftBillingProcessor,
+    )
+    from .build_request_body_zero_generate_draft_draft_connections_item import (
+        BuildRequestBodyZeroGenerateDraftDraftConnectionsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_connections_item_kind import (
+        BuildRequestBodyZeroGenerateDraftDraftConnectionsItemKind,
+    )
+    from .build_request_body_zero_generate_draft_draft_connections_item_mode import (
+        BuildRequestBodyZeroGenerateDraftDraftConnectionsItemMode,
+    )
+    from .build_request_body_zero_generate_draft_draft_distribution_item import (
+        BuildRequestBodyZeroGenerateDraftDraftDistributionItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_distribution_item_destination import (
+        BuildRequestBodyZeroGenerateDraftDraftDistributionItemDestination,
+    )
+    from .build_request_body_zero_generate_draft_draft_files_item import BuildRequestBodyZeroGenerateDraftDraftFilesItem
+    from .build_request_body_zero_generate_draft_draft_hosting import BuildRequestBodyZeroGenerateDraftDraftHosting
+    from .build_request_body_zero_generate_draft_draft_identity import BuildRequestBodyZeroGenerateDraftDraftIdentity
+    from .build_request_body_zero_generate_draft_draft_identity_audience import (
+        BuildRequestBodyZeroGenerateDraftDraftIdentityAudience,
+    )
+    from .build_request_body_zero_generate_draft_draft_identity_category import (
+        BuildRequestBodyZeroGenerateDraftDraftIdentityCategory,
+    )
+    from .build_request_body_zero_generate_draft_draft_identity_creation_context import (
+        BuildRequestBodyZeroGenerateDraftDraftIdentityCreationContext,
+    )
+    from .build_request_body_zero_generate_draft_draft_identity_secondary_categories_item import (
+        BuildRequestBodyZeroGenerateDraftDraftIdentitySecondaryCategoriesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_messages_item import (
+        BuildRequestBodyZeroGenerateDraftDraftMessagesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_messages_item_role import (
+        BuildRequestBodyZeroGenerateDraftDraftMessagesItemRole,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_approval import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemApproval,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_customer import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemCustomer,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_effects import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemEffects,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_execution_plan import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlan,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_execution_plan_authoring import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanAuthoring,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_execution_plan_nodes_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanNodesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_execution_plan_runtime import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanRuntime,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_execution_plan_runtime_language import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanRuntimeLanguage,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperience,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_states_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceStatesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_states_item_execution_statuses_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceStatesItemExecutionStatusesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_argument_bindings_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemArgumentBindingsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_bindings_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemBindingsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_bindings_item_source import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemBindingsItemSource,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_modalities_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemModalitiesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentation,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Comparison,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Directory,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Editorial,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Estimate,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Extraction,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Planner,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Research,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Storyboard,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Studio,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_comparison import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparison,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_comparison_options_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparisonOptionsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_directory import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectory,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_directory_criteria_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectoryCriteriaItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_editorial import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEditorial,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimate,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate_currency import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateCurrency,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate_items_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateItemsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_extraction import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtraction,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_extraction_fields_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtractionFieldsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_planner import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlanner,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_planner_steps_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlannerStepsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_research import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactResearch,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboard,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard_aspect_ratio import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardAspectRatio,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard_scenes_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardScenesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_studio import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudio,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_studio_palette_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudioPaletteItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_design import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesign,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_design_character import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesignCharacter,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_design_density import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesignDensity,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_journey import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourney,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_journey_action import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyAction,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_journey_action_kind import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyActionKind,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_journey_stage import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyStage,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_layout import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationLayout,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_next_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationNextItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_representation import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRepresentation,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item_status import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemStatus,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item_tree import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemTree,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_sections_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_sections_item_kind import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItemKind,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_runtime_components_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemRuntimeComponentsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_guidance import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemGuidance,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_implementation import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementation,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_implementation_kind import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationKind,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_implementation_method import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationMethod,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_implementation_steps_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationStepsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_limits import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemLimits,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_pricing import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing_Fixed,
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing_Free,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_pricing_fixed import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFixed,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_pricing_fixed_currency import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFixedCurrency,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_pricing_free import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFree,
+    )
+    from .build_request_body_zero_generate_draft_draft_operations_item_tests_item import (
+        BuildRequestBodyZeroGenerateDraftDraftOperationsItemTestsItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_sources_item import (
+        BuildRequestBodyZeroGenerateDraftDraftSourcesItem,
+    )
+    from .build_request_body_zero_generate_draft_draft_technical_level import (
+        BuildRequestBodyZeroGenerateDraftDraftTechnicalLevel,
+    )
+    from .build_request_body_zero_generate_draft_draft_visibility import (
+        BuildRequestBodyZeroGenerateDraftDraftVisibility,
+    )
+    from .build_request_body_zero_get_draft import BuildRequestBodyZeroGetDraft
+    from .build_request_body_zero_get_job import BuildRequestBodyZeroGetJob
+    from .build_request_body_zero_get_node import BuildRequestBodyZeroGetNode
+    from .build_request_body_zero_get_template import BuildRequestBodyZeroGetTemplate
+    from .build_request_body_zero_import_index import BuildRequestBodyZeroImportIndex
+    from .build_request_body_zero_import_package import BuildRequestBodyZeroImportPackage
+    from .build_request_body_zero_import_source import BuildRequestBodyZeroImportSource
+    from .build_request_body_zero_list_drafts import BuildRequestBodyZeroListDrafts
+    from .build_request_body_zero_list_nodes import BuildRequestBodyZeroListNodes
+    from .build_request_body_zero_list_templates import BuildRequestBodyZeroListTemplates
+    from .build_request_body_zero_resume_job import BuildRequestBodyZeroResumeJob
+    from .build_request_body_zero_save_draft import BuildRequestBodyZeroSaveDraft
+    from .build_request_body_zero_save_draft_draft import BuildRequestBodyZeroSaveDraftDraft
+    from .build_request_body_zero_save_draft_draft_advertising import BuildRequestBodyZeroSaveDraftDraftAdvertising
+    from .build_request_body_zero_save_draft_draft_advertising_bid_model import (
+        BuildRequestBodyZeroSaveDraftDraftAdvertisingBidModel,
+    )
+    from .build_request_body_zero_save_draft_draft_advertising_conversion import (
+        BuildRequestBodyZeroSaveDraftDraftAdvertisingConversion,
+    )
+    from .build_request_body_zero_save_draft_draft_advertising_economics import (
+        BuildRequestBodyZeroSaveDraftDraftAdvertisingEconomics,
+    )
+    from .build_request_body_zero_save_draft_draft_advertising_external_channels_item import (
+        BuildRequestBodyZeroSaveDraftDraftAdvertisingExternalChannelsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_advertising_match import (
+        BuildRequestBodyZeroSaveDraftDraftAdvertisingMatch,
+    )
+    from .build_request_body_zero_save_draft_draft_advertising_objective import (
+        BuildRequestBodyZeroSaveDraftDraftAdvertisingObjective,
+    )
+    from .build_request_body_zero_save_draft_draft_analytics import BuildRequestBodyZeroSaveDraftDraftAnalytics
+    from .build_request_body_zero_save_draft_draft_analytics_destinations_item import (
+        BuildRequestBodyZeroSaveDraftDraftAnalyticsDestinationsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_analytics_destinations_item_provider import (
+        BuildRequestBodyZeroSaveDraftDraftAnalyticsDestinationsItemProvider,
+    )
+    from .build_request_body_zero_save_draft_draft_analytics_events_item import (
+        BuildRequestBodyZeroSaveDraftDraftAnalyticsEventsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_analytics_identity_mode import (
+        BuildRequestBodyZeroSaveDraftDraftAnalyticsIdentityMode,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance import BuildRequestBodyZeroSaveDraftDraftAppearance
+    from .build_request_body_zero_save_draft_draft_appearance_brand import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceBrand,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_brand_font import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceBrandFont,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_library import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceLibrary,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_library_components_item import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_library_components_item_agent import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemAgent,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_library_components_item_human import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemHuman,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_library_components_item_human_states_item import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemHumanStatesItem,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_loading import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceLoading,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_loading_kind import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceLoadingKind,
+    )
+    from .build_request_body_zero_save_draft_draft_appearance_source import (
+        BuildRequestBodyZeroSaveDraftDraftAppearanceSource,
+    )
+    from .build_request_body_zero_save_draft_draft_authentication import (
+        BuildRequestBodyZeroSaveDraftDraftAuthentication,
+    )
+    from .build_request_body_zero_save_draft_draft_authentication_agent_credentials_item import (
+        BuildRequestBodyZeroSaveDraftDraftAuthenticationAgentCredentialsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_authentication_human_providers_item import (
+        BuildRequestBodyZeroSaveDraftDraftAuthenticationHumanProvidersItem,
+    )
+    from .build_request_body_zero_save_draft_draft_authentication_mode import (
+        BuildRequestBodyZeroSaveDraftDraftAuthenticationMode,
+    )
+    from .build_request_body_zero_save_draft_draft_billing import BuildRequestBodyZeroSaveDraftDraftBilling
+    from .build_request_body_zero_save_draft_draft_billing_accepted_methods_item import (
+        BuildRequestBodyZeroSaveDraftDraftBillingAcceptedMethodsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_billing_existing_system import (
+        BuildRequestBodyZeroSaveDraftDraftBillingExistingSystem,
+    )
+    from .build_request_body_zero_save_draft_draft_billing_processor import (
+        BuildRequestBodyZeroSaveDraftDraftBillingProcessor,
+    )
+    from .build_request_body_zero_save_draft_draft_connections_item import (
+        BuildRequestBodyZeroSaveDraftDraftConnectionsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_connections_item_kind import (
+        BuildRequestBodyZeroSaveDraftDraftConnectionsItemKind,
+    )
+    from .build_request_body_zero_save_draft_draft_connections_item_mode import (
+        BuildRequestBodyZeroSaveDraftDraftConnectionsItemMode,
+    )
+    from .build_request_body_zero_save_draft_draft_distribution_item import (
+        BuildRequestBodyZeroSaveDraftDraftDistributionItem,
+    )
+    from .build_request_body_zero_save_draft_draft_distribution_item_destination import (
+        BuildRequestBodyZeroSaveDraftDraftDistributionItemDestination,
+    )
+    from .build_request_body_zero_save_draft_draft_files_item import BuildRequestBodyZeroSaveDraftDraftFilesItem
+    from .build_request_body_zero_save_draft_draft_hosting import BuildRequestBodyZeroSaveDraftDraftHosting
+    from .build_request_body_zero_save_draft_draft_identity import BuildRequestBodyZeroSaveDraftDraftIdentity
+    from .build_request_body_zero_save_draft_draft_identity_audience import (
+        BuildRequestBodyZeroSaveDraftDraftIdentityAudience,
+    )
+    from .build_request_body_zero_save_draft_draft_identity_category import (
+        BuildRequestBodyZeroSaveDraftDraftIdentityCategory,
+    )
+    from .build_request_body_zero_save_draft_draft_identity_creation_context import (
+        BuildRequestBodyZeroSaveDraftDraftIdentityCreationContext,
+    )
+    from .build_request_body_zero_save_draft_draft_identity_secondary_categories_item import (
+        BuildRequestBodyZeroSaveDraftDraftIdentitySecondaryCategoriesItem,
+    )
+    from .build_request_body_zero_save_draft_draft_messages_item import BuildRequestBodyZeroSaveDraftDraftMessagesItem
+    from .build_request_body_zero_save_draft_draft_messages_item_role import (
+        BuildRequestBodyZeroSaveDraftDraftMessagesItemRole,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_approval import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemApproval,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_customer import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemCustomer,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_effects import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemEffects,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_execution_plan import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlan,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_execution_plan_authoring import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanAuthoring,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_execution_plan_nodes_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanNodesItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_execution_plan_runtime import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanRuntime,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_execution_plan_runtime_language import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanRuntimeLanguage,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperience,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_states_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceStatesItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_states_item_execution_statuses_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceStatesItemExecutionStatusesItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_argument_bindings_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemArgumentBindingsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_bindings_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemBindingsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_bindings_item_source import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemBindingsItemSource,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_modalities_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemModalitiesItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentation,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Comparison,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Directory,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Editorial,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Estimate,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Extraction,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Planner,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Research,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Storyboard,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Studio,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_comparison import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparison,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_comparison_options_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparisonOptionsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_directory import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectory,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_directory_criteria_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectoryCriteriaItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_editorial import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEditorial,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimate,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate_currency import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateCurrency,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate_items_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateItemsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_extraction import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtraction,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_extraction_fields_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtractionFieldsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_planner import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlanner,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_planner_steps_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlannerStepsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_research import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactResearch,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboard,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard_aspect_ratio import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardAspectRatio,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard_scenes_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardScenesItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_studio import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudio,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_studio_palette_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudioPaletteItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_design import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesign,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_design_character import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesignCharacter,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_design_density import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesignDensity,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_journey import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourney,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_journey_action import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyAction,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_journey_action_kind import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyActionKind,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_journey_stage import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyStage,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_layout import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationLayout,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_next_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationNextItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_representation import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRepresentation,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item_status import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemStatus,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item_tree import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemTree,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_sections_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_sections_item_kind import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItemKind,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_runtime_components_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemRuntimeComponentsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_guidance import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemGuidance,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_implementation import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementation,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_implementation_kind import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationKind,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_implementation_method import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationMethod,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_implementation_steps_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationStepsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_limits import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemLimits,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_pricing import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing_Fixed,
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing_Free,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_pricing_fixed import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFixed,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_pricing_fixed_currency import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFixedCurrency,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_pricing_free import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFree,
+    )
+    from .build_request_body_zero_save_draft_draft_operations_item_tests_item import (
+        BuildRequestBodyZeroSaveDraftDraftOperationsItemTestsItem,
+    )
+    from .build_request_body_zero_save_draft_draft_sources_item import BuildRequestBodyZeroSaveDraftDraftSourcesItem
+    from .build_request_body_zero_save_draft_draft_technical_level import (
+        BuildRequestBodyZeroSaveDraftDraftTechnicalLevel,
+    )
+    from .build_request_body_zero_save_draft_draft_visibility import BuildRequestBodyZeroSaveDraftDraftVisibility
+    from .build_request_body_zero_search_index import BuildRequestBodyZeroSearchIndex
+    from .build_request_body_zero_start_draft import BuildRequestBodyZeroStartDraft
+    from .build_request_body_zero_start_draft_input import (
+        BuildRequestBodyZeroStartDraftInput,
+        BuildRequestBodyZeroStartDraftInput_Definition,
+        BuildRequestBodyZeroStartDraftInput_Idea,
+        BuildRequestBodyZeroStartDraftInput_Website,
+    )
+    from .build_request_body_zero_start_draft_input_definition import BuildRequestBodyZeroStartDraftInputDefinition
+    from .build_request_body_zero_start_draft_input_definition_format import (
+        BuildRequestBodyZeroStartDraftInputDefinitionFormat,
+    )
+    from .build_request_body_zero_start_draft_input_idea import BuildRequestBodyZeroStartDraftInputIdea
+    from .build_request_body_zero_start_draft_input_website import BuildRequestBodyZeroStartDraftInputWebsite
+    from .build_request_body_zero_start_test import BuildRequestBodyZeroStartTest
+    from .build_request_body_zero_validate_draft import BuildRequestBodyZeroValidateDraft
+    from .build_request_body_zero_validate_execution_plan import BuildRequestBodyZeroValidateExecutionPlan
     from .challenge_machine_key_request_body import ChallengeMachineKeyRequestBody
     from .challenge_machine_key_request_body_public_key import ChallengeMachineKeyRequestBodyPublicKey
     from .challenge_machine_key_request_body_public_key_public_key import (
@@ -11671,6 +12513,7 @@ if typing.TYPE_CHECKING:
     from .get_payment_status_response_url_status import GetPaymentStatusResponseUrlStatus
     from .get_result_artifact_download_url_response import GetResultArtifactDownloadUrlResponse
     from .get_result_artifact_download_url_response_disposition import GetResultArtifactDownloadUrlResponseDisposition
+    from .get_run_request_request_audience import GetRunRequestRequestAudience
     from .get_session_operation_request_audience import GetSessionOperationRequestAudience
     from .get_thread_operation_request_audience import GetThreadOperationRequestAudience
     from .get_thread_request_audience import GetThreadRequestAudience
@@ -12910,6 +13753,19 @@ if typing.TYPE_CHECKING:
     from .live_search_request_mode import LiveSearchRequestMode
     from .live_search_request_target import LiveSearchRequestTarget
     from .live_search_request_type import LiveSearchRequestType
+    from .manage_request_body import (
+        ManageRequestBody,
+        ManageRequestBody_CreateUpdate,
+        ManageRequestBody_DeploymentStatus,
+        ManageRequestBody_GetAgent,
+        ManageRequestBody_ListAgents,
+        ManageRequestBody_Rollback,
+    )
+    from .manage_request_body_create_update import ManageRequestBodyCreateUpdate
+    from .manage_request_body_deployment_status import ManageRequestBodyDeploymentStatus
+    from .manage_request_body_get_agent import ManageRequestBodyGetAgent
+    from .manage_request_body_list_agents import ManageRequestBodyListAgents
+    from .manage_request_body_rollback import ManageRequestBodyRollback
     from .navigate_request_audience import NavigateRequestAudience
     from .navigate_request_context import NavigateRequestContext
     from .navigate_request_context_files_item import NavigateRequestContextFilesItem
@@ -15375,6 +16231,16 @@ if typing.TYPE_CHECKING:
     from .route_request_mode import RouteRequestMode
     from .route_request_target import RouteRequestTarget
     from .route_request_type import RouteRequestType
+    from .run_request import RunRequest
+    from .run_response import RunResponse
+    from .run_turn_request import RunTurnRequest
+    from .run_turn_request_audience import RunTurnRequestAudience
+    from .run_turn_request_context import RunTurnRequestContext
+    from .run_turn_request_context_files_item import RunTurnRequestContextFilesItem
+    from .run_turn_request_context_files_item_mime_type import RunTurnRequestContextFilesItemMimeType
+    from .run_turn_request_mode import RunTurnRequestMode
+    from .run_turn_request_target import RunTurnRequestTarget
+    from .run_turn_request_type import RunTurnRequestType
     from .search_act_capability import SearchActCapability
     from .search_act_capability_readiness import SearchActCapabilityReadiness
     from .search_act_capability_thread_unavailable_reason import SearchActCapabilityThreadUnavailableReason
@@ -20105,6 +20971,372 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AuthenticateResponseOneStatus": ".authenticate_response_one_status",
     "AuthenticateResponseUrl": ".authenticate_response_url",
     "AuthenticateResponseUrlStatus": ".authenticate_response_url_status",
+    "BuildRequestBody": ".build_request_body",
+    "BuildRequestBodyAction": ".build_request_body_action",
+    "BuildRequestBodyActionAction": ".build_request_body_action_action",
+    "BuildRequestBodyOne": ".build_request_body_one",
+    "BuildRequestBodyOneCreateAgent": ".build_request_body_one_create_agent",
+    "BuildRequestBodyOneCreateAgentInput": ".build_request_body_one_create_agent_input",
+    "BuildRequestBodyOneCreateAgentInputComponentLibrary": ".build_request_body_one_create_agent_input_component_library",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponents": ".build_request_body_one_create_agent_input_component_library_components",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItem": ".build_request_body_one_create_agent_input_component_library_components_components_item",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemAgent": ".build_request_body_one_create_agent_input_component_library_components_components_item_agent",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemHuman": ".build_request_body_one_create_agent_input_component_library_components_components_item_human",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemHumanStatesItem": ".build_request_body_one_create_agent_input_component_library_components_components_item_human_states_item",
+    "BuildRequestBodyOneCreateAgentInputComponentLibrarySource": ".build_request_body_one_create_agent_input_component_library_source",
+    "BuildRequestBodyOneCreateAgentInputComponentLibrarySourceSource": ".build_request_body_one_create_agent_input_component_library_source_source",
+    "BuildRequestBodyOneCreateOperation": ".build_request_body_one_create_operation",
+    "BuildRequestBodyOneCreateOperationInput": ".build_request_body_one_create_operation_input",
+    "BuildRequestBodyOneCreateOperationInputFulfillment": ".build_request_body_one_create_operation_input_fulfillment",
+    "BuildRequestBodyOneCreateOperationInputFulfillmentMechanism": ".build_request_body_one_create_operation_input_fulfillment_mechanism",
+    "BuildRequestBodyOneCreateOperationInputOwnerApproval": ".build_request_body_one_create_operation_input_owner_approval",
+    "BuildRequestBodyOneCreateOperationInputPricing": ".build_request_body_one_create_operation_input_pricing",
+    "BuildRequestBodyOneCreateOperationInputPricingCurrency": ".build_request_body_one_create_operation_input_pricing_currency",
+    "BuildRequestBodyOneGetAgent": ".build_request_body_one_get_agent",
+    "BuildRequestBodyOneGetOperation": ".build_request_body_one_get_operation",
+    "BuildRequestBodyOneTestAgent": ".build_request_body_one_test_agent",
+    "BuildRequestBodyOneTestOperation": ".build_request_body_one_test_operation",
+    "BuildRequestBodyOneUpdateAgent": ".build_request_body_one_update_agent",
+    "BuildRequestBodyOneUpdateAgentInput": ".build_request_body_one_update_agent_input",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibrary": ".build_request_body_one_update_agent_input_component_library",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponents": ".build_request_body_one_update_agent_input_component_library_components",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItem": ".build_request_body_one_update_agent_input_component_library_components_components_item",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemAgent": ".build_request_body_one_update_agent_input_component_library_components_components_item_agent",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemHuman": ".build_request_body_one_update_agent_input_component_library_components_components_item_human",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemHumanStatesItem": ".build_request_body_one_update_agent_input_component_library_components_components_item_human_states_item",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibrarySource": ".build_request_body_one_update_agent_input_component_library_source",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibrarySourceSource": ".build_request_body_one_update_agent_input_component_library_source_source",
+    "BuildRequestBodyOneUpdateOperation": ".build_request_body_one_update_operation",
+    "BuildRequestBodyOneUpdateOperationInput": ".build_request_body_one_update_operation_input",
+    "BuildRequestBodyOneUpdateOperationInputFulfillment": ".build_request_body_one_update_operation_input_fulfillment",
+    "BuildRequestBodyOneUpdateOperationInputFulfillmentMechanism": ".build_request_body_one_update_operation_input_fulfillment_mechanism",
+    "BuildRequestBodyOneUpdateOperationInputOwnerApproval": ".build_request_body_one_update_operation_input_owner_approval",
+    "BuildRequestBodyOneUpdateOperationInputPricing": ".build_request_body_one_update_operation_input_pricing",
+    "BuildRequestBodyOneUpdateOperationInputPricingCurrency": ".build_request_body_one_update_operation_input_pricing_currency",
+    "BuildRequestBodyOne_CreateAgent": ".build_request_body_one",
+    "BuildRequestBodyOne_CreateOperation": ".build_request_body_one",
+    "BuildRequestBodyOne_GetAgent": ".build_request_body_one",
+    "BuildRequestBodyOne_GetOperation": ".build_request_body_one",
+    "BuildRequestBodyOne_TestAgent": ".build_request_body_one",
+    "BuildRequestBodyOne_TestOperation": ".build_request_body_one",
+    "BuildRequestBodyOne_UpdateAgent": ".build_request_body_one",
+    "BuildRequestBodyOne_UpdateOperation": ".build_request_body_one",
+    "BuildRequestBodyThree": ".build_request_body_three",
+    "BuildRequestBodyThreeAnalytics": ".build_request_body_three_analytics",
+    "BuildRequestBodyThreeAnalyticsInput": ".build_request_body_three_analytics_input",
+    "BuildRequestBodyThreeApprove": ".build_request_body_three_approve",
+    "BuildRequestBodyThreeApproveInput": ".build_request_body_three_approve_input",
+    "BuildRequestBodyThreeApproveInputDecision": ".build_request_body_three_approve_input_decision",
+    "BuildRequestBodyThreeReleaseAgent": ".build_request_body_three_release_agent",
+    "BuildRequestBodyThreeReleaseOperation": ".build_request_body_three_release_operation",
+    "BuildRequestBodyThree_Analytics": ".build_request_body_three",
+    "BuildRequestBodyThree_Approve": ".build_request_body_three",
+    "BuildRequestBodyThree_ReleaseAgent": ".build_request_body_three",
+    "BuildRequestBodyThree_ReleaseOperation": ".build_request_body_three",
+    "BuildRequestBodyZero": ".build_request_body_zero",
+    "BuildRequestBodyZeroBillingSummary": ".build_request_body_zero_billing_summary",
+    "BuildRequestBodyZeroCancelJob": ".build_request_body_zero_cancel_job",
+    "BuildRequestBodyZeroCheckSlug": ".build_request_body_zero_check_slug",
+    "BuildRequestBodyZeroExportDestination": ".build_request_body_zero_export_destination",
+    "BuildRequestBodyZeroExportDestinationDestination": ".build_request_body_zero_export_destination_destination",
+    "BuildRequestBodyZeroExportDraft": ".build_request_body_zero_export_draft",
+    "BuildRequestBodyZeroGenerateDraft": ".build_request_body_zero_generate_draft",
+    "BuildRequestBodyZeroGenerateDraftDraft": ".build_request_body_zero_generate_draft_draft",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertising": ".build_request_body_zero_generate_draft_draft_advertising",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingBidModel": ".build_request_body_zero_generate_draft_draft_advertising_bid_model",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingConversion": ".build_request_body_zero_generate_draft_draft_advertising_conversion",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingEconomics": ".build_request_body_zero_generate_draft_draft_advertising_economics",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingExternalChannelsItem": ".build_request_body_zero_generate_draft_draft_advertising_external_channels_item",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingMatch": ".build_request_body_zero_generate_draft_draft_advertising_match",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingObjective": ".build_request_body_zero_generate_draft_draft_advertising_objective",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalytics": ".build_request_body_zero_generate_draft_draft_analytics",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalyticsDestinationsItem": ".build_request_body_zero_generate_draft_draft_analytics_destinations_item",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalyticsDestinationsItemProvider": ".build_request_body_zero_generate_draft_draft_analytics_destinations_item_provider",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalyticsEventsItem": ".build_request_body_zero_generate_draft_draft_analytics_events_item",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalyticsIdentityMode": ".build_request_body_zero_generate_draft_draft_analytics_identity_mode",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearance": ".build_request_body_zero_generate_draft_draft_appearance",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceBrand": ".build_request_body_zero_generate_draft_draft_appearance_brand",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceBrandFont": ".build_request_body_zero_generate_draft_draft_appearance_brand_font",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibrary": ".build_request_body_zero_generate_draft_draft_appearance_library",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItem": ".build_request_body_zero_generate_draft_draft_appearance_library_components_item",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemAgent": ".build_request_body_zero_generate_draft_draft_appearance_library_components_item_agent",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemHuman": ".build_request_body_zero_generate_draft_draft_appearance_library_components_item_human",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemHumanStatesItem": ".build_request_body_zero_generate_draft_draft_appearance_library_components_item_human_states_item",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLoading": ".build_request_body_zero_generate_draft_draft_appearance_loading",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLoadingKind": ".build_request_body_zero_generate_draft_draft_appearance_loading_kind",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceSource": ".build_request_body_zero_generate_draft_draft_appearance_source",
+    "BuildRequestBodyZeroGenerateDraftDraftAuthentication": ".build_request_body_zero_generate_draft_draft_authentication",
+    "BuildRequestBodyZeroGenerateDraftDraftAuthenticationAgentCredentialsItem": ".build_request_body_zero_generate_draft_draft_authentication_agent_credentials_item",
+    "BuildRequestBodyZeroGenerateDraftDraftAuthenticationHumanProvidersItem": ".build_request_body_zero_generate_draft_draft_authentication_human_providers_item",
+    "BuildRequestBodyZeroGenerateDraftDraftAuthenticationMode": ".build_request_body_zero_generate_draft_draft_authentication_mode",
+    "BuildRequestBodyZeroGenerateDraftDraftBilling": ".build_request_body_zero_generate_draft_draft_billing",
+    "BuildRequestBodyZeroGenerateDraftDraftBillingAcceptedMethodsItem": ".build_request_body_zero_generate_draft_draft_billing_accepted_methods_item",
+    "BuildRequestBodyZeroGenerateDraftDraftBillingExistingSystem": ".build_request_body_zero_generate_draft_draft_billing_existing_system",
+    "BuildRequestBodyZeroGenerateDraftDraftBillingProcessor": ".build_request_body_zero_generate_draft_draft_billing_processor",
+    "BuildRequestBodyZeroGenerateDraftDraftConnectionsItem": ".build_request_body_zero_generate_draft_draft_connections_item",
+    "BuildRequestBodyZeroGenerateDraftDraftConnectionsItemKind": ".build_request_body_zero_generate_draft_draft_connections_item_kind",
+    "BuildRequestBodyZeroGenerateDraftDraftConnectionsItemMode": ".build_request_body_zero_generate_draft_draft_connections_item_mode",
+    "BuildRequestBodyZeroGenerateDraftDraftDistributionItem": ".build_request_body_zero_generate_draft_draft_distribution_item",
+    "BuildRequestBodyZeroGenerateDraftDraftDistributionItemDestination": ".build_request_body_zero_generate_draft_draft_distribution_item_destination",
+    "BuildRequestBodyZeroGenerateDraftDraftFilesItem": ".build_request_body_zero_generate_draft_draft_files_item",
+    "BuildRequestBodyZeroGenerateDraftDraftHosting": ".build_request_body_zero_generate_draft_draft_hosting",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentity": ".build_request_body_zero_generate_draft_draft_identity",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentityAudience": ".build_request_body_zero_generate_draft_draft_identity_audience",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentityCategory": ".build_request_body_zero_generate_draft_draft_identity_category",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentityCreationContext": ".build_request_body_zero_generate_draft_draft_identity_creation_context",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentitySecondaryCategoriesItem": ".build_request_body_zero_generate_draft_draft_identity_secondary_categories_item",
+    "BuildRequestBodyZeroGenerateDraftDraftMessagesItem": ".build_request_body_zero_generate_draft_draft_messages_item",
+    "BuildRequestBodyZeroGenerateDraftDraftMessagesItemRole": ".build_request_body_zero_generate_draft_draft_messages_item_role",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItem": ".build_request_body_zero_generate_draft_draft_operations_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemApproval": ".build_request_body_zero_generate_draft_draft_operations_item_approval",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemCustomer": ".build_request_body_zero_generate_draft_draft_operations_item_customer",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemEffects": ".build_request_body_zero_generate_draft_draft_operations_item_effects",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlan": ".build_request_body_zero_generate_draft_draft_operations_item_execution_plan",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanAuthoring": ".build_request_body_zero_generate_draft_draft_operations_item_execution_plan_authoring",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanNodesItem": ".build_request_body_zero_generate_draft_draft_operations_item_execution_plan_nodes_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanRuntime": ".build_request_body_zero_generate_draft_draft_operations_item_execution_plan_runtime",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanRuntimeLanguage": ".build_request_body_zero_generate_draft_draft_operations_item_execution_plan_runtime_language",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperience": ".build_request_body_zero_generate_draft_draft_operations_item_experience",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceStatesItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_states_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceStatesItemExecutionStatusesItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_states_item_execution_statuses_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemArgumentBindingsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_argument_bindings_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemBindingsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_bindings_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemBindingsItemSource": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_bindings_item_source",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemModalitiesItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_modalities_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentation": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparison": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_comparison",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparisonOptionsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_comparison_options_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectory": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_directory",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectoryCriteriaItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_directory_criteria_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEditorial": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_editorial",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimate": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateCurrency": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate_currency",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateItemsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate_items_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtraction": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_extraction",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtractionFieldsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_extraction_fields_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlanner": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_planner",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlannerStepsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_planner_steps_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactResearch": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_research",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboard": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardAspectRatio": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard_aspect_ratio",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardScenesItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard_scenes_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudio": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_studio",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudioPaletteItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact_studio_palette_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Comparison": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Directory": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Editorial": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Estimate": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Extraction": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Planner": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Research": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Storyboard": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Studio": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesign": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_design",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesignCharacter": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_design_character",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesignDensity": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_design_density",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourney": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_journey",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyAction": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_journey_action",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyActionKind": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_journey_action_kind",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyStage": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_journey_stage",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationLayout": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_layout",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationNextItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_next_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRepresentation": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_representation",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemStatus": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item_status",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemTree": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item_tree",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_sections_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItemKind": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_presentation_sections_item_kind",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemRuntimeComponentsItem": ".build_request_body_zero_generate_draft_draft_operations_item_experience_variants_item_runtime_components_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemGuidance": ".build_request_body_zero_generate_draft_draft_operations_item_guidance",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementation": ".build_request_body_zero_generate_draft_draft_operations_item_implementation",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationKind": ".build_request_body_zero_generate_draft_draft_operations_item_implementation_kind",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationMethod": ".build_request_body_zero_generate_draft_draft_operations_item_implementation_method",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationStepsItem": ".build_request_body_zero_generate_draft_draft_operations_item_implementation_steps_item",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemLimits": ".build_request_body_zero_generate_draft_draft_operations_item_limits",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing": ".build_request_body_zero_generate_draft_draft_operations_item_pricing",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFixed": ".build_request_body_zero_generate_draft_draft_operations_item_pricing_fixed",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFixedCurrency": ".build_request_body_zero_generate_draft_draft_operations_item_pricing_fixed_currency",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFree": ".build_request_body_zero_generate_draft_draft_operations_item_pricing_free",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing_Fixed": ".build_request_body_zero_generate_draft_draft_operations_item_pricing",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing_Free": ".build_request_body_zero_generate_draft_draft_operations_item_pricing",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemTestsItem": ".build_request_body_zero_generate_draft_draft_operations_item_tests_item",
+    "BuildRequestBodyZeroGenerateDraftDraftSourcesItem": ".build_request_body_zero_generate_draft_draft_sources_item",
+    "BuildRequestBodyZeroGenerateDraftDraftTechnicalLevel": ".build_request_body_zero_generate_draft_draft_technical_level",
+    "BuildRequestBodyZeroGenerateDraftDraftVisibility": ".build_request_body_zero_generate_draft_draft_visibility",
+    "BuildRequestBodyZeroGetDraft": ".build_request_body_zero_get_draft",
+    "BuildRequestBodyZeroGetJob": ".build_request_body_zero_get_job",
+    "BuildRequestBodyZeroGetNode": ".build_request_body_zero_get_node",
+    "BuildRequestBodyZeroGetTemplate": ".build_request_body_zero_get_template",
+    "BuildRequestBodyZeroImportIndex": ".build_request_body_zero_import_index",
+    "BuildRequestBodyZeroImportPackage": ".build_request_body_zero_import_package",
+    "BuildRequestBodyZeroImportSource": ".build_request_body_zero_import_source",
+    "BuildRequestBodyZeroListDrafts": ".build_request_body_zero_list_drafts",
+    "BuildRequestBodyZeroListNodes": ".build_request_body_zero_list_nodes",
+    "BuildRequestBodyZeroListTemplates": ".build_request_body_zero_list_templates",
+    "BuildRequestBodyZeroResumeJob": ".build_request_body_zero_resume_job",
+    "BuildRequestBodyZeroSaveDraft": ".build_request_body_zero_save_draft",
+    "BuildRequestBodyZeroSaveDraftDraft": ".build_request_body_zero_save_draft_draft",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertising": ".build_request_body_zero_save_draft_draft_advertising",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingBidModel": ".build_request_body_zero_save_draft_draft_advertising_bid_model",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingConversion": ".build_request_body_zero_save_draft_draft_advertising_conversion",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingEconomics": ".build_request_body_zero_save_draft_draft_advertising_economics",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingExternalChannelsItem": ".build_request_body_zero_save_draft_draft_advertising_external_channels_item",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingMatch": ".build_request_body_zero_save_draft_draft_advertising_match",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingObjective": ".build_request_body_zero_save_draft_draft_advertising_objective",
+    "BuildRequestBodyZeroSaveDraftDraftAnalytics": ".build_request_body_zero_save_draft_draft_analytics",
+    "BuildRequestBodyZeroSaveDraftDraftAnalyticsDestinationsItem": ".build_request_body_zero_save_draft_draft_analytics_destinations_item",
+    "BuildRequestBodyZeroSaveDraftDraftAnalyticsDestinationsItemProvider": ".build_request_body_zero_save_draft_draft_analytics_destinations_item_provider",
+    "BuildRequestBodyZeroSaveDraftDraftAnalyticsEventsItem": ".build_request_body_zero_save_draft_draft_analytics_events_item",
+    "BuildRequestBodyZeroSaveDraftDraftAnalyticsIdentityMode": ".build_request_body_zero_save_draft_draft_analytics_identity_mode",
+    "BuildRequestBodyZeroSaveDraftDraftAppearance": ".build_request_body_zero_save_draft_draft_appearance",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceBrand": ".build_request_body_zero_save_draft_draft_appearance_brand",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceBrandFont": ".build_request_body_zero_save_draft_draft_appearance_brand_font",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibrary": ".build_request_body_zero_save_draft_draft_appearance_library",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItem": ".build_request_body_zero_save_draft_draft_appearance_library_components_item",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemAgent": ".build_request_body_zero_save_draft_draft_appearance_library_components_item_agent",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemHuman": ".build_request_body_zero_save_draft_draft_appearance_library_components_item_human",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemHumanStatesItem": ".build_request_body_zero_save_draft_draft_appearance_library_components_item_human_states_item",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLoading": ".build_request_body_zero_save_draft_draft_appearance_loading",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLoadingKind": ".build_request_body_zero_save_draft_draft_appearance_loading_kind",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceSource": ".build_request_body_zero_save_draft_draft_appearance_source",
+    "BuildRequestBodyZeroSaveDraftDraftAuthentication": ".build_request_body_zero_save_draft_draft_authentication",
+    "BuildRequestBodyZeroSaveDraftDraftAuthenticationAgentCredentialsItem": ".build_request_body_zero_save_draft_draft_authentication_agent_credentials_item",
+    "BuildRequestBodyZeroSaveDraftDraftAuthenticationHumanProvidersItem": ".build_request_body_zero_save_draft_draft_authentication_human_providers_item",
+    "BuildRequestBodyZeroSaveDraftDraftAuthenticationMode": ".build_request_body_zero_save_draft_draft_authentication_mode",
+    "BuildRequestBodyZeroSaveDraftDraftBilling": ".build_request_body_zero_save_draft_draft_billing",
+    "BuildRequestBodyZeroSaveDraftDraftBillingAcceptedMethodsItem": ".build_request_body_zero_save_draft_draft_billing_accepted_methods_item",
+    "BuildRequestBodyZeroSaveDraftDraftBillingExistingSystem": ".build_request_body_zero_save_draft_draft_billing_existing_system",
+    "BuildRequestBodyZeroSaveDraftDraftBillingProcessor": ".build_request_body_zero_save_draft_draft_billing_processor",
+    "BuildRequestBodyZeroSaveDraftDraftConnectionsItem": ".build_request_body_zero_save_draft_draft_connections_item",
+    "BuildRequestBodyZeroSaveDraftDraftConnectionsItemKind": ".build_request_body_zero_save_draft_draft_connections_item_kind",
+    "BuildRequestBodyZeroSaveDraftDraftConnectionsItemMode": ".build_request_body_zero_save_draft_draft_connections_item_mode",
+    "BuildRequestBodyZeroSaveDraftDraftDistributionItem": ".build_request_body_zero_save_draft_draft_distribution_item",
+    "BuildRequestBodyZeroSaveDraftDraftDistributionItemDestination": ".build_request_body_zero_save_draft_draft_distribution_item_destination",
+    "BuildRequestBodyZeroSaveDraftDraftFilesItem": ".build_request_body_zero_save_draft_draft_files_item",
+    "BuildRequestBodyZeroSaveDraftDraftHosting": ".build_request_body_zero_save_draft_draft_hosting",
+    "BuildRequestBodyZeroSaveDraftDraftIdentity": ".build_request_body_zero_save_draft_draft_identity",
+    "BuildRequestBodyZeroSaveDraftDraftIdentityAudience": ".build_request_body_zero_save_draft_draft_identity_audience",
+    "BuildRequestBodyZeroSaveDraftDraftIdentityCategory": ".build_request_body_zero_save_draft_draft_identity_category",
+    "BuildRequestBodyZeroSaveDraftDraftIdentityCreationContext": ".build_request_body_zero_save_draft_draft_identity_creation_context",
+    "BuildRequestBodyZeroSaveDraftDraftIdentitySecondaryCategoriesItem": ".build_request_body_zero_save_draft_draft_identity_secondary_categories_item",
+    "BuildRequestBodyZeroSaveDraftDraftMessagesItem": ".build_request_body_zero_save_draft_draft_messages_item",
+    "BuildRequestBodyZeroSaveDraftDraftMessagesItemRole": ".build_request_body_zero_save_draft_draft_messages_item_role",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItem": ".build_request_body_zero_save_draft_draft_operations_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemApproval": ".build_request_body_zero_save_draft_draft_operations_item_approval",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemCustomer": ".build_request_body_zero_save_draft_draft_operations_item_customer",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemEffects": ".build_request_body_zero_save_draft_draft_operations_item_effects",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlan": ".build_request_body_zero_save_draft_draft_operations_item_execution_plan",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanAuthoring": ".build_request_body_zero_save_draft_draft_operations_item_execution_plan_authoring",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanNodesItem": ".build_request_body_zero_save_draft_draft_operations_item_execution_plan_nodes_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanRuntime": ".build_request_body_zero_save_draft_draft_operations_item_execution_plan_runtime",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanRuntimeLanguage": ".build_request_body_zero_save_draft_draft_operations_item_execution_plan_runtime_language",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperience": ".build_request_body_zero_save_draft_draft_operations_item_experience",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceStatesItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_states_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceStatesItemExecutionStatusesItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_states_item_execution_statuses_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemArgumentBindingsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_argument_bindings_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemBindingsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_bindings_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemBindingsItemSource": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_bindings_item_source",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemModalitiesItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_modalities_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentation": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparison": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_comparison",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparisonOptionsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_comparison_options_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectory": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_directory",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectoryCriteriaItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_directory_criteria_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEditorial": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_editorial",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimate": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateCurrency": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate_currency",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateItemsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_estimate_items_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtraction": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_extraction",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtractionFieldsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_extraction_fields_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlanner": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_planner",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlannerStepsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_planner_steps_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactResearch": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_research",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboard": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardAspectRatio": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard_aspect_ratio",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardScenesItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_storyboard_scenes_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudio": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_studio",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudioPaletteItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact_studio_palette_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Comparison": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Directory": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Editorial": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Estimate": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Extraction": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Planner": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Research": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Storyboard": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Studio": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_artifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesign": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_design",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesignCharacter": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_design_character",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesignDensity": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_design_density",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourney": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_journey",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyAction": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_journey_action",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyActionKind": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_journey_action_kind",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyStage": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_journey_stage",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationLayout": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_layout",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationNextItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_next_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRepresentation": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_representation",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemStatus": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item_status",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemTree": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_runtime_regions_item_tree",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_sections_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItemKind": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_presentation_sections_item_kind",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemRuntimeComponentsItem": ".build_request_body_zero_save_draft_draft_operations_item_experience_variants_item_runtime_components_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemGuidance": ".build_request_body_zero_save_draft_draft_operations_item_guidance",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementation": ".build_request_body_zero_save_draft_draft_operations_item_implementation",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationKind": ".build_request_body_zero_save_draft_draft_operations_item_implementation_kind",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationMethod": ".build_request_body_zero_save_draft_draft_operations_item_implementation_method",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationStepsItem": ".build_request_body_zero_save_draft_draft_operations_item_implementation_steps_item",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemLimits": ".build_request_body_zero_save_draft_draft_operations_item_limits",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing": ".build_request_body_zero_save_draft_draft_operations_item_pricing",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFixed": ".build_request_body_zero_save_draft_draft_operations_item_pricing_fixed",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFixedCurrency": ".build_request_body_zero_save_draft_draft_operations_item_pricing_fixed_currency",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFree": ".build_request_body_zero_save_draft_draft_operations_item_pricing_free",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing_Fixed": ".build_request_body_zero_save_draft_draft_operations_item_pricing",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing_Free": ".build_request_body_zero_save_draft_draft_operations_item_pricing",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemTestsItem": ".build_request_body_zero_save_draft_draft_operations_item_tests_item",
+    "BuildRequestBodyZeroSaveDraftDraftSourcesItem": ".build_request_body_zero_save_draft_draft_sources_item",
+    "BuildRequestBodyZeroSaveDraftDraftTechnicalLevel": ".build_request_body_zero_save_draft_draft_technical_level",
+    "BuildRequestBodyZeroSaveDraftDraftVisibility": ".build_request_body_zero_save_draft_draft_visibility",
+    "BuildRequestBodyZeroSearchIndex": ".build_request_body_zero_search_index",
+    "BuildRequestBodyZeroStartDraft": ".build_request_body_zero_start_draft",
+    "BuildRequestBodyZeroStartDraftInput": ".build_request_body_zero_start_draft_input",
+    "BuildRequestBodyZeroStartDraftInputDefinition": ".build_request_body_zero_start_draft_input_definition",
+    "BuildRequestBodyZeroStartDraftInputDefinitionFormat": ".build_request_body_zero_start_draft_input_definition_format",
+    "BuildRequestBodyZeroStartDraftInputIdea": ".build_request_body_zero_start_draft_input_idea",
+    "BuildRequestBodyZeroStartDraftInputWebsite": ".build_request_body_zero_start_draft_input_website",
+    "BuildRequestBodyZeroStartDraftInput_Definition": ".build_request_body_zero_start_draft_input",
+    "BuildRequestBodyZeroStartDraftInput_Idea": ".build_request_body_zero_start_draft_input",
+    "BuildRequestBodyZeroStartDraftInput_Website": ".build_request_body_zero_start_draft_input",
+    "BuildRequestBodyZeroStartTest": ".build_request_body_zero_start_test",
+    "BuildRequestBodyZeroValidateDraft": ".build_request_body_zero_validate_draft",
+    "BuildRequestBodyZeroValidateExecutionPlan": ".build_request_body_zero_validate_execution_plan",
+    "BuildRequestBodyZero_BillingSummary": ".build_request_body_zero",
+    "BuildRequestBodyZero_CancelJob": ".build_request_body_zero",
+    "BuildRequestBodyZero_CheckSlug": ".build_request_body_zero",
+    "BuildRequestBodyZero_ExportDestination": ".build_request_body_zero",
+    "BuildRequestBodyZero_ExportDraft": ".build_request_body_zero",
+    "BuildRequestBodyZero_GenerateDraft": ".build_request_body_zero",
+    "BuildRequestBodyZero_GetDraft": ".build_request_body_zero",
+    "BuildRequestBodyZero_GetJob": ".build_request_body_zero",
+    "BuildRequestBodyZero_GetNode": ".build_request_body_zero",
+    "BuildRequestBodyZero_GetTemplate": ".build_request_body_zero",
+    "BuildRequestBodyZero_ImportIndex": ".build_request_body_zero",
+    "BuildRequestBodyZero_ImportPackage": ".build_request_body_zero",
+    "BuildRequestBodyZero_ImportSource": ".build_request_body_zero",
+    "BuildRequestBodyZero_ListDrafts": ".build_request_body_zero",
+    "BuildRequestBodyZero_ListNodes": ".build_request_body_zero",
+    "BuildRequestBodyZero_ListTemplates": ".build_request_body_zero",
+    "BuildRequestBodyZero_ResumeJob": ".build_request_body_zero",
+    "BuildRequestBodyZero_SaveDraft": ".build_request_body_zero",
+    "BuildRequestBodyZero_SearchIndex": ".build_request_body_zero",
+    "BuildRequestBodyZero_StartDraft": ".build_request_body_zero",
+    "BuildRequestBodyZero_StartTest": ".build_request_body_zero",
+    "BuildRequestBodyZero_ValidateDraft": ".build_request_body_zero",
+    "BuildRequestBodyZero_ValidateExecutionPlan": ".build_request_body_zero",
     "ChallengeMachineKeyRequestBody": ".challenge_machine_key_request_body",
     "ChallengeMachineKeyRequestBodyPublicKey": ".challenge_machine_key_request_body_public_key",
     "ChallengeMachineKeyRequestBodyPublicKeyPublicKey": ".challenge_machine_key_request_body_public_key_public_key",
@@ -20256,6 +21488,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetPaymentStatusResponseUrlStatus": ".get_payment_status_response_url_status",
     "GetResultArtifactDownloadUrlResponse": ".get_result_artifact_download_url_response",
     "GetResultArtifactDownloadUrlResponseDisposition": ".get_result_artifact_download_url_response_disposition",
+    "GetRunRequestRequestAudience": ".get_run_request_request_audience",
     "GetSessionOperationRequestAudience": ".get_session_operation_request_audience",
     "GetThreadOperationRequestAudience": ".get_thread_operation_request_audience",
     "GetThreadRequestAudience": ".get_thread_request_audience",
@@ -20813,6 +22046,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LiveSearchRequestMode": ".live_search_request_mode",
     "LiveSearchRequestTarget": ".live_search_request_target",
     "LiveSearchRequestType": ".live_search_request_type",
+    "ManageRequestBody": ".manage_request_body",
+    "ManageRequestBodyCreateUpdate": ".manage_request_body_create_update",
+    "ManageRequestBodyDeploymentStatus": ".manage_request_body_deployment_status",
+    "ManageRequestBodyGetAgent": ".manage_request_body_get_agent",
+    "ManageRequestBodyListAgents": ".manage_request_body_list_agents",
+    "ManageRequestBodyRollback": ".manage_request_body_rollback",
+    "ManageRequestBody_CreateUpdate": ".manage_request_body",
+    "ManageRequestBody_DeploymentStatus": ".manage_request_body",
+    "ManageRequestBody_GetAgent": ".manage_request_body",
+    "ManageRequestBody_ListAgents": ".manage_request_body",
+    "ManageRequestBody_Rollback": ".manage_request_body",
     "NavigateRequestAudience": ".navigate_request_audience",
     "NavigateRequestContext": ".navigate_request_context",
     "NavigateRequestContextFilesItem": ".navigate_request_context_files_item",
@@ -21772,6 +23016,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RouteRequestMode": ".route_request_mode",
     "RouteRequestTarget": ".route_request_target",
     "RouteRequestType": ".route_request_type",
+    "RunRequest": ".run_request",
+    "RunResponse": ".run_response",
+    "RunTurnRequest": ".run_turn_request",
+    "RunTurnRequestAudience": ".run_turn_request_audience",
+    "RunTurnRequestContext": ".run_turn_request_context",
+    "RunTurnRequestContextFilesItem": ".run_turn_request_context_files_item",
+    "RunTurnRequestContextFilesItemMimeType": ".run_turn_request_context_files_item_mime_type",
+    "RunTurnRequestMode": ".run_turn_request_mode",
+    "RunTurnRequestTarget": ".run_turn_request_target",
+    "RunTurnRequestType": ".run_turn_request_type",
     "SearchActCapability": ".search_act_capability",
     "SearchActCapabilityReadiness": ".search_act_capability_readiness",
     "SearchActCapabilityThreadUnavailableReason": ".search_act_capability_thread_unavailable_reason",
@@ -26482,6 +27736,372 @@ __all__ = [
     "AuthenticateResponseOneStatus",
     "AuthenticateResponseUrl",
     "AuthenticateResponseUrlStatus",
+    "BuildRequestBody",
+    "BuildRequestBodyAction",
+    "BuildRequestBodyActionAction",
+    "BuildRequestBodyOne",
+    "BuildRequestBodyOneCreateAgent",
+    "BuildRequestBodyOneCreateAgentInput",
+    "BuildRequestBodyOneCreateAgentInputComponentLibrary",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponents",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItem",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemAgent",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemHuman",
+    "BuildRequestBodyOneCreateAgentInputComponentLibraryComponentsComponentsItemHumanStatesItem",
+    "BuildRequestBodyOneCreateAgentInputComponentLibrarySource",
+    "BuildRequestBodyOneCreateAgentInputComponentLibrarySourceSource",
+    "BuildRequestBodyOneCreateOperation",
+    "BuildRequestBodyOneCreateOperationInput",
+    "BuildRequestBodyOneCreateOperationInputFulfillment",
+    "BuildRequestBodyOneCreateOperationInputFulfillmentMechanism",
+    "BuildRequestBodyOneCreateOperationInputOwnerApproval",
+    "BuildRequestBodyOneCreateOperationInputPricing",
+    "BuildRequestBodyOneCreateOperationInputPricingCurrency",
+    "BuildRequestBodyOneGetAgent",
+    "BuildRequestBodyOneGetOperation",
+    "BuildRequestBodyOneTestAgent",
+    "BuildRequestBodyOneTestOperation",
+    "BuildRequestBodyOneUpdateAgent",
+    "BuildRequestBodyOneUpdateAgentInput",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibrary",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponents",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItem",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemAgent",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemHuman",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibraryComponentsComponentsItemHumanStatesItem",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibrarySource",
+    "BuildRequestBodyOneUpdateAgentInputComponentLibrarySourceSource",
+    "BuildRequestBodyOneUpdateOperation",
+    "BuildRequestBodyOneUpdateOperationInput",
+    "BuildRequestBodyOneUpdateOperationInputFulfillment",
+    "BuildRequestBodyOneUpdateOperationInputFulfillmentMechanism",
+    "BuildRequestBodyOneUpdateOperationInputOwnerApproval",
+    "BuildRequestBodyOneUpdateOperationInputPricing",
+    "BuildRequestBodyOneUpdateOperationInputPricingCurrency",
+    "BuildRequestBodyOne_CreateAgent",
+    "BuildRequestBodyOne_CreateOperation",
+    "BuildRequestBodyOne_GetAgent",
+    "BuildRequestBodyOne_GetOperation",
+    "BuildRequestBodyOne_TestAgent",
+    "BuildRequestBodyOne_TestOperation",
+    "BuildRequestBodyOne_UpdateAgent",
+    "BuildRequestBodyOne_UpdateOperation",
+    "BuildRequestBodyThree",
+    "BuildRequestBodyThreeAnalytics",
+    "BuildRequestBodyThreeAnalyticsInput",
+    "BuildRequestBodyThreeApprove",
+    "BuildRequestBodyThreeApproveInput",
+    "BuildRequestBodyThreeApproveInputDecision",
+    "BuildRequestBodyThreeReleaseAgent",
+    "BuildRequestBodyThreeReleaseOperation",
+    "BuildRequestBodyThree_Analytics",
+    "BuildRequestBodyThree_Approve",
+    "BuildRequestBodyThree_ReleaseAgent",
+    "BuildRequestBodyThree_ReleaseOperation",
+    "BuildRequestBodyZero",
+    "BuildRequestBodyZeroBillingSummary",
+    "BuildRequestBodyZeroCancelJob",
+    "BuildRequestBodyZeroCheckSlug",
+    "BuildRequestBodyZeroExportDestination",
+    "BuildRequestBodyZeroExportDestinationDestination",
+    "BuildRequestBodyZeroExportDraft",
+    "BuildRequestBodyZeroGenerateDraft",
+    "BuildRequestBodyZeroGenerateDraftDraft",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertising",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingBidModel",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingConversion",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingEconomics",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingExternalChannelsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingMatch",
+    "BuildRequestBodyZeroGenerateDraftDraftAdvertisingObjective",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalytics",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalyticsDestinationsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalyticsDestinationsItemProvider",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalyticsEventsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftAnalyticsIdentityMode",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearance",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceBrand",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceBrandFont",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibrary",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemAgent",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemHuman",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLibraryComponentsItemHumanStatesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLoading",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceLoadingKind",
+    "BuildRequestBodyZeroGenerateDraftDraftAppearanceSource",
+    "BuildRequestBodyZeroGenerateDraftDraftAuthentication",
+    "BuildRequestBodyZeroGenerateDraftDraftAuthenticationAgentCredentialsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftAuthenticationHumanProvidersItem",
+    "BuildRequestBodyZeroGenerateDraftDraftAuthenticationMode",
+    "BuildRequestBodyZeroGenerateDraftDraftBilling",
+    "BuildRequestBodyZeroGenerateDraftDraftBillingAcceptedMethodsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftBillingExistingSystem",
+    "BuildRequestBodyZeroGenerateDraftDraftBillingProcessor",
+    "BuildRequestBodyZeroGenerateDraftDraftConnectionsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftConnectionsItemKind",
+    "BuildRequestBodyZeroGenerateDraftDraftConnectionsItemMode",
+    "BuildRequestBodyZeroGenerateDraftDraftDistributionItem",
+    "BuildRequestBodyZeroGenerateDraftDraftDistributionItemDestination",
+    "BuildRequestBodyZeroGenerateDraftDraftFilesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftHosting",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentity",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentityAudience",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentityCategory",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentityCreationContext",
+    "BuildRequestBodyZeroGenerateDraftDraftIdentitySecondaryCategoriesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftMessagesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftMessagesItemRole",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemApproval",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemCustomer",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemEffects",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlan",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanAuthoring",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanNodesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanRuntime",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExecutionPlanRuntimeLanguage",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperience",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceStatesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceStatesItemExecutionStatusesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemArgumentBindingsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemBindingsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemBindingsItemSource",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemModalitiesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentation",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparison",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparisonOptionsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectory",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectoryCriteriaItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEditorial",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimate",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateCurrency",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateItemsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtraction",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtractionFieldsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlanner",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlannerStepsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactResearch",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboard",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardAspectRatio",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardScenesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudio",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudioPaletteItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Comparison",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Directory",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Editorial",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Estimate",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Extraction",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Planner",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Research",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Storyboard",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Studio",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesign",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesignCharacter",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationDesignDensity",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourney",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyAction",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyActionKind",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyStage",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationLayout",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationNextItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRepresentation",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemStatus",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemTree",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItemKind",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemExperienceVariantsItemRuntimeComponentsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemGuidance",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementation",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationKind",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationMethod",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemImplementationStepsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemLimits",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFixed",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFixedCurrency",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricingFree",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing_Fixed",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemPricing_Free",
+    "BuildRequestBodyZeroGenerateDraftDraftOperationsItemTestsItem",
+    "BuildRequestBodyZeroGenerateDraftDraftSourcesItem",
+    "BuildRequestBodyZeroGenerateDraftDraftTechnicalLevel",
+    "BuildRequestBodyZeroGenerateDraftDraftVisibility",
+    "BuildRequestBodyZeroGetDraft",
+    "BuildRequestBodyZeroGetJob",
+    "BuildRequestBodyZeroGetNode",
+    "BuildRequestBodyZeroGetTemplate",
+    "BuildRequestBodyZeroImportIndex",
+    "BuildRequestBodyZeroImportPackage",
+    "BuildRequestBodyZeroImportSource",
+    "BuildRequestBodyZeroListDrafts",
+    "BuildRequestBodyZeroListNodes",
+    "BuildRequestBodyZeroListTemplates",
+    "BuildRequestBodyZeroResumeJob",
+    "BuildRequestBodyZeroSaveDraft",
+    "BuildRequestBodyZeroSaveDraftDraft",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertising",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingBidModel",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingConversion",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingEconomics",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingExternalChannelsItem",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingMatch",
+    "BuildRequestBodyZeroSaveDraftDraftAdvertisingObjective",
+    "BuildRequestBodyZeroSaveDraftDraftAnalytics",
+    "BuildRequestBodyZeroSaveDraftDraftAnalyticsDestinationsItem",
+    "BuildRequestBodyZeroSaveDraftDraftAnalyticsDestinationsItemProvider",
+    "BuildRequestBodyZeroSaveDraftDraftAnalyticsEventsItem",
+    "BuildRequestBodyZeroSaveDraftDraftAnalyticsIdentityMode",
+    "BuildRequestBodyZeroSaveDraftDraftAppearance",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceBrand",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceBrandFont",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibrary",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItem",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemAgent",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemHuman",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLibraryComponentsItemHumanStatesItem",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLoading",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceLoadingKind",
+    "BuildRequestBodyZeroSaveDraftDraftAppearanceSource",
+    "BuildRequestBodyZeroSaveDraftDraftAuthentication",
+    "BuildRequestBodyZeroSaveDraftDraftAuthenticationAgentCredentialsItem",
+    "BuildRequestBodyZeroSaveDraftDraftAuthenticationHumanProvidersItem",
+    "BuildRequestBodyZeroSaveDraftDraftAuthenticationMode",
+    "BuildRequestBodyZeroSaveDraftDraftBilling",
+    "BuildRequestBodyZeroSaveDraftDraftBillingAcceptedMethodsItem",
+    "BuildRequestBodyZeroSaveDraftDraftBillingExistingSystem",
+    "BuildRequestBodyZeroSaveDraftDraftBillingProcessor",
+    "BuildRequestBodyZeroSaveDraftDraftConnectionsItem",
+    "BuildRequestBodyZeroSaveDraftDraftConnectionsItemKind",
+    "BuildRequestBodyZeroSaveDraftDraftConnectionsItemMode",
+    "BuildRequestBodyZeroSaveDraftDraftDistributionItem",
+    "BuildRequestBodyZeroSaveDraftDraftDistributionItemDestination",
+    "BuildRequestBodyZeroSaveDraftDraftFilesItem",
+    "BuildRequestBodyZeroSaveDraftDraftHosting",
+    "BuildRequestBodyZeroSaveDraftDraftIdentity",
+    "BuildRequestBodyZeroSaveDraftDraftIdentityAudience",
+    "BuildRequestBodyZeroSaveDraftDraftIdentityCategory",
+    "BuildRequestBodyZeroSaveDraftDraftIdentityCreationContext",
+    "BuildRequestBodyZeroSaveDraftDraftIdentitySecondaryCategoriesItem",
+    "BuildRequestBodyZeroSaveDraftDraftMessagesItem",
+    "BuildRequestBodyZeroSaveDraftDraftMessagesItemRole",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemApproval",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemCustomer",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemEffects",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlan",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanAuthoring",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanNodesItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanRuntime",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExecutionPlanRuntimeLanguage",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperience",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceStatesItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceStatesItemExecutionStatusesItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemArgumentBindingsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemBindingsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemBindingsItemSource",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemModalitiesItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentation",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparison",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactComparisonOptionsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectory",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactDirectoryCriteriaItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEditorial",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimate",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateCurrency",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactEstimateItemsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtraction",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactExtractionFieldsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlanner",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactPlannerStepsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactResearch",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboard",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardAspectRatio",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStoryboardScenesItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudio",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifactStudioPaletteItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Comparison",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Directory",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Editorial",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Estimate",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Extraction",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Planner",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Research",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Storyboard",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationArtifact_Studio",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesign",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesignCharacter",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationDesignDensity",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourney",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyAction",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyActionKind",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationJourneyStage",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationLayout",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationNextItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRepresentation",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemStatus",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationRuntimeRegionsItemTree",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemPresentationSectionsItemKind",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemExperienceVariantsItemRuntimeComponentsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemGuidance",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementation",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationKind",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationMethod",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemImplementationStepsItem",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemLimits",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFixed",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFixedCurrency",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricingFree",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing_Fixed",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemPricing_Free",
+    "BuildRequestBodyZeroSaveDraftDraftOperationsItemTestsItem",
+    "BuildRequestBodyZeroSaveDraftDraftSourcesItem",
+    "BuildRequestBodyZeroSaveDraftDraftTechnicalLevel",
+    "BuildRequestBodyZeroSaveDraftDraftVisibility",
+    "BuildRequestBodyZeroSearchIndex",
+    "BuildRequestBodyZeroStartDraft",
+    "BuildRequestBodyZeroStartDraftInput",
+    "BuildRequestBodyZeroStartDraftInputDefinition",
+    "BuildRequestBodyZeroStartDraftInputDefinitionFormat",
+    "BuildRequestBodyZeroStartDraftInputIdea",
+    "BuildRequestBodyZeroStartDraftInputWebsite",
+    "BuildRequestBodyZeroStartDraftInput_Definition",
+    "BuildRequestBodyZeroStartDraftInput_Idea",
+    "BuildRequestBodyZeroStartDraftInput_Website",
+    "BuildRequestBodyZeroStartTest",
+    "BuildRequestBodyZeroValidateDraft",
+    "BuildRequestBodyZeroValidateExecutionPlan",
+    "BuildRequestBodyZero_BillingSummary",
+    "BuildRequestBodyZero_CancelJob",
+    "BuildRequestBodyZero_CheckSlug",
+    "BuildRequestBodyZero_ExportDestination",
+    "BuildRequestBodyZero_ExportDraft",
+    "BuildRequestBodyZero_GenerateDraft",
+    "BuildRequestBodyZero_GetDraft",
+    "BuildRequestBodyZero_GetJob",
+    "BuildRequestBodyZero_GetNode",
+    "BuildRequestBodyZero_GetTemplate",
+    "BuildRequestBodyZero_ImportIndex",
+    "BuildRequestBodyZero_ImportPackage",
+    "BuildRequestBodyZero_ImportSource",
+    "BuildRequestBodyZero_ListDrafts",
+    "BuildRequestBodyZero_ListNodes",
+    "BuildRequestBodyZero_ListTemplates",
+    "BuildRequestBodyZero_ResumeJob",
+    "BuildRequestBodyZero_SaveDraft",
+    "BuildRequestBodyZero_SearchIndex",
+    "BuildRequestBodyZero_StartDraft",
+    "BuildRequestBodyZero_StartTest",
+    "BuildRequestBodyZero_ValidateDraft",
+    "BuildRequestBodyZero_ValidateExecutionPlan",
     "ChallengeMachineKeyRequestBody",
     "ChallengeMachineKeyRequestBodyPublicKey",
     "ChallengeMachineKeyRequestBodyPublicKeyPublicKey",
@@ -26633,6 +28253,7 @@ __all__ = [
     "GetPaymentStatusResponseUrlStatus",
     "GetResultArtifactDownloadUrlResponse",
     "GetResultArtifactDownloadUrlResponseDisposition",
+    "GetRunRequestRequestAudience",
     "GetSessionOperationRequestAudience",
     "GetThreadOperationRequestAudience",
     "GetThreadRequestAudience",
@@ -27190,6 +28811,17 @@ __all__ = [
     "LiveSearchRequestMode",
     "LiveSearchRequestTarget",
     "LiveSearchRequestType",
+    "ManageRequestBody",
+    "ManageRequestBodyCreateUpdate",
+    "ManageRequestBodyDeploymentStatus",
+    "ManageRequestBodyGetAgent",
+    "ManageRequestBodyListAgents",
+    "ManageRequestBodyRollback",
+    "ManageRequestBody_CreateUpdate",
+    "ManageRequestBody_DeploymentStatus",
+    "ManageRequestBody_GetAgent",
+    "ManageRequestBody_ListAgents",
+    "ManageRequestBody_Rollback",
     "NavigateRequestAudience",
     "NavigateRequestContext",
     "NavigateRequestContextFilesItem",
@@ -28149,6 +29781,16 @@ __all__ = [
     "RouteRequestMode",
     "RouteRequestTarget",
     "RouteRequestType",
+    "RunRequest",
+    "RunResponse",
+    "RunTurnRequest",
+    "RunTurnRequestAudience",
+    "RunTurnRequestContext",
+    "RunTurnRequestContextFilesItem",
+    "RunTurnRequestContextFilesItemMimeType",
+    "RunTurnRequestMode",
+    "RunTurnRequestTarget",
+    "RunTurnRequestType",
     "SearchActCapability",
     "SearchActCapabilityReadiness",
     "SearchActCapabilityThreadUnavailableReason",

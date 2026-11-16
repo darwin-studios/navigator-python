@@ -30,6 +30,7 @@ from .types.archive_thread_response import ArchiveThreadResponse
 from .types.assist_v3request import AssistV3Request
 from .types.assist_v3response import AssistV3Response
 from .types.authenticate_response import AuthenticateResponse
+from .types.build_request_body import BuildRequestBody
 from .types.challenge_machine_key_request_body import ChallengeMachineKeyRequestBody
 from .types.create_account_agent_request_type import CreateAccountAgentRequestType
 from .types.create_account_request_type import CreateAccountRequestType
@@ -65,6 +66,7 @@ from .types.get_owner_processing_context_response import GetOwnerProcessingConte
 from .types.get_payment_options_response import GetPaymentOptionsResponse
 from .types.get_payment_status_response import GetPaymentStatusResponse
 from .types.get_result_artifact_download_url_response import GetResultArtifactDownloadUrlResponse
+from .types.get_run_request_request_audience import GetRunRequestRequestAudience
 from .types.get_session_operation_request_audience import GetSessionOperationRequestAudience
 from .types.get_thread_operation_request_audience import GetThreadOperationRequestAudience
 from .types.get_thread_request_audience import GetThreadRequestAudience
@@ -88,6 +90,7 @@ from .types.live_search_request_live_search import LiveSearchRequestLiveSearch
 from .types.live_search_request_mode import LiveSearchRequestMode
 from .types.live_search_request_target import LiveSearchRequestTarget
 from .types.live_search_request_type import LiveSearchRequestType
+from .types.manage_request_body import ManageRequestBody
 from .types.navigate_request_audience import NavigateRequestAudience
 from .types.navigate_request_context import NavigateRequestContext
 from .types.navigate_request_live_search import NavigateRequestLiveSearch
@@ -116,6 +119,8 @@ from .types.route_request_context import RouteRequestContext
 from .types.route_request_mode import RouteRequestMode
 from .types.route_request_target import RouteRequestTarget
 from .types.route_request_type import RouteRequestType
+from .types.run_request import RunRequest
+from .types.run_response import RunResponse
 from .types.search_history_page import SearchHistoryPage
 from .types.search_response import SearchResponse
 from .types.select_account_agent_request_channel import SelectAccountAgentRequestChannel
@@ -2931,6 +2936,211 @@ class Darwin:
         )
         return _response.data
 
+    def build(
+        self,
+        *,
+        idempotency_key: str,
+        request: BuildRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Builder: start_draft (idea, website or typed definition), import_package (base64 Darwin Agent ZIP), import_source, billing_summary, save_draft, get_draft, list_drafts, check_slug, validate_draft, export_draft, export_destination, start_test, get_job, resume_job and cancel_job. billing_summary also requires payments:read and returns the owner plan, credit-pack catalog, available credits and payment-method readiness. Test submission/resumption and release preparation require a usage payment method on file. Node execution rates still require a verified quote. Account-owned draft reads require builder:read; save and test mutations require builder:write. save_draft uses expectedRevision and Idempotency-Key. start_test pins a saved revision; resume_job executes supported TypeScript in a configured isolated local runner. export_draft returns a base64 Darwin Agent ZIP archive alongside structured metadata. Structural validation is not execution evidence. prepare_release prepares a saved revision and its release evidence. release_agent and release_operation publish existing definitions under agents:write and operations:write respectively. Publication is part of Build; a prepared package alone is not a deployed agent. Legacy agent-definition actions remain compatible under their existing scopes.
+
+        Parameters
+        ----------
+        idempotency_key : str
+            Stable key for this exact mutation. Reusing it with different input returns 409.
+
+        request : BuildRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Current owner-scoped result. A mutation retry returns its saved response.
+
+        Examples
+        --------
+        from darwin_sdk import BuildRequestBodyZero_ListDrafts, Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.build(
+            idempotency_key="Idempotency-Key",
+            request=BuildRequestBodyZero_ListDrafts(),
+        )
+        """
+        _response = self._raw_client.build(
+            idempotency_key=idempotency_key, request=request, request_options=request_options
+        )
+        return _response.data
+
+    def manage(
+        self,
+        *,
+        idempotency_key: str,
+        request: ManageRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Read and update your saved agents, revisions, prepared releases, and tests. Production deployment is not connected.
+
+        Parameters
+        ----------
+        idempotency_key : str
+            Stable key for this exact mutation. Reusing it with different input returns 409.
+
+        request : ManageRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Current owner-scoped result. A mutation retry returns its saved response.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin, ManageRequestBody_ListAgents
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.manage(
+            idempotency_key="Idempotency-Key",
+            request=ManageRequestBody_ListAgents(),
+        )
+        """
+        _response = self._raw_client.manage(
+            idempotency_key=idempotency_key, request=request, request_options=request_options
+        )
+        return _response.data
+
+    def run(
+        self,
+        *,
+        request: RunRequest,
+        idempotency_key: typing.Optional[str] = None,
+        search_token: typing.Optional[str] = None,
+        act_token: typing.Optional[str] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RunResponse:
+        """
+        Run one or multiple agents. Direct handoffs accept one to eight targets, with separate threads and per-target results. Coordinated work uses type: turn, clientMessageId and a message, with an optional sessionId; Darwin plans and coordinates execution through the existing approval-controlled runtime. A handoff receipt is not a completed task outcome.
+
+        Parameters
+        ----------
+        request : RunRequest
+
+        idempotency_key : typing.Optional[str]
+
+        search_token : typing.Optional[str]
+
+        act_token : typing.Optional[str]
+            Private guest credential; never place it in messages or URLs.
+
+        assist_token : typing.Optional[str]
+            Private continuation proof for coordinated guest turns only.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RunResponse
+            Direct handoff or coordinated session state.
+
+        Examples
+        --------
+        from darwin_sdk import ActV3RequestAgentIds, Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.run(
+            request=ActV3RequestAgentIds(
+                search_id="searchId",
+                message="message",
+            ),
+        )
+        """
+        _response = self._raw_client.run(
+            request=request,
+            idempotency_key=idempotency_key,
+            search_token=search_token,
+            act_token=act_token,
+            assist_token=assist_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_run_request(
+        self,
+        act_request_id: str,
+        *,
+        include_thread_state: typing.Optional[bool] = None,
+        session_id: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[GetRunRequestRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3RequestResponse:
+        """
+        Read an Act request and its authorized session messages, actions and pending requests. Use the actRequestId returned by Act or an Assist child step. Includes current session state by default; continue the selected session through POST /v3/act.
+
+        Parameters
+        ----------
+        act_request_id : str
+
+        include_thread_state : typing.Optional[bool]
+            Include authorized child session messages, actions and pending requests.
+
+        session_id : typing.Optional[str]
+            Read state for this child session only. Must belong to the Act request.
+
+        cursor : typing.Optional[str]
+            Read the next message page for sessionId. Requires includeThreadState=true.
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[GetRunRequestRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3RequestResponse
+            Act request receipt and optional live, authorized child session state.
+
+        Examples
+        --------
+        from darwin_sdk import Darwin
+
+        client = Darwin(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_run_request(
+            act_request_id="actRequestId",
+        )
+        """
+        _response = self._raw_client.get_run_request(
+            act_request_id,
+            include_thread_state=include_thread_state,
+            session_id=session_id,
+            cursor=cursor,
+            limit=limit,
+            audience=audience,
+            request_options=request_options,
+        )
+        return _response.data
+
     def list_context(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.Dict[str, typing.Any]:
         """
         The server checks current session access and resource permissions on every request. Acceptance does not prove provider execution.
@@ -4311,7 +4521,7 @@ class Darwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> NavigateResponse:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -4531,7 +4741,7 @@ class Darwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> NavigateResponse:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -4642,7 +4852,7 @@ class Darwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> NavigateResponse:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -9023,6 +9233,243 @@ class AsyncDarwin:
         )
         return _response.data
 
+    async def build(
+        self,
+        *,
+        idempotency_key: str,
+        request: BuildRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Builder: start_draft (idea, website or typed definition), import_package (base64 Darwin Agent ZIP), import_source, billing_summary, save_draft, get_draft, list_drafts, check_slug, validate_draft, export_draft, export_destination, start_test, get_job, resume_job and cancel_job. billing_summary also requires payments:read and returns the owner plan, credit-pack catalog, available credits and payment-method readiness. Test submission/resumption and release preparation require a usage payment method on file. Node execution rates still require a verified quote. Account-owned draft reads require builder:read; save and test mutations require builder:write. save_draft uses expectedRevision and Idempotency-Key. start_test pins a saved revision; resume_job executes supported TypeScript in a configured isolated local runner. export_draft returns a base64 Darwin Agent ZIP archive alongside structured metadata. Structural validation is not execution evidence. prepare_release prepares a saved revision and its release evidence. release_agent and release_operation publish existing definitions under agents:write and operations:write respectively. Publication is part of Build; a prepared package alone is not a deployed agent. Legacy agent-definition actions remain compatible under their existing scopes.
+
+        Parameters
+        ----------
+        idempotency_key : str
+            Stable key for this exact mutation. Reusing it with different input returns 409.
+
+        request : BuildRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Current owner-scoped result. A mutation retry returns its saved response.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, BuildRequestBodyZero_ListDrafts
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.build(
+                idempotency_key="Idempotency-Key",
+                request=BuildRequestBodyZero_ListDrafts(),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.build(
+            idempotency_key=idempotency_key, request=request, request_options=request_options
+        )
+        return _response.data
+
+    async def manage(
+        self,
+        *,
+        idempotency_key: str,
+        request: ManageRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Any]:
+        """
+        Read and update your saved agents, revisions, prepared releases, and tests. Production deployment is not connected.
+
+        Parameters
+        ----------
+        idempotency_key : str
+            Stable key for this exact mutation. Reusing it with different input returns 409.
+
+        request : ManageRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Any]
+            Current owner-scoped result. A mutation retry returns its saved response.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin, ManageRequestBody_ListAgents
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.manage(
+                idempotency_key="Idempotency-Key",
+                request=ManageRequestBody_ListAgents(),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.manage(
+            idempotency_key=idempotency_key, request=request, request_options=request_options
+        )
+        return _response.data
+
+    async def run(
+        self,
+        *,
+        request: RunRequest,
+        idempotency_key: typing.Optional[str] = None,
+        search_token: typing.Optional[str] = None,
+        act_token: typing.Optional[str] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RunResponse:
+        """
+        Run one or multiple agents. Direct handoffs accept one to eight targets, with separate threads and per-target results. Coordinated work uses type: turn, clientMessageId and a message, with an optional sessionId; Darwin plans and coordinates execution through the existing approval-controlled runtime. A handoff receipt is not a completed task outcome.
+
+        Parameters
+        ----------
+        request : RunRequest
+
+        idempotency_key : typing.Optional[str]
+
+        search_token : typing.Optional[str]
+
+        act_token : typing.Optional[str]
+            Private guest credential; never place it in messages or URLs.
+
+        assist_token : typing.Optional[str]
+            Private continuation proof for coordinated guest turns only.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RunResponse
+            Direct handoff or coordinated session state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import ActV3RequestAgentIds, AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.run(
+                request=ActV3RequestAgentIds(
+                    search_id="searchId",
+                    message="message",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.run(
+            request=request,
+            idempotency_key=idempotency_key,
+            search_token=search_token,
+            act_token=act_token,
+            assist_token=assist_token,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_run_request(
+        self,
+        act_request_id: str,
+        *,
+        include_thread_state: typing.Optional[bool] = None,
+        session_id: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[GetRunRequestRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ActV3RequestResponse:
+        """
+        Read an Act request and its authorized session messages, actions and pending requests. Use the actRequestId returned by Act or an Assist child step. Includes current session state by default; continue the selected session through POST /v3/act.
+
+        Parameters
+        ----------
+        act_request_id : str
+
+        include_thread_state : typing.Optional[bool]
+            Include authorized child session messages, actions and pending requests.
+
+        session_id : typing.Optional[str]
+            Read state for this child session only. Must belong to the Act request.
+
+        cursor : typing.Optional[str]
+            Read the next message page for sessionId. Requires includeThreadState=true.
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[GetRunRequestRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ActV3RequestResponse
+            Act request receipt and optional live, authorized child session state.
+
+        Examples
+        --------
+        import asyncio
+
+        from darwin_sdk import AsyncDarwin
+
+        client = AsyncDarwin(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_run_request(
+                act_request_id="actRequestId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_run_request(
+            act_request_id,
+            include_thread_state=include_thread_state,
+            session_id=session_id,
+            cursor=cursor,
+            limit=limit,
+            audience=audience,
+            request_options=request_options,
+        )
+        return _response.data
+
     async def list_context(
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Dict[str, typing.Any]:
@@ -10636,7 +11083,7 @@ class AsyncDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> NavigateResponse:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -10880,7 +11327,7 @@ class AsyncDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> NavigateResponse:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -10999,7 +11446,7 @@ class AsyncDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> NavigateResponse:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------

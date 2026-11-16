@@ -33,7 +33,7 @@ dependencies = [
 [project.urls]
 Documentation = "https://darwin.so/docs/surfaces/api"
 Issues = "https://github.com/darwin-studios/darwin/issues"
-Repository = "https://github.com/darwin-studios/darwin-python"
+Repository = "https://github.com/darwin-studios/navigator-python"
 
 [tool.setuptools.packages.find]
 where = ["src"]

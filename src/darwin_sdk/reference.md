@@ -5426,6 +5426,391 @@ client.list_act_threads()
 </dl>
 </details>
 
+<details><summary><code>client.<a href="src/darwin_sdk/client.py">build</a>(...) -> typing.Dict[str, typing.Any]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Builder: start_draft (idea, website or typed definition), import_package (base64 Darwin Agent ZIP), import_source, billing_summary, save_draft, get_draft, list_drafts, check_slug, validate_draft, export_draft, export_destination, start_test, get_job, resume_job and cancel_job. billing_summary also requires payments:read and returns the owner plan, credit-pack catalog, available credits and payment-method readiness. Test submission/resumption and release preparation require a usage payment method on file. Node execution rates still require a verified quote. Account-owned draft reads require builder:read; save and test mutations require builder:write. save_draft uses expectedRevision and Idempotency-Key. start_test pins a saved revision; resume_job executes supported TypeScript in a configured isolated local runner. export_draft returns a base64 Darwin Agent ZIP archive alongside structured metadata. Structural validation is not execution evidence. prepare_release prepares a saved revision and its release evidence. release_agent and release_operation publish existing definitions under agents:write and operations:write respectively. Publication is part of Build; a prepared package alone is not a deployed agent. Legacy agent-definition actions remain compatible under their existing scopes.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from darwin_sdk import Darwin, BuildRequestBodyZero_ListDrafts
+from darwin_sdk.environment import DarwinEnvironment
+
+client = Darwin(
+    api_key="<value>",
+    environment=DarwinEnvironment.DEFAULT,
+)
+
+client.build(
+    idempotency_key="Idempotency-Key",
+    request=BuildRequestBodyZero_ListDrafts(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotency_key:** `str` — Stable key for this exact mutation. Reusing it with different input returns 409.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `BuildRequestBody`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="src/darwin_sdk/client.py">manage</a>(...) -> typing.Dict[str, typing.Any]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Read and update your saved agents, revisions, prepared releases, and tests. Production deployment is not connected.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from darwin_sdk import Darwin, ManageRequestBody_ListAgents
+from darwin_sdk.environment import DarwinEnvironment
+
+client = Darwin(
+    api_key="<value>",
+    environment=DarwinEnvironment.DEFAULT,
+)
+
+client.manage(
+    idempotency_key="Idempotency-Key",
+    request=ManageRequestBody_ListAgents(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotency_key:** `str` — Stable key for this exact mutation. Reusing it with different input returns 409.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `ManageRequestBody`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="src/darwin_sdk/client.py">run</a>(...) -> RunResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Run one or multiple agents. Direct handoffs accept one to eight targets, with separate threads and per-target results. Coordinated work uses type: turn, clientMessageId and a message, with an optional sessionId; Darwin plans and coordinates execution through the existing approval-controlled runtime. A handoff receipt is not a completed task outcome.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from darwin_sdk import Darwin, ActV3RequestAgentIds
+from darwin_sdk.environment import DarwinEnvironment
+
+client = Darwin(
+    api_key="<value>",
+    environment=DarwinEnvironment.DEFAULT,
+)
+
+client.run(
+    request=ActV3RequestAgentIds(
+        search_id="searchId",
+        message="message",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `RunRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotency_key:** `typing.Optional[str]`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search_token:** `typing.Optional[str]`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**act_token:** `typing.Optional[str]` — Private guest credential; never place it in messages or URLs.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assist_token:** `typing.Optional[str]` — Private continuation proof for coordinated guest turns only.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="src/darwin_sdk/client.py">get_run_request</a>(...) -> ActV3RequestResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Read an Act request and its authorized session messages, actions and pending requests. Use the actRequestId returned by Act or an Assist child step. Includes current session state by default; continue the selected session through POST /v3/act.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from darwin_sdk import Darwin
+from darwin_sdk.environment import DarwinEnvironment
+
+client = Darwin(
+    api_key="<value>",
+    environment=DarwinEnvironment.DEFAULT,
+)
+
+client.get_run_request(
+    act_request_id="actRequestId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**act_request_id:** `str`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_thread_state:** `typing.Optional[bool]` — Include authorized child session messages, actions and pending requests.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**session_id:** `typing.Optional[str]` — Read state for this child session only. Must belong to the Act request.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — Read the next message page for sessionId. Requires includeThreadState=true.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**audience:** `typing.Optional[GetRunRequestRequestAudience]` — Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.<a href="src/darwin_sdk/client.py">list_context</a>() -> typing.Dict[str, typing.Any]</code></summary>
 <dl>
 <dd>
@@ -8149,7 +8534,7 @@ client.live_search(
 <dl>
 <dd>
 
-Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+Compatibility alias for the coordinated turn form of POST /v3/run.
 </dd>
 </dl>
 </dd>
@@ -8554,7 +8939,7 @@ client.update_session(
 <dl>
 <dd>
 
-Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+Compatibility alias for the coordinated turn form of POST /v3/run.
 </dd>
 </dl>
 </dd>
@@ -8749,7 +9134,7 @@ client.route(
 <dl>
 <dd>
 
-Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+Compatibility alias for the coordinated turn form of POST /v3/run.
 </dd>
 </dl>
 </dd>

@@ -44,6 +44,7 @@ from .types.archive_thread_response import ArchiveThreadResponse
 from .types.assist_v3request import AssistV3Request
 from .types.assist_v3response import AssistV3Response
 from .types.authenticate_response import AuthenticateResponse
+from .types.build_request_body import BuildRequestBody
 from .types.challenge_machine_key_request_body import ChallengeMachineKeyRequestBody
 from .types.create_account_agent_request_type import CreateAccountAgentRequestType
 from .types.create_account_request_type import CreateAccountRequestType
@@ -80,6 +81,7 @@ from .types.get_owner_processing_context_response import GetOwnerProcessingConte
 from .types.get_payment_options_response import GetPaymentOptionsResponse
 from .types.get_payment_status_response import GetPaymentStatusResponse
 from .types.get_result_artifact_download_url_response import GetResultArtifactDownloadUrlResponse
+from .types.get_run_request_request_audience import GetRunRequestRequestAudience
 from .types.get_session_operation_request_audience import GetSessionOperationRequestAudience
 from .types.get_thread_operation_request_audience import GetThreadOperationRequestAudience
 from .types.get_thread_request_audience import GetThreadRequestAudience
@@ -103,6 +105,7 @@ from .types.live_search_request_live_search import LiveSearchRequestLiveSearch
 from .types.live_search_request_mode import LiveSearchRequestMode
 from .types.live_search_request_target import LiveSearchRequestTarget
 from .types.live_search_request_type import LiveSearchRequestType
+from .types.manage_request_body import ManageRequestBody
 from .types.navigate_request_audience import NavigateRequestAudience
 from .types.navigate_request_context import NavigateRequestContext
 from .types.navigate_request_live_search import NavigateRequestLiveSearch
@@ -131,6 +134,8 @@ from .types.route_request_context import RouteRequestContext
 from .types.route_request_mode import RouteRequestMode
 from .types.route_request_target import RouteRequestTarget
 from .types.route_request_type import RouteRequestType
+from .types.run_request import RunRequest
+from .types.run_response import RunResponse
 from .types.search_history_page import SearchHistoryPage
 from .types.search_response import SearchResponse
 from .types.select_account_agent_request_channel import SelectAccountAgentRequestChannel
@@ -7138,6 +7143,490 @@ class RawDarwin:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def build(
+        self,
+        *,
+        idempotency_key: str,
+        request: BuildRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
+        """
+        Builder: start_draft (idea, website or typed definition), import_package (base64 Darwin Agent ZIP), import_source, billing_summary, save_draft, get_draft, list_drafts, check_slug, validate_draft, export_draft, export_destination, start_test, get_job, resume_job and cancel_job. billing_summary also requires payments:read and returns the owner plan, credit-pack catalog, available credits and payment-method readiness. Test submission/resumption and release preparation require a usage payment method on file. Node execution rates still require a verified quote. Account-owned draft reads require builder:read; save and test mutations require builder:write. save_draft uses expectedRevision and Idempotency-Key. start_test pins a saved revision; resume_job executes supported TypeScript in a configured isolated local runner. export_draft returns a base64 Darwin Agent ZIP archive alongside structured metadata. Structural validation is not execution evidence. prepare_release prepares a saved revision and its release evidence. release_agent and release_operation publish existing definitions under agents:write and operations:write respectively. Publication is part of Build; a prepared package alone is not a deployed agent. Legacy agent-definition actions remain compatible under their existing scopes.
+
+        Parameters
+        ----------
+        idempotency_key : str
+            Stable key for this exact mutation. Reusing it with different input returns 409.
+
+        request : BuildRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.Dict[str, typing.Any]]
+            Current owner-scoped result. A mutation retry returns its saved response.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/build",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=BuildRequestBody, direction="write"
+            ),
+            headers={
+                "content-type": "application/json",
+                "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.Dict[str, typing.Any],
+                    parse_obj_as(
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise errors_conflict_error_ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def manage(
+        self,
+        *,
+        idempotency_key: str,
+        request: ManageRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
+        """
+        Read and update your saved agents, revisions, prepared releases, and tests. Production deployment is not connected.
+
+        Parameters
+        ----------
+        idempotency_key : str
+            Stable key for this exact mutation. Reusing it with different input returns 409.
+
+        request : ManageRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.Dict[str, typing.Any]]
+            Current owner-scoped result. A mutation retry returns its saved response.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/manage",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=ManageRequestBody, direction="write"
+            ),
+            headers={
+                "content-type": "application/json",
+                "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.Dict[str, typing.Any],
+                    parse_obj_as(
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise errors_conflict_error_ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def run(
+        self,
+        *,
+        request: RunRequest,
+        idempotency_key: typing.Optional[str] = None,
+        search_token: typing.Optional[str] = None,
+        act_token: typing.Optional[str] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[RunResponse]:
+        """
+        Run one or multiple agents. Direct handoffs accept one to eight targets, with separate threads and per-target results. Coordinated work uses type: turn, clientMessageId and a message, with an optional sessionId; Darwin plans and coordinates execution through the existing approval-controlled runtime. A handoff receipt is not a completed task outcome.
+
+        Parameters
+        ----------
+        request : RunRequest
+
+        idempotency_key : typing.Optional[str]
+
+        search_token : typing.Optional[str]
+
+        act_token : typing.Optional[str]
+            Private guest credential; never place it in messages or URLs.
+
+        assist_token : typing.Optional[str]
+            Private continuation proof for coordinated guest turns only.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[RunResponse]
+            Direct handoff or coordinated session state.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/run",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=RunRequest, direction="write"),
+            headers={
+                "content-type": "application/json",
+                "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
+                "X-Search-Token": str(search_token) if search_token is not None else None,
+                "X-Act-Token": str(act_token) if act_token is not None else None,
+                "X-Assist-Token": str(assist_token) if assist_token is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RunResponse,
+                    parse_obj_as(
+                        type_=RunResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise act_errors_conflict_error_ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ActPostFailure,
+                        parse_obj_as(
+                            type_=ActPostFailure,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_run_request(
+        self,
+        act_request_id: str,
+        *,
+        include_thread_state: typing.Optional[bool] = None,
+        session_id: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[GetRunRequestRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ActV3RequestResponse]:
+        """
+        Read an Act request and its authorized session messages, actions and pending requests. Use the actRequestId returned by Act or an Assist child step. Includes current session state by default; continue the selected session through POST /v3/act.
+
+        Parameters
+        ----------
+        act_request_id : str
+
+        include_thread_state : typing.Optional[bool]
+            Include authorized child session messages, actions and pending requests.
+
+        session_id : typing.Optional[str]
+            Read state for this child session only. Must belong to the Act request.
+
+        cursor : typing.Optional[str]
+            Read the next message page for sessionId. Requires includeThreadState=true.
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[GetRunRequestRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ActV3RequestResponse]
+            Act request receipt and optional live, authorized child session state.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/run/requests/{quote_path_param(act_request_id)}",
+            method="GET",
+            params={
+                "includeThreadState": include_thread_state,
+                "sessionId": session_id,
+                "cursor": cursor,
+                "limit": limit,
+                "audience": audience,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ActV3RequestResponse,
+                    parse_obj_as(
+                        type_=ActV3RequestResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def list_context(
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.Dict[str, typing.Any]]:
@@ -10874,7 +11363,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[NavigateResponse]:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -11303,7 +11792,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[NavigateResponse]:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -11485,7 +11974,7 @@ class RawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[NavigateResponse]:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -21402,6 +21891,490 @@ class AsyncRawDarwin:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def build(
+        self,
+        *,
+        idempotency_key: str,
+        request: BuildRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
+        """
+        Builder: start_draft (idea, website or typed definition), import_package (base64 Darwin Agent ZIP), import_source, billing_summary, save_draft, get_draft, list_drafts, check_slug, validate_draft, export_draft, export_destination, start_test, get_job, resume_job and cancel_job. billing_summary also requires payments:read and returns the owner plan, credit-pack catalog, available credits and payment-method readiness. Test submission/resumption and release preparation require a usage payment method on file. Node execution rates still require a verified quote. Account-owned draft reads require builder:read; save and test mutations require builder:write. save_draft uses expectedRevision and Idempotency-Key. start_test pins a saved revision; resume_job executes supported TypeScript in a configured isolated local runner. export_draft returns a base64 Darwin Agent ZIP archive alongside structured metadata. Structural validation is not execution evidence. prepare_release prepares a saved revision and its release evidence. release_agent and release_operation publish existing definitions under agents:write and operations:write respectively. Publication is part of Build; a prepared package alone is not a deployed agent. Legacy agent-definition actions remain compatible under their existing scopes.
+
+        Parameters
+        ----------
+        idempotency_key : str
+            Stable key for this exact mutation. Reusing it with different input returns 409.
+
+        request : BuildRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[typing.Dict[str, typing.Any]]
+            Current owner-scoped result. A mutation retry returns its saved response.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/build",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=BuildRequestBody, direction="write"
+            ),
+            headers={
+                "content-type": "application/json",
+                "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.Dict[str, typing.Any],
+                    parse_obj_as(
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise errors_conflict_error_ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def manage(
+        self,
+        *,
+        idempotency_key: str,
+        request: ManageRequestBody,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
+        """
+        Read and update your saved agents, revisions, prepared releases, and tests. Production deployment is not connected.
+
+        Parameters
+        ----------
+        idempotency_key : str
+            Stable key for this exact mutation. Reusing it with different input returns 409.
+
+        request : ManageRequestBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[typing.Dict[str, typing.Any]]
+            Current owner-scoped result. A mutation retry returns its saved response.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/manage",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=ManageRequestBody, direction="write"
+            ),
+            headers={
+                "content-type": "application/json",
+                "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.Dict[str, typing.Any],
+                    parse_obj_as(
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise errors_conflict_error_ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def run(
+        self,
+        *,
+        request: RunRequest,
+        idempotency_key: typing.Optional[str] = None,
+        search_token: typing.Optional[str] = None,
+        act_token: typing.Optional[str] = None,
+        assist_token: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[RunResponse]:
+        """
+        Run one or multiple agents. Direct handoffs accept one to eight targets, with separate threads and per-target results. Coordinated work uses type: turn, clientMessageId and a message, with an optional sessionId; Darwin plans and coordinates execution through the existing approval-controlled runtime. A handoff receipt is not a completed task outcome.
+
+        Parameters
+        ----------
+        request : RunRequest
+
+        idempotency_key : typing.Optional[str]
+
+        search_token : typing.Optional[str]
+
+        act_token : typing.Optional[str]
+            Private guest credential; never place it in messages or URLs.
+
+        assist_token : typing.Optional[str]
+            Private continuation proof for coordinated guest turns only.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[RunResponse]
+            Direct handoff or coordinated session state.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/run",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=RunRequest, direction="write"),
+            headers={
+                "content-type": "application/json",
+                "Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
+                "X-Search-Token": str(search_token) if search_token is not None else None,
+                "X-Act-Token": str(act_token) if act_token is not None else None,
+                "X-Assist-Token": str(assist_token) if assist_token is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RunResponse,
+                    parse_obj_as(
+                        type_=RunResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise act_errors_conflict_error_ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ActPostFailure,
+                        parse_obj_as(
+                            type_=ActPostFailure,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_run_request(
+        self,
+        act_request_id: str,
+        *,
+        include_thread_state: typing.Optional[bool] = None,
+        session_id: typing.Optional[str] = None,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        audience: typing.Optional[GetRunRequestRequestAudience] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ActV3RequestResponse]:
+        """
+        Read an Act request and its authorized session messages, actions and pending requests. Use the actRequestId returned by Act or an Assist child step. Includes current session state by default; continue the selected session through POST /v3/act.
+
+        Parameters
+        ----------
+        act_request_id : str
+
+        include_thread_state : typing.Optional[bool]
+            Include authorized child session messages, actions and pending requests.
+
+        session_id : typing.Optional[str]
+            Read state for this child session only. Must belong to the Act request.
+
+        cursor : typing.Optional[str]
+            Read the next message page for sessionId. Requires includeThreadState=true.
+
+        limit : typing.Optional[int]
+
+        audience : typing.Optional[GetRunRequestRequestAudience]
+            Presentation consumer. Agent returns Markdown and structured facts; human also receives DarwinUI. This does not change identity, permissions or approvals.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ActV3RequestResponse]
+            Act request receipt and optional live, authorized child session state.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v3/run/requests/{quote_path_param(act_request_id)}",
+            method="GET",
+            params={
+                "includeThreadState": include_thread_state,
+                "sessionId": session_id,
+                "cursor": cursor,
+                "limit": limit,
+                "audience": audience,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ActV3RequestResponse,
+                    parse_obj_as(
+                        type_=ActV3RequestResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def list_context(
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
@@ -25138,7 +26111,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[NavigateResponse]:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -25567,7 +26540,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[NavigateResponse]:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
@@ -25749,7 +26722,7 @@ class AsyncRawDarwin:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[NavigateResponse]:
         """
-        Omit sessionId to start, or pass it to continue. This endpoint selects the action; answers and clarification can occur without dispatching work. Execution still requires authority and applicable approvals.
+        Compatibility alias for the coordinated turn form of POST /v3/run.
 
         Parameters
         ----------
